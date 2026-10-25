@@ -1,4 +1,5 @@
 # Formation IA — de débutant à builder
+Mon profil git hub
 
 Ma formation personnelle pour apprendre à créer des sites web, des applications mobiles
 et des produits IA, maîtriser le SEO et GitHub, puis lancer mon propre business.
