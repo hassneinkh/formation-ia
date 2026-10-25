@@ -16,7 +16,7 @@
   --texte: #1d1d1f;         /* texte principal */
   --texte-doux: #5f6368;    /* texte secondaire */
   --bordure: #e3e0d8;       /* traits fins */
-  --accent: #4f46e5;        /* couleur principale (indigo) */
+  --accent: #e11d48;        /* couleur principale (indigo) */
   --accent-doux: #eef0ff;   /* version claire de l'accent */
   --succes: #15803d;
   --succes-doux: #e8f6ec;
@@ -40,7 +40,7 @@
     --texte: #ececf1;
     --texte-doux: #a1a1aa;
     --bordure: #2c2c33;
-    --accent: #8b87ff;
+    --accent: #e11d48;
     --accent-doux: #23224a;
     --succes: #4ade80;
     --succes-doux: #13291b;
