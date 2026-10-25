@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0.1 · Le terminal — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 0 › Leçon 0.1</div>
+      <span class="etiquette">Leçon 0.1 · environ 1 h 30</span>
+      <h1>Le terminal : piloter ton ordinateur au clavier</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> à la fin de cette leçon, tu sais te déplacer dans tes dossiers,
+        créer des dossiers et des fichiers, et lire leur contenu, uniquement avec des commandes.
+      </div>
+
+      <h2>Pourquoi le terminal ?</h2>
+      <p>
+        Le terminal, c'est une fenêtre où tu <strong>écris des ordres</strong> à ton ordinateur au lieu de cliquer.
+        Tous les outils de développeur s'utilisent ainsi : Git, Node.js, Next.js, Expo… et même Claude Code
+        lance des commandes dans un terminal quand il travaille pour toi.
+        Comprendre le terminal, c'est comprendre ce que fait l'IA à ta place.
+      </p>
+
+      <h2>Ouvrir Git Bash</h2>
+      <p>
+        Sur Windows, on utilise <strong>Git Bash</strong>, installé avec Git (déjà présent sur ton PC).
+        Il accepte les mêmes commandes que Mac et Linux : ce que tu apprends ici marche partout.
+      </p>
+      <ol>
+        <li>Appuie sur la touche Windows et tape <code>Git Bash</code>.</li>
+        <li>Ouvre-le. Tu vois une ligne qui finit par <code>$</code> : c'est l'<strong>invite</strong>. Le terminal attend ton ordre.</li>
+      </ol>
+
+      <h2>Les commandes essentielles</h2>
+      <p>Tu tapes une commande, puis tu appuies sur <strong>Entrée</strong>.</p>
+      <table>
+        <tr><th>Commande</th><th>Ce qu'elle fait</th><th>Moyen mnémotechnique</th></tr>
+        <tr><td><code>pwd</code></td><td>Affiche le dossier où tu te trouves</td><td><em>print working directory</em></td></tr>
+        <tr><td><code>ls</code></td><td>Liste le contenu du dossier</td><td><em>list</em></td></tr>
+        <tr><td><code>cd nom</code></td><td>Entre dans le dossier « nom »</td><td><em>change directory</em></td></tr>
+        <tr><td><code>cd ..</code></td><td>Remonte d'un dossier</td><td><code>..</code> = le dossier parent</td></tr>
+        <tr><td><code>cd ~</code></td><td>Revient à ton dossier personnel</td><td><code>~</code> = la maison</td></tr>
+        <tr><td><code>mkdir nom</code></td><td>Crée un dossier</td><td><em>make directory</em></td></tr>
+        <tr><td><code>touch nom.txt</code></td><td>Crée un fichier vide</td><td>« toucher » un fichier le fait exister</td></tr>
+        <tr><td><code>cat nom.txt</code></td><td>Affiche le contenu d'un fichier</td><td><em>concatenate</em></td></tr>
+        <tr><td><code>clear</code></td><td>Nettoie l'écran</td><td></td></tr>
+      </table>
+
+      <pre><code><span class="commentaire"># Exemple : aller dans ton projet de formation</span>
+cd ~/Documents/formation-ia
+pwd
+<span class="commentaire"># → /c/Users/hsnyt/Documents/formation-ia</span>
+ls
+<span class="commentaire"># → CLAUDE.md  PROGRESSION.md  README.md  exercices  journal.md  projets  site</span></code></pre>
+
+      <div class="encadre astuce">
+        <p><strong>Deux super-pouvoirs :</strong></p>
+        <ul>
+          <li><strong>Tab</strong> : tape le début d'un nom (<code>cd Docu</code>) puis Tab, et le terminal complète tout seul.</li>
+          <li><strong>Flèche du haut</strong> : rappelle les commandes précédentes, pour ne pas tout retaper.</li>
+        </ul>
+      </div>
+
+      <div class="encadre attention">
+        <p><strong>Attention aux espaces.</strong> Pour le terminal, un espace sépare deux choses.
+        Un dossier nommé <code>Mes projets</code> doit s'écrire entre guillemets : <code>cd "Mes projets"</code>.
+        C'est pour ça que les développeurs nomment leurs fichiers <code>avec-des-tirets</code>.</p>
+      </div>
+
+      <h3>Écrire dans un fichier</h3>
+      <pre><code>echo "Bonjour" &gt; salut.txt     <span class="commentaire"># crée (ou remplace) le fichier avec ce texte</span>
+echo "Deuxième ligne" &gt;&gt; salut.txt   <span class="commentaire"># ajoute une ligne à la fin</span>
+cat salut.txt</code></pre>
+
+      <h2>Exercices</h2>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Se repérer</h3>
+        <ol>
+          <li>Ouvre Git Bash et tape <code>pwd</code>. Où es-tu ?</li>
+          <li>Tape <code>ls</code>. Reconnais-tu les dossiers ?</li>
+          <li>Va dans <code>Documents/formation-ia</code> en utilisant la touche Tab.</li>
+          <li>Entre dans <code>site</code>, puis liste son contenu. Remonte ensuite d'un niveau.</li>
+        </ol>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Construire avec des commandes</h3>
+        <p>Depuis <code>formation-ia</code>, et <strong>sans utiliser la souris</strong> :</p>
+        <ol>
+          <li>Crée le dossier <code>exercices/module-0-1</code>.</li>
+          <li>Entre dedans et crée un fichier <code>commandes.txt</code>.</li>
+          <li>Écris dedans, une ligne à la fois, les 3 commandes que tu trouves les plus utiles.</li>
+          <li>Affiche le fichier pour vérifier.</li>
+        </ol>
+        <details>
+          <summary>Indice</summary>
+          <p>Tu as besoin de <code>mkdir</code>, <code>cd</code>, <code>echo … &gt;&gt;</code> et <code>cat</code>.
+          Pour créer un dossier dans un autre dossier : <code>mkdir exercices/module-0-1</code>.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 3 — Vérifier avec Claude</h3>
+        <p>Dans Claude Code, écris : <em>« J'ai fini l'exercice 2 de la leçon 0.1, peux-tu vérifier mon fichier ? »</em>
+        Claude va lire ton fichier et te donner un retour.</p>
+      </div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>Je sais ouvrir Git Bash.</li>
+        <li>Je sais où je suis (<code>pwd</code>) et ce qu'il y a autour (<code>ls</code>).</li>
+        <li>Je me déplace avec <code>cd</code>, <code>cd ..</code> et <code>cd ~</code>.</li>
+        <li>Je crée des dossiers et des fichiers (<code>mkdir</code>, <code>touch</code>, <code>echo</code>).</li>
+        <li>J'utilise Tab et la flèche du haut.</li>
+      </ul>
+
+      <h2>Journal</h2>
+      <p>Ouvre <code>journal.md</code> et écris ta première entrée avec le modèle qui s'y trouve.</p>
+
+      <div class="encadre">
+        <p><strong>Pas encore de commit ?</strong> Normal : Git arrive dans la leçon suivante.
+        Ton premier commit enregistrera tout ce travail.</p>
+      </div>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="../parcours.html">← Parcours</a>
+        <a class="bouton" href="0-2-git.html">Leçon 0.2 : Git →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

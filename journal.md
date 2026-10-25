@@ -1,0 +1,12 @@
+# Mon journal d'apprentissage
+
+> Après chaque leçon, je réponds à ces 3 questions. (Au module 1.10, ce journal passera sur le site.)
+
+<!-- Modèle à copier pour chaque entrée :
+
+## AAAA-MM-JJ — Leçon X.Y
+- **Ce que j'ai appris :**
+- **Ce qui était difficile :**
+- **Une question que je me pose encore :**
+
+-->

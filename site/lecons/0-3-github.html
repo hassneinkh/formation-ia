@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0.3 · GitHub — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 0 › Leçon 0.3</div>
+      <span class="etiquette">Leçon 0.3 · environ 1 h 30 · GitHub</span>
+      <h1>GitHub : ton code dans le cloud</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> créer ton compte GitHub, y envoyer ton dépôt <code>formation-ia</code>
+        et comprendre les allers-retours entre ton PC et GitHub.
+      </div>
+
+      <h2>Pourquoi GitHub ?</h2>
+      <ul>
+        <li><strong>Sauvegarde :</strong> si ton PC tombe en panne, ton code est en sécurité.</li>
+        <li><strong>Vitrine :</strong> ton profil GitHub est le CV d'un développeur. Les clients et les recruteurs le regardent.</li>
+        <li><strong>Collaboration :</strong> c'est là que les équipes travaillent ensemble (Phase 3).</li>
+        <li><strong>Mise en ligne :</strong> GitHub Pages publie ton site gratuitement (leçon 1.11).</li>
+      </ul>
+
+      <h2>Le vocabulaire</h2>
+      <table>
+        <tr><th>Mot</th><th>Sens</th></tr>
+        <tr><td><strong>remote</strong></td><td>La copie de ton dépôt sur GitHub. On l'appelle par convention <code>origin</code>.</td></tr>
+        <tr><td><code>git push</code></td><td><strong>Envoyer</strong> tes commits de ton PC vers GitHub.</td></tr>
+        <tr><td><code>git pull</code></td><td><strong>Récupérer</strong> sur ton PC les commits qui sont sur GitHub.</td></tr>
+        <tr><td><code>git clone</code></td><td>Télécharger un dépôt GitHub complet sur un ordinateur.</td></tr>
+      </table>
+
+      <h2>Étape 1 — Créer ton compte</h2>
+      <ol>
+        <li>Va sur <strong>github.com</strong> et crée un compte. C'est toi qui le fais : Claude ne crée jamais de compte à ta place.</li>
+        <li>Choisis un <strong>pseudo professionnel</strong> (par exemple ton prénom et ton nom) : il apparaîtra dans tes URL.</li>
+        <li>Active la <strong>double authentification</strong> (Settings › Password and authentication).</li>
+      </ol>
+
+      <h2>Étape 2 — Protéger ton email</h2>
+      <ol>
+        <li>Sur GitHub : <strong>Settings › Emails</strong>, coche <em>Keep my email addresses private</em>.</li>
+        <li>GitHub t'affiche une adresse du type <code>12345678+pseudo@users.noreply.github.com</code>.</li>
+        <li>Utilise-la dans Git :</li>
+      </ol>
+      <pre><code>git config --global user.email "12345678+pseudo@users.noreply.github.com"</code></pre>
+
+      <h2>Étape 3 — Créer le dépôt sur GitHub</h2>
+      <ol>
+        <li>Clique sur <strong>+</strong> en haut à droite, puis <strong>New repository</strong>.</li>
+        <li>Nom : <code>formation-ia</code>.</li>
+        <li>Visibilité : <strong>Public</strong>. GitHub Pages gratuit en a besoin, et ça montre ton travail.
+          (Ton journal sera donc lisible : n'y mets rien de trop personnel.)</li>
+        <li><strong>Ne coche rien d'autre</strong> (pas de README, pas de .gitignore) : ton dépôt local en a déjà un.</li>
+        <li>Clique sur <strong>Create repository</strong>.</li>
+      </ol>
+
+      <h2>Étape 4 — Relier ton PC à GitHub et envoyer</h2>
+      <pre><code>cd ~/Documents/formation-ia
+git remote add origin https://github.com/TON-PSEUDO/formation-ia.git
+git remote -v                <span class="commentaire"># vérifie que le lien est bien enregistré</span>
+git push -u origin main      <span class="commentaire"># premier envoi ; -u retient le chemin pour les prochaines fois</span></code></pre>
+      <p>
+        Une fenêtre s'ouvre pour te connecter à GitHub dans le navigateur. C'est normal : c'est
+        <em>Git Credential Manager</em>, installé avec Git. Connecte-toi toi-même.
+        Rafraîchis ensuite la page de ton dépôt : tes fichiers y sont !
+      </p>
+      <p>Pour toutes les fois suivantes, un simple <code>git push</code> suffit.</p>
+
+      <div class="encadre astuce">
+        <p><strong>Le rythme de travail d'un développeur :</strong></p>
+        <p><code>modifier</code> → <code>git add</code> → <code>git commit -m "…"</code> → <code>git push</code></p>
+      </div>
+
+      <h2>Exercices</h2>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Premier push</h3>
+        <p>Fais les étapes 1 à 4. Vérifie sur github.com que tu vois ton <code>README.md</code> affiché sous la liste des fichiers.</p>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — L'aller-retour</h3>
+        <ol>
+          <li>Sur github.com, ouvre <code>README.md</code>, clique sur le crayon ✏️ et ajoute une ligne
+            « Mon profil GitHub : … ». Valide avec <strong>Commit changes</strong>.</li>
+          <li>Sur ton PC, ce changement n'existe pas encore. Récupère-le avec la bonne commande.</li>
+          <li>Vérifie avec <code>git log --oneline</code> et en ouvrant le fichier.</li>
+        </ol>
+        <details>
+          <summary>Indice</summary>
+          <p>Envoyer, c'est <code>push</code>. Récupérer, c'est…</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 3 — Explorer GitHub</h3>
+        <p>Sur ton dépôt, clique sur l'onglet <strong>Commits</strong> (l'horloge 🕐). Ouvre un commit :
+        GitHub montre en vert les lignes ajoutées et en rouge les lignes supprimées. C'est la même chose que <code>git diff</code>.</p>
+      </div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>J'ai un compte GitHub avec la double authentification.</li>
+        <li>Mon email est protégé.</li>
+        <li>Mon dépôt <code>formation-ia</code> est sur GitHub.</li>
+        <li>Je sais faire <code>git push</code> et <code>git pull</code>, et je comprends la différence.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p>Ajoute ton entrée dans <code>journal.md</code>, puis : <code>add</code> → <code>commit</code> → <strong><code>push</code></strong>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="0-2-git.html">← 0.2 : Git</a>
+        <a class="bouton" href="0-4-vscode-claude-code.html">Leçon 0.4 : VS Code et Claude Code →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0.2 · Git — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 0 › Leçon 0.2</div>
+      <span class="etiquette">Leçon 0.2 · environ 2 h · GitHub</span>
+      <h1>Git : ton premier historique</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> transformer ton dossier <code>formation-ia</code> en dépôt Git,
+        faire tes premiers commits et savoir lire l'historique.
+      </div>
+
+      <h2>C'est quoi, Git ?</h2>
+      <p>
+        Imagine un jeu vidéo avec des <strong>points de sauvegarde</strong>. À chaque étape importante,
+        tu sauvegardes. Si tu fais une bêtise, tu reviens au dernier point. <strong>Git, c'est ça pour ton code.</strong>
+      </p>
+      <ul>
+        <li>Chaque point de sauvegarde s'appelle un <strong>commit</strong>.</li>
+        <li>Chaque commit a un <strong>message</strong> qui explique ce qui a changé.</li>
+        <li>L'ensemble des commits forme l'<strong>historique</strong> du projet.</li>
+        <li>Un dossier suivi par Git s'appelle un <strong>dépôt</strong> (en anglais, <em>repository</em> ou <em>repo</em>).</li>
+      </ul>
+
+      <div class="encadre">
+        <p><strong>Git ≠ GitHub.</strong> Git est le logiciel qui garde l'historique <em>sur ton ordinateur</em>.
+        GitHub est un site web qui garde une copie de tes dépôts <em>dans le cloud</em> (leçon 0.3).</p>
+      </div>
+
+      <h2>Les 3 zones de Git</h2>
+      <p>C'est LE concept à comprendre. Un fichier passe par trois étapes :</p>
+      <table>
+        <tr><th>Zone</th><th>Ce que c'est</th><th>Commande pour y aller</th></tr>
+        <tr><td>1. Dossier de travail</td><td>Tes fichiers, tels que tu les modifies</td><td>(tu modifies un fichier)</td></tr>
+        <tr><td>2. Zone de préparation (<em>staging</em>)</td><td>Le « panier » de ce que tu veux sauvegarder</td><td><code>git add</code></td></tr>
+        <tr><td>3. Historique</td><td>Les commits enregistrés pour toujours</td><td><code>git commit</code></td></tr>
+      </table>
+      <p>Pourquoi un panier ? Pour choisir précisément quoi sauvegarder ensemble, comme quand tu ranges tes courses par rayon.</p>
+
+      <h2>Étape 1 — Te présenter à Git (une seule fois)</h2>
+      <p>Chaque commit porte le nom de son auteur. Dans Git Bash, avec <strong>tes</strong> informations :</p>
+      <pre><code>git config --global user.name "Ton Prénom Nom"
+git config --global user.email "ton-email@exemple.com"
+git config --global init.defaultBranch main
+<span class="commentaire"># Vérifier :</span>
+git config --global --list</code></pre>
+      <div class="encadre attention">
+        <p><strong>Ton email devient visible</strong> dans l'historique public de tes projets.
+        Dans la leçon 0.3, on le remplacera par l'adresse « privée » que GitHub te donne.</p>
+      </div>
+
+      <h2>Étape 2 — Créer le dépôt</h2>
+      <pre><code>cd ~/Documents/formation-ia
+git init          <span class="commentaire"># crée un dépôt vide (un dossier caché .git)</span>
+git status        <span class="commentaire"># montre l'état : quels fichiers sont nouveaux ou modifiés</span></code></pre>
+      <p>
+        <code>git status</code> affiche tes fichiers en <span style="color:#dc2626">rouge</span> : Git les voit,
+        mais ils ne sont pas encore dans le panier. <strong><code>git status</code> est ta boussole</strong> :
+        tape-le tout le temps.
+      </p>
+
+      <h2>Étape 3 — Ton premier commit</h2>
+      <pre><code>git add .                                  <span class="commentaire"># met TOUS les fichiers dans le panier (le point = « tout »)</span>
+git status                                 <span class="commentaire"># ils sont maintenant en vert</span>
+git commit -m "Premier commit : base du site de formation"
+git log --oneline                          <span class="commentaire"># affiche l'historique, une ligne par commit</span></code></pre>
+
+      <h3>Un bon message de commit</h3>
+      <table>
+        <tr><th>❌ Mauvais</th><th>✅ Bon</th></tr>
+        <tr><td><code>modif</code></td><td><code>Ajoute la leçon 0.1 dans mon journal</code></td></tr>
+        <tr><td><code>trucs</code></td><td><code>Corrige la couleur des liens du menu</code></td></tr>
+        <tr><td><code>aaaa</code></td><td><code>Crée l'exercice 2 sur les commandes du terminal</code></td></tr>
+      </table>
+      <p>La règle : quelqu'un qui lit seulement le message doit comprendre ce qui a changé.</p>
+
+      <h2>Exercices</h2>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Le premier commit</h3>
+        <p>Fais les étapes 1, 2 et 3 ci-dessus. À la fin, <code>git log --oneline</code> doit afficher ton commit.</p>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Le cycle complet</h3>
+        <ol>
+          <li>Ouvre <code>journal.md</code> et ajoute ton entrée sur la leçon 0.2.</li>
+          <li>Tape <code>git status</code>. Que remarques-tu ?</li>
+          <li>Tape <code>git diff</code> : il affiche exactement les lignes modifiées (appuie sur <code>q</code> pour quitter).</li>
+          <li>Mets le fichier dans le panier, puis fais un commit avec un <strong>bon</strong> message.</li>
+          <li>Vérifie avec <code>git log --oneline</code> : tu as maintenant 2 commits.</li>
+        </ol>
+        <details>
+          <summary>Indice</summary>
+          <p>Pour ajouter un seul fichier au panier : <code>git add journal.md</code>.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 3 — Explique avec tes mots</h3>
+        <p>Écris dans <code>exercices/module-0-2/git-en-3-phrases.md</code> ce que sont un commit, le panier (staging)
+        et l'historique, comme si tu l'expliquais à un ami. Puis fais un commit. Demande ensuite à Claude de vérifier ton explication.</p>
+      </div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>Je sais la différence entre Git et GitHub.</li>
+        <li>Je connais les 3 zones : dossier de travail, panier, historique.</li>
+        <li>J'utilise <code>git status</code>, <code>git add</code>, <code>git commit -m</code>, <code>git log --oneline</code>.</li>
+        <li>J'écris des messages de commit clairs.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p>C'est fait dans l'exercice 2. Bravo : à partir de maintenant, <strong>chaque leçon se termine par un commit</strong>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="0-1-terminal.html">← 0.1 : Le terminal</a>
+        <a class="bouton" href="0-3-github.html">Leçon 0.3 : GitHub →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

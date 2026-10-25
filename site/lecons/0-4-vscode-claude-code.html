@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0.4 · VS Code et Claude Code — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 0 › Leçon 0.4</div>
+      <span class="etiquette">Leçon 0.4 · environ 2 h</span>
+      <h1>VS Code et Claude Code : bien travailler avec l'IA</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> utiliser VS Code pour lire et écrire du code, et utiliser Claude Code comme un
+        <em>coach</em>, pas comme une machine à copier-coller.
+      </div>
+
+      <h2>Partie 1 — VS Code, ton atelier</h2>
+      <p>VS Code est un <strong>éditeur de code</strong> : un traitement de texte spécialisé, gratuit, déjà installé sur ton PC.</p>
+
+      <h3>Ouvrir ton projet</h3>
+      <pre><code>cd ~/Documents/formation-ia
+code .        <span class="commentaire"># ouvre VS Code sur le dossier actuel (le point = « ici »)</span></code></pre>
+
+      <h3>Les 4 zones à connaître</h3>
+      <table>
+        <tr><th>Zone</th><th>À quoi elle sert</th><th>Raccourci</th></tr>
+        <tr><td>Explorateur</td><td>L'arborescence de tes fichiers (à gauche)</td><td><code>Ctrl+Shift+E</code></td></tr>
+        <tr><td>Éditeur</td><td>Là où tu écris le code (au centre)</td><td></td></tr>
+        <tr><td>Terminal intégré</td><td>Un terminal directement dans VS Code</td><td><code>Ctrl+ù</code> (clavier AZERTY)</td></tr>
+        <tr><td>Contrôle de source</td><td>Git avec des boutons : voir les modifications, faire un commit</td><td><code>Ctrl+Shift+G</code></td></tr>
+      </table>
+
+      <div class="encadre astuce">
+        <p><strong>Choisis Git Bash dans le terminal de VS Code :</strong> ouvre le terminal, clique sur la petite flèche ˅ à côté
+        du <strong>+</strong>, puis <em>Git Bash</em>. Tu retrouves les mêmes commandes qu'en leçon 0.1.</p>
+      </div>
+
+      <h3>Extensions utiles</h3>
+      <p>Onglet Extensions (<code>Ctrl+Shift+X</code>), puis installe :</p>
+      <ul>
+        <li><strong>Live Preview</strong> (Microsoft) : affiche ta page web à côté du code et la met à jour quand tu enregistres.</li>
+        <li><strong>French Language Pack</strong> (facultatif) : VS Code en français.</li>
+      </ul>
+      <p>Raccourcis d'or : <code>Ctrl+S</code> (enregistrer), <code>Ctrl+P</code> (ouvrir un fichier par son nom), <code>Ctrl+F</code> (chercher).</p>
+
+      <h2>Partie 2 — Claude Code, ton coach</h2>
+
+      <h3>Comment il fonctionne</h3>
+      <p>
+        Contrairement à Claude Chat, Claude Code <strong>travaille directement dans ton dossier</strong> :
+        il lit tes fichiers, peut les modifier et lancer des commandes. Il te demande la permission
+        pour les actions importantes. <strong>Tu restes le chef : lis ce qu'il propose avant d'accepter.</strong>
+      </p>
+
+      <h3>Les fichiers qui lui donnent le contexte</h3>
+      <table>
+        <tr><th>Fichier</th><th>Rôle</th></tr>
+        <tr><td><code>CLAUDE.md</code></td><td>Les règles permanentes : qui tu es, le mode coach, les conventions. Lu à chaque session.
+          (La commande <code>/init</code> en crée un automatiquement dans un projet existant.)</td></tr>
+        <tr><td><code>PROGRESSION.md</code></td><td>Où tu en es. Claude le lit au début et le met à jour à la fin.</td></tr>
+      </table>
+
+      <h3>Le mode plan</h3>
+      <p>Pour une grosse tâche, active le <strong>mode plan</strong> : Claude réfléchit et te propose un plan
+        <em>sans rien modifier</em>. Tu valides, puis il agit. C'est exactement comme ça qu'on a créé cette formation.</p>
+
+      <h3>Bien formuler une demande</h3>
+      <p>Une bonne demande contient 3 choses : le <strong>contexte</strong>, l'<strong>objectif</strong> et les <strong>contraintes</strong>.</p>
+      <table>
+        <tr><th>❌ Vague</th><th>✅ Précis</th></tr>
+        <tr><td>« Fais-moi une page. »</td>
+            <td>« Je suis à la leçon 1.1. Je veux créer <code>exercices/module-1-1/ma-page.html</code> qui me présente.
+              Ne l'écris pas pour moi : donne-moi juste la liste des balises dont j'aurai besoin. »</td></tr>
+        <tr><td>« Ça marche pas. »</td>
+            <td>« Dans <code>index.html</code>, mon lien vers le parcours ne fonctionne pas. Voici ce que j'ai écrit : … Donne-moi un indice. »</td></tr>
+      </table>
+
+      <div class="encadre attention">
+        <p><strong>3 règles de sécurité :</strong></p>
+        <ul>
+          <li>Ne colle jamais un mot de passe ou une clé API dans une conversation.</li>
+          <li>Lis toujours ce que Claude propose de modifier ou d'exécuter.</li>
+          <li>Si tu ne comprends pas un code, demande : <em>« Explique-moi cette ligne. »</em> Ne garde jamais un code que tu ne comprends pas.</li>
+        </ul>
+      </div>
+
+      <h3>Claude Code ou Claude Chat ?</h3>
+      <ul>
+        <li><strong>Claude Code :</strong> écrire du code, le relire, lancer des commandes, faire avancer le site.</li>
+        <li><strong>Claude Chat :</strong> réviser un concept, faire des fiches, réfléchir à une idée de business.</li>
+      </ul>
+
+      <h2>Exercices</h2>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Prendre VS Code en main</h3>
+        <ol>
+          <li>Ouvre le projet avec <code>code .</code>.</li>
+          <li>Ouvre <code>site/css/style.css</code> et lis la section 1 « Variables ».</li>
+          <li>Change la valeur de <code>--accent</code> (par exemple <code>#e11d48</code>), enregistre, puis rafraîchis le site dans ton navigateur. Que se passe-t-il ?</li>
+          <li>Ouvre l'onglet Contrôle de source : VS Code montre ta modification. Remets la couleur d'origine, ou garde-la si elle te plaît !</li>
+        </ol>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Demander une explication</h3>
+        <p>Ouvre <code>site/js/main.js</code>. Choisis une ligne que tu ne comprends pas et demande à Claude Code de te l'expliquer
+          avec un exemple de la vie quotidienne.</p>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 3 — Écrire 3 bonnes demandes</h3>
+        <p>Dans <code>exercices/module-0-4/mes-prompts.md</code>, écris 3 demandes que tu pourrais faire à Claude Code
+          pendant la leçon 1.1, en respectant contexte, objectif et contraintes. Demande ensuite à Claude de les noter sur 10.</p>
+      </div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>J'ouvre mon projet dans VS Code et j'utilise son terminal.</li>
+        <li>Je sais à quoi servent <code>CLAUDE.md</code> et <code>PROGRESSION.md</code>.</li>
+        <li>Je sais quand utiliser le mode plan.</li>
+        <li>Je formule des demandes précises (contexte, objectif, contraintes).</li>
+        <li>Je lis toujours ce que Claude propose avant d'accepter.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p>Entrée dans <code>journal.md</code>, puis <code>add</code> → <code>commit</code> → <code>push</code>.
+        Tu peux essayer de le faire avec les boutons de l'onglet Contrôle de source de VS Code.</p>
+      <div class="encadre astuce">
+        <p>🎉 <strong>Phase 0 terminée !</strong> Ton livrable : un dépôt GitHub avec tes premiers commits.</p>
+      </div>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="0-3-github.html">← 0.3 : GitHub</a>
+        <a class="bouton" href="1-1-html.html">Phase 1 · Leçon 1.1 : HTML →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.1 · HTML — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Leçon 1.1</div>
+      <span class="etiquette">Leçon 1.1 · environ 2 h</span>
+      <h1>HTML : la structure d'une page</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> comprendre comment une page web est construite, écrire ta première page
+        à la main, et ajouter ta <strong>première vraie contribution</strong> à ce site.
+      </div>
+
+      <h2>Les 3 langages du web</h2>
+      <p>Une page web, c'est comme une maison :</p>
+      <table>
+        <tr><th>Langage</th><th>Dans la maison</th><th>Sur une page</th></tr>
+        <tr><td><strong>HTML</strong></td><td>Les murs et les pièces</td><td>Le contenu et la structure (titres, textes, images)</td></tr>
+        <tr><td><strong>CSS</strong></td><td>La peinture et la déco</td><td>L'apparence (couleurs, tailles, mise en page)</td></tr>
+        <tr><td><strong>JavaScript</strong></td><td>L'électricité</td><td>Les actions (boutons, mémoire, interactions)</td></tr>
+      </table>
+      <p>Cette leçon, c'est les murs.</p>
+
+      <h2>Les balises</h2>
+      <p>HTML entoure le contenu avec des <strong>balises</strong> qui disent ce qu'il est :</p>
+      <pre><code>&lt;h1&gt;Je suis un grand titre&lt;/h1&gt;
+&lt;p&gt;Je suis un paragraphe.&lt;/p&gt;</code></pre>
+      <ul>
+        <li><code>&lt;h1&gt;</code> est la balise <strong>ouvrante</strong>, et <code>&lt;/h1&gt;</code> la balise <strong>fermante</strong> (avec le <code>/</code>).</li>
+        <li>Une balise peut avoir des <strong>attributs</strong>, des informations en plus :
+          <code>&lt;a href="parcours.html"&gt;Voir le parcours&lt;/a&gt;</code>. Ici, <code>href</code> dit où mène le lien.</li>
+        <li>Les balises s'<strong>emboîtent</strong> comme des poupées russes : on ferme toujours dans l'ordre inverse.</li>
+      </ul>
+
+      <h2>Le squelette de toute page</h2>
+      <pre><code>&lt;!DOCTYPE html&gt;                    <span class="commentaire">&lt;!-- « Ceci est une page HTML moderne » --&gt;</span>
+&lt;html lang="fr"&gt;                   <span class="commentaire">&lt;!-- la page entière, en français --&gt;</span>
+&lt;head&gt;                             <span class="commentaire">&lt;!-- infos INVISIBLES pour le navigateur et Google --&gt;</span>
+  &lt;meta charset="UTF-8"&gt;           <span class="commentaire">&lt;!-- gère les accents : é, à, ç --&gt;</span>
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;  <span class="commentaire">&lt;!-- s'adapte au mobile --&gt;</span>
+  &lt;title&gt;Mon titre&lt;/title&gt;         <span class="commentaire">&lt;!-- le texte de l'onglet --&gt;</span>
+&lt;/head&gt;
+&lt;body&gt;                             <span class="commentaire">&lt;!-- tout ce qui est VISIBLE --&gt;</span>
+  &lt;h1&gt;Bonjour !&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <div class="encadre astuce">
+        <p><strong>Raccourci VS Code :</strong> dans un fichier <code>.html</code> vide, tape <code>!</code> puis appuie sur Tab.
+          VS Code écrit tout le squelette pour toi. Mais écris-le à la main au moins une fois pour le comprendre !</p>
+      </div>
+
+      <h2>Les balises de structure (sémantiques)</h2>
+      <p>Elles découpent la page en zones qui ont un <strong>sens</strong>. Google et les lecteurs d'écran pour
+        malvoyants les comprennent : c'est bon pour le SEO (Phase 5) et pour l'accessibilité.</p>
+      <table>
+        <tr><th>Balise</th><th>Rôle</th></tr>
+        <tr><td><code>&lt;header&gt;</code></td><td>L'en-tête : logo, menu</td></tr>
+        <tr><td><code>&lt;nav&gt;</code></td><td>Le menu de navigation</td></tr>
+        <tr><td><code>&lt;main&gt;</code></td><td>Le contenu principal (un seul par page)</td></tr>
+        <tr><td><code>&lt;section&gt;</code></td><td>Une partie du contenu, avec un thème</td></tr>
+        <tr><td><code>&lt;article&gt;</code></td><td>Un contenu autonome (une leçon, un article de blog)</td></tr>
+        <tr><td><code>&lt;footer&gt;</code></td><td>Le pied de page</td></tr>
+        <tr><td><code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code></td><td>Les titres, du plus important au moins important. Un seul <code>&lt;h1&gt;</code> par page.</td></tr>
+      </table>
+
+      <h3>Les commentaires</h3>
+      <pre><code>&lt;!-- Ceci est un commentaire : le navigateur l'ignore. Il sert à expliquer ton code. --&gt;</code></pre>
+
+      <h2>Observer une vraie page</h2>
+      <p>Sur n'importe quelle page de ce site, appuie sur <strong>F12</strong> (ou clic droit › <em>Inspecter</em>).
+        Les outils de développement s'ouvrent : tu vois tout le HTML. Survole les lignes : la zone correspondante s'illumine sur la page.</p>
+
+      <h2>Exercices</h2>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Ta première page, à la main</h3>
+        <p>Crée <code>exercices/module-1-1/a-propos.html</code>, une page qui te présente. Elle doit contenir :</p>
+        <ul>
+          <li>le squelette complet (écrit à la main, sans le raccourci <code>!</code>) ;</li>
+          <li>un <code>&lt;header&gt;</code> avec ton nom en <code>&lt;h1&gt;</code> ;</li>
+          <li>un <code>&lt;main&gt;</code> avec 2 <code>&lt;section&gt;</code> : « Mon parcours » et « Mes objectifs », chacune avec un <code>&lt;h2&gt;</code> et un paragraphe ;</li>
+          <li>un <code>&lt;footer&gt;</code> ;</li>
+          <li>au moins un commentaire.</li>
+        </ul>
+        <p>Ouvre-la dans ton navigateur (double-clic sur le fichier) ou avec Live Preview.</p>
+        <details>
+          <summary>Indice</summary>
+          <p>Commence par le squelette, puis ajoute les zones une par une en vérifiant le résultat à chaque fois.
+            Si quelque chose ne s'affiche pas, vérifie que chaque balise ouverte est bien fermée.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Le détective F12</h3>
+        <p>Ouvre la page d'accueil de ce site, puis F12. Trouve dans le HTML : le <code>&lt;nav&gt;</code>, le <code>&lt;h1&gt;</code> et le lien
+          du bouton « Continuer ». Vers quel fichier pointe ce lien ? Note tes réponses en commentaire en bas de <code>a-propos.html</code>.</p>
+      </div>
+
+      <h2>🔧 Ajout au site (ta part du 50/50)</h2>
+      <div class="exercice">
+        <h3>Ta première contribution : « Pourquoi je me forme »</h3>
+        <p>Dans <code>site/index.html</code>, ajoute <strong>une nouvelle <code>&lt;section&gt;</code></strong> juste avant <code>&lt;/main&gt;</code>, avec :</p>
+        <ul>
+          <li>un <code>&lt;h2&gt;</code> « Pourquoi je me forme » ;</li>
+          <li>un ou deux paragraphes, avec tes vraies raisons et ton objectif de business.</li>
+        </ul>
+        <p>Le style s'applique tout seul : c'est la magie du CSS que tu découvriras en 1.3.
+          Quand c'est fait, demande à Claude Code : <em>« Relis ma section dans index.html. »</em></p>
+      </div>
+
+      <h2>🤖 Refais-le avec l'IA</h2>
+      <p>Tu as écrit ta page à la main : tu comprends maintenant ce que l'IA va produire.
+        Place à ton premier exercice de <strong>construction avec l'IA</strong>.</p>
+
+      <div class="exercice">
+        <h3>Étape 1 — Le prompt vague</h3>
+        <p>Dans Claude Code, écris seulement : <em>« Fais-moi une page à propos. »</em>
+          Regarde ce que Claude te demande ou te propose. Que manquait-il à ta demande ?</p>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 2 — Le prompt précis</h3>
+        <p>Écris maintenant une demande complète. Elle doit dire :</p>
+        <ul>
+          <li><strong>le contexte :</strong> qui tu es, à quoi sert la page ;</li>
+          <li><strong>l'objectif :</strong> le fichier à créer (<code>exercices/module-1-1/a-propos-ia.html</code>) et ce qu'il doit contenir ;</li>
+          <li><strong>les contraintes :</strong> HTML seulement, balises sémantiques, en français, des commentaires pour expliquer ;</li>
+          <li><strong>le critère de réussite :</strong> par exemple « un seul <code>&lt;h1&gt;</code> et une page qui s'ouvre sans erreur ».</li>
+        </ul>
+        <details>
+          <summary>Exemple de structure (essaie d'abord sans !)</summary>
+          <p><em>« Contexte : je suis débutant, leçon 1.1 de ma formation HTML. Objectif : crée <code>…</code> qui me présente avec
+            un en-tête, deux sections (…) et un pied de page. Contraintes : … Critère de réussite : … »</em></p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 3 — Compare et relis</h3>
+        <ol>
+          <li>Ouvre côte à côte ta page (<code>a-propos.html</code>) et celle de l'IA (<code>a-propos-ia.html</code>).</li>
+          <li>Trouve une chose que l'IA a mieux faite, et une chose que <em>toi</em> tu as mieux faite.</li>
+          <li>Trouve une balise que l'IA a utilisée et que tu ne connais pas. Demande-lui de te l'expliquer.</li>
+          <li>Copie ton meilleur prompt dans <code>journal.md</code>, sous un titre « Mes prompts ».</li>
+        </ol>
+        <p>Demande enfin à Claude : <em>« Note mon prompt de l'étape 2 sur 10 et propose une version améliorée. »</em></p>
+      </div>
+
+      <div class="encadre astuce">
+        <p><strong>La règle d'or :</strong> l'IA est aussi bonne que ta demande, et tu ne gardes jamais un code que tu ne comprends pas.
+          C'est pour ça qu'on apprend la base à la main <em>avant</em>.</p>
+      </div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>Je sais ce que font HTML, CSS et JavaScript.</li>
+        <li>J'écris une balise avec un attribut.</li>
+        <li>Je connais le squelette d'une page et le rôle de <code>&lt;head&gt;</code> et <code>&lt;body&gt;</code>.</li>
+        <li>J'utilise les balises sémantiques (<code>header</code>, <code>main</code>, <code>section</code>, <code>footer</code>…).</li>
+        <li>J'inspecte une page avec F12.</li>
+        <li>J'ai ajouté ma première section au site.</li>
+        <li>J'ai écrit un prompt précis (contexte, objectif, contraintes, critère de réussite) et relu le code de l'IA.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p>Entrée dans <code>journal.md</code>, puis un commit, par exemple
+        <code>git commit -m "Ajoute la section Pourquoi je me forme sur l'accueil"</code>, puis <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="0-4-vscode-claude-code.html">← 0.4 : VS Code et Claude Code</a>
+        <a class="bouton" href="../parcours.html">Parcours →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
