@@ -17,10 +17,11 @@ La feuille de route complète est dans `README.md`. L'état actuel est dans `PRO
 ## Règles du mode coach (à respecter à chaque session)
 1. **Toujours en français**, avec des explications simples et des exemples concrets.
 2. **Pratique d'abord :** une explication courte, puis un exercice.
-3. **Ne jamais donner la solution directement** quand c'est mon exercice ou ma partie du site :
+3. **Dans le chat, ne pas donner la solution directement** quand c'est mon exercice ou ma partie du site :
    - d'abord un **indice** ;
    - puis une **piste plus précise** ;
    - la **solution** seulement si je la demande explicitement.
+   Dans les leçons du site, chaque exercice a sa **correction complète**, repliée, que j'ouvre après avoir essayé.
 4. **Relire mon code :** dire ce qui est bien, pointer les erreurs, expliquer *pourquoi*.
 5. Quand c'est **la partie de Claude**, coder proprement avec des commentaires en français,
    puis m'expliquer ce qui a été fait, pour que je puisse lire et comprendre.
@@ -40,7 +41,14 @@ La feuille de route complète est dans `README.md`. L'état actuel est dans `PRO
 - Le style passe par les variables CSS de `site/css/style.css`. On les réutilise au lieu
   d'inventer de nouvelles couleurs.
 - Chaque leçon suit le modèle des fichiers existants de `site/lecons/` :
-  objectif → explication → exercices → ajout au site → **🤖 Refais-le avec l'IA** → checklist → journal → commit.
+  objectif → explication → exercices → ajout au site → **🤖 Refais-le avec l'IA** → questions → checklist → journal → commit.
+- **Les leçons sont très détaillées : je pars de zéro.** Pour chaque notion (bloc `.notion`) :
+  **C'est quoi ?** → **Comment l'écrire** (syntaxe annotée) → **Quand l'utiliser / quand ne pas l'utiliser**
+  → **Exemple complet** → **Erreurs fréquentes**.
+- Pour chaque exercice : **Ce qu'on attend de toi** (bloc `.attendu`, résultat précis) → étapes numérotées
+  → **Comment vérifier que c'est réussi** → `details.indice` → `details.correction`
+  (la solution complète **et** l'explication de chaque ligne).
+- Les questions de compréhension ont leur réponse dans un `details.correction`.
 
 ## Fil rouge « Construire avec l'IA » (priorité de la formation)
 Mon objectif principal est de savoir **construire des sites et des apps avec l'IA**, en comprenant les bases.

@@ -16,6 +16,7 @@
         <a href="../parcours.html">Parcours</a>
         <a href="../journal.html">Journal</a>
         <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
       </nav>
     </div>
   </header>
@@ -23,110 +24,254 @@
   <main class="conteneur">
     <article class="lecon">
       <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 0 › Leçon 0.3</div>
-      <span class="etiquette">Leçon 0.3 · environ 1 h 30 · GitHub</span>
+      <span class="etiquette">Leçon 0.3 · environ 2 h · GitHub</span>
       <h1>GitHub : ton code dans le cloud</h1>
 
       <div class="objectif">
-        <strong>Objectif :</strong> créer ton compte GitHub, y envoyer ton dépôt <code>formation-ia</code>
-        et comprendre les allers-retours entre ton PC et GitHub.
+        <strong>Objectif :</strong> créer ton compte GitHub, y envoyer ton dépôt <code>formation-ia</code>,
+        et maîtriser les allers-retours entre ton PC et GitHub (<code>push</code> et <code>pull</code>).
       </div>
 
-      <h2>Pourquoi GitHub ?</h2>
-      <ul>
-        <li><strong>Sauvegarde :</strong> si ton PC tombe en panne, ton code est en sécurité.</li>
-        <li><strong>Vitrine :</strong> ton profil GitHub est le CV d'un développeur. Les clients et les recruteurs le regardent.</li>
-        <li><strong>Collaboration :</strong> c'est là que les équipes travaillent ensemble (Phase 3).</li>
-        <li><strong>Mise en ligne :</strong> GitHub Pages publie ton site gratuitement (leçon 1.11).</li>
-      </ul>
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Pourquoi GitHub ?</h3>
 
-      <h2>Le vocabulaire</h2>
-      <table>
-        <tr><th>Mot</th><th>Sens</th></tr>
-        <tr><td><strong>remote</strong></td><td>La copie de ton dépôt sur GitHub. On l'appelle par convention <code>origin</code>.</td></tr>
-        <tr><td><code>git push</code></td><td><strong>Envoyer</strong> tes commits de ton PC vers GitHub.</td></tr>
-        <tr><td><code>git pull</code></td><td><strong>Récupérer</strong> sur ton PC les commits qui sont sur GitHub.</td></tr>
-        <tr><td><code>git clone</code></td><td>Télécharger un dépôt GitHub complet sur un ordinateur.</td></tr>
-      </table>
+        <h4>C'est quoi ?</h4>
+        <p>GitHub est un site qui garde une <strong>copie de tes dépôts Git dans le cloud</strong>. Ton PC a l'original, GitHub a la copie, et tu les synchronises.</p>
 
-      <h2>Étape 1 — Créer ton compte</h2>
-      <ol>
-        <li>Va sur <strong>github.com</strong> et crée un compte. C'est toi qui le fais : Claude ne crée jamais de compte à ta place.</li>
-        <li>Choisis un <strong>pseudo professionnel</strong> (par exemple ton prénom et ton nom) : il apparaîtra dans tes URL.</li>
-        <li>Active la <strong>double authentification</strong> (Settings › Password and authentication).</li>
-      </ol>
+        <h4>À quoi ça sert concrètement</h4>
+        <ul>
+          <li><strong>Sauvegarde :</strong> si ton PC tombe en panne, ton code est en sécurité.</li>
+          <li><strong>Vitrine :</strong> ton profil GitHub est le CV d'un développeur. Clients et recruteurs le regardent.</li>
+          <li><strong>Travail d'équipe :</strong> c'est là que les équipes travaillent ensemble (Phase 3).</li>
+          <li><strong>Mise en ligne :</strong> GitHub Pages publie ton site gratuitement (leçon 1.11).</li>
+        </ul>
 
-      <h2>Étape 2 — Protéger ton email</h2>
-      <ol>
-        <li>Sur GitHub : <strong>Settings › Emails</strong>, coche <em>Keep my email addresses private</em>.</li>
-        <li>GitHub t'affiche une adresse du type <code>12345678+pseudo@users.noreply.github.com</code>.</li>
-        <li>Utilise-la dans Git :</li>
-      </ol>
-      <pre><code>git config --global user.email "12345678+pseudo@users.noreply.github.com"</code></pre>
+        <h4>Le vocabulaire</h4>
+        <table>
+          <tr><th>Mot</th><th>Sens</th><th>Quand on l'utilise</th></tr>
+          <tr><td><strong>remote</strong></td><td>La copie de ton dépôt sur GitHub. Par convention, on l'appelle <code>origin</code>.</td><td>Une fois, pour relier ton PC à GitHub</td></tr>
+          <tr><td><code>git push</code></td><td><strong>Envoyer</strong> tes commits du PC vers GitHub ⬆️</td><td>Après chaque commit (ou série de commits)</td></tr>
+          <tr><td><code>git pull</code></td><td><strong>Récupérer</strong> sur ton PC les commits qui sont sur GitHub ⬇️</td><td>Quand quelque chose a changé sur GitHub (une modification faite sur le site, un autre ordinateur…)</td></tr>
+          <tr><td><code>git clone</code></td><td>Télécharger un dépôt complet</td><td>Sur un nouvel ordinateur, ou pour récupérer le projet de quelqu'un</td></tr>
+        </table>
+      </section>
 
-      <h2>Étape 3 — Créer le dépôt sur GitHub</h2>
-      <ol>
-        <li>Clique sur <strong>+</strong> en haut à droite, puis <strong>New repository</strong>.</li>
-        <li>Nom : <code>formation-ia</code>.</li>
-        <li>Visibilité : <strong>Public</strong>. GitHub Pages gratuit en a besoin, et ça montre ton travail.
-          (Ton journal sera donc lisible : n'y mets rien de trop personnel.)</li>
-        <li><strong>Ne coche rien d'autre</strong> (pas de README, pas de .gitignore) : ton dépôt local en a déjà un.</li>
-        <li>Clique sur <strong>Create repository</strong>.</li>
-      </ol>
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Créer et protéger ton compte</h3>
 
-      <h2>Étape 4 — Relier ton PC à GitHub et envoyer</h2>
-      <pre><code>cd ~/Documents/formation-ia
+        <h4>Les étapes</h4>
+        <ol>
+          <li>Va sur <strong>github.com</strong> et clique sur <em>Sign up</em>. C'est <strong>toi</strong> qui crées le compte : Claude ne crée jamais de compte à ta place.</li>
+          <li>Choisis un <strong>pseudo professionnel</strong> (par exemple <code>hassnein-khawary</code>). Il apparaîtra dans toutes tes adresses : <code>github.com/ton-pseudo</code>.</li>
+          <li>Active la <strong>double authentification</strong> : <em>Settings › Password and authentication › Enable two-factor authentication</em>. Même si on vole ton mot de passe, ton compte reste protégé.</li>
+        </ol>
+
+        <h4>Protéger ton email</h4>
+        <p>Chaque commit contient l'email que tu as configuré dans Git. Sur un dépôt public, tout le monde peut le lire, y compris des robots qui envoient du spam. GitHub te donne une adresse « privée » à la place :</p>
+        <ol>
+          <li>Sur GitHub : <em>Settings › Emails</em>, coche <strong>Keep my email addresses private</strong>.</li>
+          <li>Juste en dessous, GitHub affiche une adresse du type <code>12345678+pseudo@users.noreply.github.com</code>. Copie-la.</li>
+          <li>Dans Git Bash :</li>
+        </ol>
+        <pre><code>git config --global user.email "12345678+pseudo@users.noreply.github.com"
+git config --global user.email     <span class="commentaire"># vérifie : affiche la nouvelle adresse</span></code></pre>
+        <p>Les <strong>prochains</strong> commits utiliseront cette adresse. Les anciens gardent l'ancienne : ce n'est pas grave.</p>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Créer le dépôt sur GitHub</h3>
+
+        <h4>Les étapes</h4>
+        <ol>
+          <li>Clique sur le <strong>+</strong> en haut à droite, puis <strong>New repository</strong>.</li>
+          <li><strong>Repository name :</strong> <code>formation-ia</code> (le même nom que ton dossier, c'est plus clair).</li>
+          <li><strong>Visibilité : Public.</strong> GitHub Pages gratuit en a besoin, et ça montre ton travail.
+            ⚠️ Tout ce que tu y mets est lisible par tous, y compris ton journal : n'y écris rien de trop personnel.</li>
+          <li><strong>Ne coche rien d'autre</strong> : pas de README, pas de .gitignore, pas de licence. Ton dépôt local a déjà ses fichiers, et un README créé ici entrerait en conflit.</li>
+          <li>Clique sur <strong>Create repository</strong>. GitHub affiche une page avec des commandes : c'est la notion 4.</li>
+        </ol>
+
+        <h4>Quand choisir « Private » ?</h4>
+        <p>Pour un projet client confidentiel, ou du code avec des informations sensibles. Pour ta formation et ton portfolio : <strong>Public</strong>.</p>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Relier ton PC à GitHub et envoyer : <code>remote</code> et <code>push</code></h3>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>cd ~/Documents/formation-ia
 git remote add origin https://github.com/TON-PSEUDO/formation-ia.git
-git remote -v                <span class="commentaire"># vérifie que le lien est bien enregistré</span>
-git push -u origin main      <span class="commentaire"># premier envoi ; -u retient le chemin pour les prochaines fois</span></code></pre>
-      <p>
-        Une fenêtre s'ouvre pour te connecter à GitHub dans le navigateur. C'est normal : c'est
-        <em>Git Credential Manager</em>, installé avec Git. Connecte-toi toi-même.
-        Rafraîchis ensuite la page de ton dépôt : tes fichiers y sont !
-      </p>
-      <p>Pour toutes les fois suivantes, un simple <code>git push</code> suffit.</p>
+<span class="commentaire">#          ↑ ajoute  ↑ le nom  ↑ l'adresse de ton dépôt (copie-la depuis la page GitHub)</span>
+git remote -v              <span class="commentaire"># vérifie : affiche origin et l'adresse (2 lignes, fetch et push)</span>
+git push -u origin main    <span class="commentaire"># premier envoi de la branche main vers origin</span>
+<span class="commentaire">#        ↑ -u retient « origin main » : les prochaines fois, un simple git push suffit</span></code></pre>
+
+        <h4>La connexion</h4>
+        <p>Au premier <code>push</code>, une fenêtre s'ouvre pour te connecter à GitHub dans le navigateur. C'est normal :
+          c'est <em>Git Credential Manager</em>, installé avec Git. Clique sur <strong>Sign in with your browser</strong> et connecte-toi toi-même.
+          Ton ordinateur s'en souviendra ensuite.</p>
+
+        <h4>Quand l'utiliser ?</h4>
+        <ul>
+          <li><code>git remote add</code> → <strong>une seule fois</strong> par projet.</li>
+          <li><code>git push -u origin main</code> → le premier envoi.</li>
+          <li><code>git push</code> → <strong>après chaque commit</strong>, pour que GitHub soit à jour.</li>
+        </ul>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>error: remote origin already exists</code> → tu as déjà fait <code>git remote add</code>. Pas besoin de recommencer. Vérifie avec <code>git remote -v</code>.</li>
+          <li><code>! [rejected] main -> main (fetch first)</code> → GitHub a des commits que ton PC n'a pas (par exemple une modification faite sur le site). Fais d'abord <code>git pull</code>, puis <code>git push</code>.</li>
+          <li><code>Repository not found</code> → l'adresse est fausse (faute dans le pseudo ou le nom du dépôt). Corrige-la avec <code>git remote set-url origin https://github.com/BON-PSEUDO/formation-ia.git</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 5 ===================== -->
+      <section class="notion">
+        <h3>Notion 5 — Récupérer : <code>git pull</code></h3>
+
+        <h4>C'est quoi ?</h4>
+        <p><code>git pull</code> télécharge les commits de GitHub que ton PC n'a pas encore, et les ajoute à ton historique local.</p>
+
+        <h4>Quand l'utiliser ?</h4>
+        <ul>
+          <li>Tu as modifié un fichier <strong>directement sur github.com</strong> (avec le crayon ✏️).</li>
+          <li>Tu travailles sur <strong>deux ordinateurs</strong> : commence toujours par <code>git pull</code> en t'asseyant.</li>
+          <li>Git refuse ton <code>push</code> avec <em>fetch first</em>.</li>
+        </ul>
+
+        <h4>Si un éditeur s'ouvre pendant le pull</h4>
+        <p>Parfois Git ouvre Vim pour un message de « merge » (fusion). Garde le message proposé : appuie sur <code>Échap</code>, tape <code>:wq</code> puis Entrée.</p>
+      </section>
 
       <div class="encadre astuce">
         <p><strong>Le rythme de travail d'un développeur :</strong></p>
-        <p><code>modifier</code> → <code>git add</code> → <code>git commit -m "…"</code> → <code>git push</code></p>
+        <p><code>git pull</code> (en commençant) → modifier → <code>git add</code> → <code>git commit -m "…"</code> → <code>git push</code></p>
       </div>
 
+      <!-- ===================== EXERCICES ===================== -->
       <h2>Exercices</h2>
 
       <div class="exercice">
-        <h3>Exercice 1 — Premier push</h3>
-        <p>Fais les étapes 1 à 4. Vérifie sur github.com que tu vois ton <code>README.md</code> affiché sous la liste des fichiers.</p>
-      </div>
-
-      <div class="exercice">
-        <h3>Exercice 2 — L'aller-retour</h3>
+        <h3>Exercice 1 — Ton premier push</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> ton dépôt <code>formation-ia</code> est visible sur
+            <code>github.com/ton-pseudo/formation-ia</code>, avec tous tes fichiers et tes commits.</p>
+        </div>
         <ol>
-          <li>Sur github.com, ouvre <code>README.md</code>, clique sur le crayon ✏️ et ajoute une ligne
-            « Mon profil GitHub : … ». Valide avec <strong>Commit changes</strong>.</li>
-          <li>Sur ton PC, ce changement n'existe pas encore. Récupère-le avec la bonne commande.</li>
-          <li>Vérifie avec <code>git log --oneline</code> et en ouvrant le fichier.</li>
+          <li>Crée et protège ton compte (notion 2).</li>
+          <li>Crée le dépôt vide sur GitHub (notion 3).</li>
+          <li>Relie ton PC et envoie (notion 4).</li>
+          <li>Rafraîchis la page du dépôt sur GitHub.</li>
         </ol>
-        <details>
+        <p><strong>Comment vérifier que c'est réussi :</strong> sur GitHub, tu vois la liste de tes fichiers, ton <code>README.md</code> affiché en dessous,
+          et le nombre de commits en haut à droite de la liste. Dans Git Bash, <code>git status</code> dit <code>Your branch is up to date with 'origin/main'</code>.</p>
+        <details class="indice">
           <summary>Indice</summary>
-          <p>Envoyer, c'est <code>push</code>. Récupérer, c'est…</p>
+          <p>L'adresse de ton dépôt est affichée sur la page GitHub juste après sa création, dans la case « Quick setup ». Copie-la avec le bouton 📋.</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>cd ~/Documents/formation-ia
+git remote add origin https://github.com/hassnein-khawary/formation-ia.git   <span class="commentaire"># avec TON pseudo</span>
+git remote -v
+<span class="commentaire"># → origin  https://github.com/hassnein-khawary/formation-ia.git (fetch)</span>
+<span class="commentaire"># → origin  https://github.com/hassnein-khawary/formation-ia.git (push)</span>
+git push -u origin main
+<span class="commentaire"># (fenêtre de connexion → Sign in with your browser)</span>
+<span class="commentaire"># → branch 'main' set up to track 'origin/main'. ✅</span></code></pre>
         </details>
       </div>
 
       <div class="exercice">
-        <h3>Exercice 3 — Explorer GitHub</h3>
-        <p>Sur ton dépôt, clique sur l'onglet <strong>Commits</strong> (l'horloge 🕐). Ouvre un commit :
-        GitHub montre en vert les lignes ajoutées et en rouge les lignes supprimées. C'est la même chose que <code>git diff</code>.</p>
+        <h3>Exercice 2 — L'aller-retour</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> une modification faite sur GitHub, récupérée sur ton PC. À la fin, ton <code>README.md</code> local contient
+            une ligne « Mon profil GitHub : https://github.com/ton-pseudo », et <code>git log --oneline</code> montre le commit fait sur GitHub.</p>
+        </div>
+        <ol>
+          <li>Sur github.com, ouvre <code>README.md</code> et clique sur le crayon ✏️ (<em>Edit this file</em>).</li>
+          <li>Sous le titre, ajoute la ligne <code>Mon profil GitHub : https://github.com/ton-pseudo</code> (avec ton vrai pseudo).</li>
+          <li>Clique sur <strong>Commit changes…</strong>, écris un bon message, puis valide.</li>
+          <li>Sur ton PC, récupère ce changement.</li>
+          <li>Vérifie avec <code>git log --oneline</code> et en ouvrant <code>README.md</code>.</li>
+        </ol>
+        <p><strong>Comment vérifier que c'est réussi :</strong> le commit fait sur GitHub apparaît en haut de <code>git log --oneline</code> sur ton PC.</p>
+        <details class="indice">
+          <summary>Indice</summary>
+          <p>Envoyer, c'est <code>push</code>. Récupérer, c'est le contraire (notion 5).</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <p>Sur GitHub, message du commit : <code>Ajoute le lien vers mon profil GitHub dans le README</code>
+            (plutôt que le message automatique « Update README.md », qui ne dit pas ce qui a changé).</p>
+          <pre><code>git pull                <span class="commentaire"># ⬇️ récupère le commit fait sur GitHub</span>
+git log --oneline       <span class="commentaire"># il est en haut de la liste ✅</span>
+cat README.md           <span class="commentaire"># la ligne "Mon profil GitHub : …" est là</span></code></pre>
+        </details>
       </div>
 
+      <div class="exercice">
+        <h3>Exercice 3 — Explorer un commit sur GitHub</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> savoir retrouver ce qui a changé dans un commit, sur le site GitHub. Rien à créer.</p>
+        </div>
+        <ol>
+          <li>Sur la page de ton dépôt, clique sur le lien <strong>Commits</strong> (icône d'horloge 🕐, au-dessus de la liste des fichiers).</li>
+          <li>Ouvre ton commit du journal (leçon 0.2).</li>
+          <li>Repère les lignes en vert (ajoutées) et en rouge (supprimées).</li>
+        </ol>
+        <p><strong>Comment vérifier que c'est réussi :</strong> tu peux dire, sans ouvrir le fichier, quelles lignes tu as ajoutées dans ce commit.</p>
+        <details class="correction">
+          <summary>Ce qu'il faut remarquer</summary>
+          <p>C'est exactement ce qu'affiche <code>git diff</code> dans le terminal, mais en plus lisible. Plus tard, quand quelqu'un relira ton code
+            (une <em>Pull Request</em>, Phase 3), c'est cette vue qu'il utilisera.</p>
+        </details>
+      </div>
+
+      <!-- ===================== QUESTIONS ===================== -->
+      <h2>Questions pour vérifier que tu as compris</h2>
+
+      <div class="exercice">
+        <p><strong>1.</strong> Tu as fait un commit sur ton PC. Est-il déjà sur GitHub ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p><strong>Non.</strong> Un commit reste sur ton PC tant que tu n'as pas fait <code>git push</code>.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <p><strong>2.</strong> Ton <code>git push</code> est refusé avec <em>fetch first</em>. Que fais-tu ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p>GitHub a des commits que ton PC n'a pas. Tu fais <code>git pull</code> pour les récupérer, puis <code>git push</code>.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <p><strong>3.</strong> Pourquoi utiliser l'adresse <code>…@users.noreply.github.com</code> dans Git ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p>Parce que l'email de chaque commit est visible par tous sur un dépôt public. L'adresse « noreply » protège ta vraie adresse du spam.</p>
+        </details>
+      </div>
+
+      <!-- ===================== FIN ===================== -->
       <h2>Checklist</h2>
       <ul class="checklist">
         <li>J'ai un compte GitHub avec la double authentification.</li>
         <li>Mon email est protégé.</li>
         <li>Mon dépôt <code>formation-ia</code> est sur GitHub.</li>
-        <li>Je sais faire <code>git push</code> et <code>git pull</code>, et je comprends la différence.</li>
+        <li>Je sais quand utiliser <code>git push</code> et <code>git pull</code>.</li>
+        <li>Je sais réagir aux erreurs <em>fetch first</em> et <em>remote origin already exists</em>.</li>
       </ul>
 
       <h2>Journal et commit</h2>
-      <p>Ajoute ton entrée dans <code>journal.md</code>, puis : <code>add</code> → <code>commit</code> → <strong><code>push</code></strong>.</p>
+      <p>Ajoute ton entrée dans <code>journal.md</code>, puis : <code>git add journal.md</code> → <code>git commit -m "…"</code> → <strong><code>git push</code></strong>.</p>
 
       <nav class="navigation-lecon">
         <a class="bouton bouton-secondaire" href="0-2-git.html">← 0.2 : Git</a>

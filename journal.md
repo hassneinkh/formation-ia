@@ -14,3 +14,5 @@
 -->
 je ne sais pas ce que je fais 
 S
+
+ici j'ai ecris un prompt : je ne compredn pas les div et les class 

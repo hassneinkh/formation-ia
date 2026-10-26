@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.9 · Projet : la progression — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Projet 1.9</div>
+      <span class="etiquette">Projet 1.9 · environ 4 h</span>
+      <h1>Projet : le suivi de progression</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> construire ta première vraie fonctionnalité du site. Sur la page Parcours, chaque leçon reçoit une case
+        « terminé » qui reste cochée après rechargement, et une barre de progression affiche ton avancement en pourcentage.
+        Tu vas aussi apprendre <strong>la méthode pour mener un projet</strong> : spécifier, découper, construire étape par étape.
+      </div>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Mener un projet : spécifier, puis découper</h3>
+        <h4>La spécification (ce que la fonctionnalité doit faire)</h4>
+        <ol>
+          <li>Sur <code>parcours.html</code>, chaque ligne de leçon a une case à cocher, à gauche du numéro.</li>
+          <li>Cocher une case marque la leçon comme terminée : la ligne devient grisée.</li>
+          <li>En haut de la page, un texte « 12 / 75 leçons terminées (16 %) » et une barre qui se remplit.</li>
+          <li>Tout reste en mémoire après un rechargement ou une fermeture du navigateur.</li>
+        </ol>
+        <h4>Le découpage en étapes testables</h4>
+        <table>
+          <tr><th>Étape</th><th>Résultat visible</th></tr>
+          <tr><td>1. La zone de progression (HTML + CSS)</td><td>une barre vide et un texte</td></tr>
+          <tr><td>2. Les cases à cocher (JS)</td><td>une case devant chaque leçon</td></tr>
+          <tr><td>3. Mémoriser (localStorage)</td><td>les cases restent cochées après F5</td></tr>
+          <tr><td>4. Calculer et afficher la progression</td><td>la barre bouge quand on coche</td></tr>
+          <tr><td>5. Le style « terminé »</td><td>les lignes cochées sont grisées</td></tr>
+        </table>
+        <p><strong>Pourquoi découper ?</strong> Si tu écris tout d'un coup et que ça ne marche pas, tu ne sais pas où chercher.
+          Une étape à la fois, testée, commitée : si quelque chose casse, c'est forcément la dernière étape.
+          C'est aussi comme ça qu'on fait travailler une IA efficacement (Phase 4).</p>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Les nouveaux outils de ce projet</h3>
+        <h4>La case à cocher</h4>
+        <pre><code>&lt;input type="checkbox"&gt;                    <span class="commentaire">&lt;!-- en HTML --&gt;</span>
+
+const caseACocher = document.createElement("input");   <span class="commentaire">// en JavaScript</span>
+caseACocher.type = "checkbox";
+caseACocher.checked = true;                            <span class="commentaire">// cochée (true) ou non (false)</span>
+caseACocher.addEventListener("change", () =&gt; {         <span class="commentaire">// "change" : cochée ou décochée</span>
+  console.log(caseACocher.checked);
+});</code></pre>
+        <h4>Insérer au début : <code>prepend</code></h4>
+        <p><code>appendChild</code> ajoute à la fin d'un élément ; <code>element.prepend(…)</code> ajoute <strong>au début</strong> (ici : la case avant le numéro).</p>
+        <h4>Une exception à la règle « le style dans le CSS »</h4>
+        <p>La largeur de la barre dépend d'un calcul (17 %, 42 %…) : impossible de prévoir une classe pour chaque valeur. Dans ce cas précis, JavaScript change le style directement :
+          <code>barre.style.width = "17%";</code>. Toutes les autres propriétés (couleur, hauteur, arrondi) restent dans le CSS.</p>
+        <h4>Identifier chaque leçon</h4>
+        <p>Pour mémoriser <em>quelles</em> leçons sont terminées, il faut un identifiant unique par leçon. Il existe déjà : le texte de <code>&lt;span class="numero"&gt;</code> (« 0.1 », « 1.9 »…).
+          On mémorise un tableau de numéros : <code>["0.1", "0.2", "1.1"]</code>.</p>
+      </section>
+
+      <!-- ===================== ÉTAPES ===================== -->
+      <h2>Le projet, étape par étape</h2>
+      <div class="encadre">
+        <p><strong>Fichiers :</strong> tu travailles dans <code>site/parcours.html</code>, <code>site/css/style.css</code> et un <strong>nouveau</strong> fichier <code>site/js/progression.js</code>,
+          relié seulement à <code>parcours.html</code> (juste après la ligne <code>main.js</code>). <strong>Fais un commit après chaque étape réussie.</strong></p>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 1 — La zone de progression</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>parcours.html</code>, remplacer le bloc <code>&lt;div class="chantier"&gt;…module 1.9…&lt;/div&gt;</code> par :
+            un paragraphe <code>id="texte-progression"</code> et une barre (un <code>div.barre</code> contenant un <code>div.barre-remplie</code> avec <code>id="barre-remplie"</code>).
+            Dans le CSS : une barre de 12px de haut, au fond gris, coins arrondis ; la partie remplie a la couleur d'accent.
+            Relie aussi <code>progression.js</code>.</p>
+        </div>
+        <p><strong>Comment vérifier :</strong> en mettant temporairement <code>style="width: 40%"</code> sur <code>.barre-remplie</code>, la barre est remplie à 40 %.</p>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;!-- Ma contribution (projet 1.9) : la progression --&gt;
+&lt;div class="progression"&gt;
+  &lt;p id="texte-progression"&gt;Chargement de la progression…&lt;/p&gt;
+  &lt;div class="barre"&gt;
+    &lt;div class="barre-remplie" id="barre-remplie"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          <pre><code>  &lt;script src="js/main.js"&gt;&lt;/script&gt;
+  &lt;script src="js/progression.js"&gt;&lt;/script&gt;   &lt;!-- seulement sur parcours.html --&gt;
+&lt;/body&gt;</code></pre>
+          <pre><code>/* Ma contribution (projet 1.9) : la barre de progression */
+.progression {
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 18px 22px;
+  margin-top: 24px;
+}
+.progression p { margin: 0 0 10px; font-weight: 600; }
+.barre {
+  height: 12px;
+  background: var(--bordure);
+  border-radius: 999px;
+  overflow: hidden;          /* la partie remplie ne dépasse pas des coins arrondis */
+}
+.barre-remplie {
+  height: 100%;
+  width: 0%;                 /* JavaScript changera cette valeur */
+  background: var(--accent);
+  transition: width .4s;     /* la barre glisse au lieu de sauter */
+}</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 2 — Une case devant chaque leçon</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>progression.js</code>, pour <strong>chaque</strong> <code>li</code> des listes de leçons, créer une case à cocher et l'insérer au début de la ligne.
+            Chaque case a un <code>aria-label</code> du type « Leçon 1.9 terminée » (pour les lecteurs d'écran).</p>
+        </div>
+        <p><strong>Comment vérifier :</strong> les 75 lignes ont une case ; F12 › Console : aucune erreur.</p>
+        <details class="indice"><summary>Indice</summary>
+          <p><code>document.querySelectorAll(".liste-lecons li")</code>, puis pour chaque ligne : <code>ligne.querySelector(".numero").textContent</code> donne le numéro.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>// =========================================================
+// Projet 1.9 — Suivi de progression (page Parcours)
+// =========================================================
+
+// 1. Toutes les lignes de leçons de la page
+const lignes = document.querySelectorAll(".liste-lecons li");
+
+// 2. Une case à cocher au début de chaque ligne
+lignes.forEach((ligne) =&gt; {
+  const numero = ligne.querySelector(".numero").textContent;   // ex. "1.9"
+
+  const caseACocher = document.createElement("input");
+  caseACocher.type = "checkbox";
+  caseACocher.setAttribute("aria-label", `Leçon ${numero} terminée`);
+
+  ligne.prepend(caseACocher);
+});</code></pre>
+          <p>Attention : n'appelle pas ta variable <code>case</code>, c'est un mot réservé de JavaScript.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 3 — Mémoriser les cases cochées</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un tableau <code>terminees</code> (les numéros des leçons terminées), relu depuis <code>localStorage</code> (clé <code>"lecons-terminees"</code>) au chargement.
+            Chaque case est cochée si son numéro est dans le tableau. Quand on coche ou décoche, le tableau est mis à jour et sauvegardé.</p>
+        </div>
+        <p><strong>Comment vérifier :</strong> coche 3 cases, recharge : elles sont toujours cochées. F12 › Application › Local Storage montre <code>["0.1","0.2","0.3"]</code>.</p>
+        <details class="indice"><summary>Indice 1</summary><p>Au chargement : <code>JSON.parse(localStorage.getItem(…)) || []</code> (leçon 1.8). Pour cocher : <code>caseACocher.checked = terminees.includes(numero)</code>.</p></details>
+        <details class="indice"><summary>Indice 2</summary><p>Décocher = retirer le numéro du tableau : <code>terminees = terminees.filter((n) =&gt; n !== numero)</code> (leçon 1.7). Il faut donc un <code>let</code>.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>// La donnée : les numéros des leçons terminées, relus depuis la mémoire du navigateur
+let terminees = JSON.parse(localStorage.getItem("lecons-terminees")) || [];
+
+function sauvegarder() {
+  localStorage.setItem("lecons-terminees", JSON.stringify(terminees));
+}
+
+lignes.forEach((ligne) =&gt; {
+  const numero = ligne.querySelector(".numero").textContent;
+
+  const caseACocher = document.createElement("input");
+  caseACocher.type = "checkbox";
+  caseACocher.setAttribute("aria-label", `Leçon ${numero} terminée`);
+  caseACocher.checked = terminees.includes(numero);      // cochée si déjà terminée
+
+  caseACocher.addEventListener("change", () =&gt; {
+    if (caseACocher.checked) {
+      terminees.push(numero);                            // on ajoute
+    } else {
+      terminees = terminees.filter((n) =&gt; n !== numero); // on retire
+    }
+    sauvegarder();
+  });
+
+  ligne.prepend(caseACocher);
+});</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 4 — Calculer et afficher la progression</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> une fonction <code>afficherProgression()</code> qui écrit « 3 / 75 leçons terminées (4 %) » et règle la largeur de la barre.
+            Elle est appelée au chargement <strong>et</strong> à chaque changement de case.</p>
+        </div>
+        <p><strong>Comment vérifier :</strong> la barre avance quand tu coches, recule quand tu décoches, et garde sa valeur après F5.</p>
+        <details class="indice"><summary>Indice</summary><p>Total = <code>lignes.length</code>. Pourcentage = <code>Math.round(terminees.length / total * 100)</code>. Largeur : <code>barre.style.width = `${pourcentage}%`</code>.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>const texteProgression = document.querySelector("#texte-progression");
+const barreRemplie = document.querySelector("#barre-remplie");
+
+function afficherProgression() {
+  const total = lignes.length;
+  const nombre = terminees.length;
+  const pourcentage = Math.round(nombre / total * 100);
+
+  texteProgression.textContent = `${nombre} / ${total} leçons terminées (${pourcentage} %)`;
+  barreRemplie.style.width = `${pourcentage}%`;          // la seule valeur de style calculée en JS
+}
+
+// … dans l'écouteur "change", après sauvegarder() :
+//     afficherProgression();
+
+afficherProgression();                                   // au chargement de la page</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 5 — Le style « terminé »</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> une ligne cochée reçoit la classe <code>terminee</code> : le texte de la leçon devient grisé et barré. Les cases ont la couleur d'accent.</p>
+        </div>
+        <details class="correction"><summary>Correction complète du fichier progression.js (ouvre-la après avoir essayé)</summary>
+          <pre><code>// =========================================================
+// Projet 1.9 — Suivi de progression (page Parcours)
+// Données : un tableau de numéros de leçons terminées, dans localStorage.
+// =========================================================
+
+const lignes = document.querySelectorAll(".liste-lecons li");
+const texteProgression = document.querySelector("#texte-progression");
+const barreRemplie = document.querySelector("#barre-remplie");
+
+let terminees = JSON.parse(localStorage.getItem("lecons-terminees")) || [];
+
+function sauvegarder() {
+  localStorage.setItem("lecons-terminees", JSON.stringify(terminees));
+}
+
+function afficherProgression() {
+  const total = lignes.length;
+  const nombre = terminees.length;
+  const pourcentage = Math.round(nombre / total * 100);
+  texteProgression.textContent = `${nombre} / ${total} leçons terminées (${pourcentage} %)`;
+  barreRemplie.style.width = `${pourcentage}%`;
+}
+
+lignes.forEach((ligne) =&gt; {
+  const numero = ligne.querySelector(".numero").textContent;
+
+  const caseACocher = document.createElement("input");
+  caseACocher.type = "checkbox";
+  caseACocher.setAttribute("aria-label", `Leçon ${numero} terminée`);
+  caseACocher.checked = terminees.includes(numero);
+  ligne.classList.toggle("terminee", caseACocher.checked);
+
+  caseACocher.addEventListener("change", () =&gt; {
+    if (caseACocher.checked) {
+      terminees.push(numero);
+    } else {
+      terminees = terminees.filter((n) =&gt; n !== numero);
+    }
+    ligne.classList.toggle("terminee", caseACocher.checked);
+    sauvegarder();
+    afficherProgression();
+  });
+
+  ligne.prepend(caseACocher);
+});
+
+afficherProgression();</code></pre>
+          <pre><code>/* Projet 1.9 : les leçons terminées */
+.liste-lecons input[type="checkbox"] {
+  accent-color: var(--accent);   /* colore la case avec l'accent du site */
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.liste-lecons li.terminee a,
+.liste-lecons li.terminee .verrouille {
+  color: var(--texte-doux);
+  text-decoration: line-through;
+}</code></pre>
+          <p>Commit : <code>git commit -m "Ajoute le suivi de progression sur la page Parcours (projet 1.9)"</code>.</p>
+        </details>
+      </div>
+
+      <!-- ===================== IA ===================== -->
+      <h2>🤖 Refais-le avec l'IA : un bonus</h2>
+      <div class="exercice">
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> ajouter, <strong>avec l'IA</strong>, un bonus que tu n'as pas encore appris à faire seul, puis comprendre chaque ligne.</p>
+        </div>
+        <p>Choisis un bonus et écris une spécification précise :</p>
+        <ul>
+          <li>un bouton « Tout réinitialiser » qui demande une confirmation avant d'effacer ;</li>
+          <li>un petit compteur par phase (« Phase 1 : 4 / 11 ») dans l'en-tête de chaque phase ;</li>
+          <li>sur l'accueil, le bouton « Continuer » qui mène à la première leçon non cochée.</li>
+        </ul>
+        <details class="correction"><summary>Exemple de prompt pour le premier bonus</summary>
+          <p>« Contexte : projet 1.9, j'ai écrit <code>site/js/progression.js</code> (lis-le). Objectif : ajoute un bouton "Tout réinitialiser" sous la barre.
+            Contraintes : garde ma structure (terminees → sauvegarder → afficherProgression), demande une confirmation avec <code>confirm()</code>, style avec les classes existantes du site.
+            Critère : après confirmation, toutes les cases sont décochées et la barre revient à 0 %, même après F5. Explique les lignes nouvelles. »</p>
+        </details>
+      </div>
+
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice"><p><strong>1.</strong> Pourquoi mémoriser des numéros (<code>"1.9"</code>) plutôt que la position de la ligne (la 15e) ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Si on ajoute ou déplace une leçon dans le parcours, les positions changent et la mémoire cocherait les mauvaises cases. Un identifiant stable ne change pas.</p></details></div>
+      <div class="exercice"><p><strong>2.</strong> Pourquoi <code>afficherProgression()</code> est-elle appelée à deux endroits ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Au chargement (pour afficher l'état mémorisé) et à chaque changement (pour mettre à jour). Même schéma qu'en 1.8 : donnée → affichage.</p></details></div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>J'ai écrit une spécification et découpé le projet en étapes testables.</li>
+        <li>Je crée des cases à cocher en JavaScript et j'écoute <code>change</code>.</li>
+        <li>Je mémorise un tableau d'identifiants dans localStorage.</li>
+        <li>Je calcule un pourcentage et je règle la largeur d'une barre.</li>
+        <li>J'ai fait un commit après chaque étape.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p>Dans ton journal : qu'est-ce qui a été le plus dur dans ce premier projet ? Puis <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-8-js-dom-evenements.html">← 1.8 : DOM et événements</a>
+        <a class="bouton" href="1-10-projet-journal.html">Projet 1.10 : le journal →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

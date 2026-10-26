@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.10 · Projet : le journal — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Projet 1.10</div>
+      <span class="etiquette">Projet 1.10 · environ 5 h</span>
+      <h1>Projet : le journal d'apprentissage</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> sur la page Journal, un formulaire pour écrire une entrée (date, leçon, ce que j'ai appris, ce qui était difficile),
+        la liste des entrées de la plus récente à la plus ancienne, et un bouton pour supprimer. Tout reste en mémoire.
+        Tu apprends les <strong>formulaires</strong>, la base de toutes les applications (inscription, commande, contact…).
+      </div>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Les formulaires HTML</h3>
+        <h4>Comment l'écrire</h4>
+        <pre><code>&lt;form id="formulaire-journal"&gt;
+  &lt;label for="date"&gt;Date&lt;/label&gt;
+  &lt;input id="date" name="date" type="date" required&gt;
+
+  &lt;label for="lecon"&gt;Leçon&lt;/label&gt;
+  &lt;input id="lecon" name="lecon" type="text" placeholder="ex. 1.10" required&gt;
+
+  &lt;label for="appris"&gt;Ce que j'ai appris&lt;/label&gt;
+  &lt;textarea id="appris" name="appris" rows="4" required&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Enregistrer&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        <table>
+          <tr><th>Élément</th><th>Rôle</th></tr>
+          <tr><td><code>&lt;form&gt;</code></td><td>regroupe les champs ; « Entrée » ou le bouton submit l'envoient</td></tr>
+          <tr><td><code>&lt;label for="id"&gt;</code></td><td>le nom du champ, relié par l'id. <strong>Obligatoire</strong> : accessibilité, et un clic sur le texte active le champ</td></tr>
+          <tr><td><code>&lt;input type="…"&gt;</code></td><td>un champ d'une ligne : <code>text</code>, <code>email</code>, <code>date</code>, <code>number</code>, <code>password</code>, <code>checkbox</code>…</td></tr>
+          <tr><td><code>&lt;textarea&gt;</code></td><td>un champ de plusieurs lignes (avec une balise fermante)</td></tr>
+          <tr><td><code>required</code></td><td>le navigateur refuse l'envoi si le champ est vide, et affiche un message</td></tr>
+          <tr><td><code>placeholder</code></td><td>un exemple grisé dans le champ (pas un remplaçant du label !)</td></tr>
+          <tr><td><code>&lt;button type="submit"&gt;</code></td><td>envoie le formulaire</td></tr>
+        </table>
+        <h4>Quel type de champ ?</h4>
+        <p>Le bon <code>type</code> donne le bon clavier sur téléphone et une vérification gratuite : <code>email</code> vérifie la présence d'un @, <code>date</code> affiche un calendrier, <code>number</code> un pavé numérique.</p>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Intercepter l'envoi : <code>submit</code> et <code>preventDefault</code></h3>
+        <p>Par défaut, envoyer un formulaire <strong>recharge la page</strong> (il est prévu pour envoyer les données à un serveur). Ici, on veut garder la main en JavaScript :</p>
+        <pre><code>const formulaire = document.querySelector("#formulaire-journal");
+
+formulaire.addEventListener("submit", (evenement) =&gt; {
+  evenement.preventDefault();               <span class="commentaire">// ① empêche le rechargement de la page</span>
+
+  const date = formulaire.date.value;       <span class="commentaire">// ② lire les champs par leur attribut name</span>
+  const lecon = formulaire.lecon.value.trim();
+
+  console.log(date, lecon);                 <span class="commentaire">// ③ faire quelque chose avec</span>
+  formulaire.reset();                       <span class="commentaire">// ④ vider tous les champs</span>
+});</code></pre>
+        <h4>Pourquoi <code>submit</code> sur le formulaire et pas <code>click</code> sur le bouton ?</h4>
+        <p><code>submit</code> se déclenche aussi avec la touche Entrée, et seulement si les champs <code>required</code> sont remplis. C'est plus complet et plus accessible.</p>
+        <ul class="erreurs">
+          <li>Oublier <code>preventDefault()</code> : la page se recharge et tout ce que tu as fait disparaît en une fraction de seconde.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Des entrées avec un identifiant, et des dates lisibles</h3>
+        <h4>Un objet par entrée, avec un <code>id</code></h4>
+        <pre><code>const entree = {
+  id: Date.now(),                 <span class="commentaire">// le nombre de millisecondes depuis 1970 : unique à chaque clic</span>
+  date: "2026-10-26",
+  lecon: "1.10",
+  appris: "Les formulaires et preventDefault",
+  difficile: "Comprendre le name des champs"
+};</code></pre>
+        <p><strong>Pourquoi un id ?</strong> Pour supprimer <em>cette</em> entrée précisément, même si deux entrées ont la même date et la même leçon :
+          <code>entrees = entrees.filter((e) =&gt; e.id !== idASupprimer)</code>.</p>
+        <h4>Afficher une date à la belge</h4>
+        <pre><code>const d = new Date("2026-10-26");
+d.toLocaleDateString("fr-BE", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+<span class="commentaire">// → "lundi 26 octobre 2026"</span></code></pre>
+        <h4>La plus récente en premier</h4>
+        <p><code>entrees.unshift(entree)</code> ajoute <strong>au début</strong> du tableau (alors que <code>push</code> ajoute à la fin).</p>
+      </section>
+
+      <!-- ===================== ÉTAPES ===================== -->
+      <h2>Le projet, étape par étape</h2>
+      <div class="encadre">
+        <p><strong>Fichiers :</strong> <code>site/journal.html</code>, <code>site/css/style.css</code>, et un nouveau <code>site/js/journal.js</code> relié seulement à <code>journal.html</code>.
+          Ton fichier <code>journal.md</code> reste ta copie de sauvegarde : le journal du site vit dans <em>ce</em> navigateur (on le synchronisera en ligne en Phase 3).
+          <strong>Un commit après chaque étape.</strong></p>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 1 — Le formulaire</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>journal.html</code>, remplacer le bloc <code>.chantier</code> par un formulaire (classe <code>carte</code>) avec 4 champs reliés à leur label :
+            date (<code>type="date"</code>), leçon (texte), « Ce que j'ai appris » (textarea), « Ce qui était difficile » (textarea, facultatif), et un bouton « Enregistrer ».
+            En dessous, une liste vide <code>&lt;div id="entrees"&gt;</code>. Dans le CSS : chaque champ sur toute la largeur, avec un label au-dessus.</p>
+        </div>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;!-- Ma contribution (projet 1.10) : le formulaire du journal --&gt;
+&lt;form id="formulaire-journal" class="carte formulaire"&gt;
+  &lt;div class="champ"&gt;
+    &lt;label for="date"&gt;Date&lt;/label&gt;
+    &lt;input id="date" name="date" type="date" required&gt;
+  &lt;/div&gt;
+  &lt;div class="champ"&gt;
+    &lt;label for="lecon"&gt;Leçon&lt;/label&gt;
+    &lt;input id="lecon" name="lecon" type="text" placeholder="ex. 1.10" required&gt;
+  &lt;/div&gt;
+  &lt;div class="champ"&gt;
+    &lt;label for="appris"&gt;Ce que j'ai appris&lt;/label&gt;
+    &lt;textarea id="appris" name="appris" rows="3" required&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  &lt;div class="champ"&gt;
+    &lt;label for="difficile"&gt;Ce qui était difficile (facultatif)&lt;/label&gt;
+    &lt;textarea id="difficile" name="difficile" rows="3"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  &lt;button type="submit" class="bouton"&gt;Enregistrer&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;div id="entrees"&gt;&lt;/div&gt;</code></pre>
+          <pre><code>/* Projet 1.10 : le formulaire */
+.formulaire { margin-top: 24px; }
+.champ { margin-bottom: 14px; }
+.champ label { display: block; font-weight: 600; margin-bottom: 4px; }
+.champ input,
+.champ textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  background: var(--fond);
+  color: var(--texte);
+  font: inherit;            /* même police que le reste de la page */
+}
+.champ input:focus,
+.champ textarea:focus {
+  outline: 2px solid var(--accent);   /* on voit clairement le champ actif */
+  border-color: transparent;
+}
+.formulaire .bouton { border: none; cursor: pointer; font: inherit; font-weight: 600; }</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 2 — Enregistrer une entrée</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>journal.js</code>, à l'envoi du formulaire : empêcher le rechargement, créer un objet entrée (avec <code>id</code>),
+            l'ajouter <strong>au début</strong> d'un tableau <code>entrees</code>, sauvegarder dans localStorage (clé <code>"journal"</code>), vider le formulaire.</p>
+        </div>
+        <p><strong>Comment vérifier :</strong> après un envoi, F12 › Application › Local Storage › <code>journal</code> contient ton entrée ; la page ne s'est pas rechargée.</p>
+        <details class="indice"><summary>Indice</summary><p>Même structure qu'en 1.8 : la donnée relue avec <code>JSON.parse(…) || []</code>, une fonction <code>sauvegarder()</code>.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>// =========================================================
+// Projet 1.10 — Journal d'apprentissage (page Journal)
+// =========================================================
+
+const formulaire = document.querySelector("#formulaire-journal");
+const zoneEntrees = document.querySelector("#entrees");
+
+let entrees = JSON.parse(localStorage.getItem("journal")) || [];
+
+function sauvegarder() {
+  localStorage.setItem("journal", JSON.stringify(entrees));
+}
+
+formulaire.addEventListener("submit", (evenement) =&gt; {
+  evenement.preventDefault();
+
+  const entree = {
+    id: Date.now(),
+    date: formulaire.date.value,
+    lecon: formulaire.lecon.value.trim(),
+    appris: formulaire.appris.value.trim(),
+    difficile: formulaire.difficile.value.trim()
+  };
+
+  entrees.unshift(entree);      // la plus récente en premier
+  sauvegarder();
+  formulaire.reset();
+});</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 3 — Afficher les entrées</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> une fonction <code>afficherEntrees()</code> qui, pour chaque entrée, crée un <code>&lt;article class="carte"&gt;</code> avec :
+            la date lisible et la leçon en titre (<code>h3</code>), « Appris : … », et « Difficile : … » <strong>seulement si</strong> ce champ est rempli.
+            Si le journal est vide : « Aucune entrée pour l'instant. » Appelée au chargement et après chaque ajout.</p>
+        </div>
+        <details class="indice"><summary>Indice</summary><p>Pour chaque partie : <code>createElement</code> + <code>textContent</code> (pas <code>innerHTML</code> : c'est du texte tapé par un utilisateur, leçon 1.8).</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>function formaterDate(dateTexte) {
+  return new Date(dateTexte).toLocaleDateString("fr-BE", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric"
+  });
+}
+
+function afficherEntrees() {
+  zoneEntrees.innerHTML = "";              // on vide (pas de texte utilisateur ici : sans risque)
+
+  if (entrees.length === 0) {
+    const vide = document.createElement("p");
+    vide.textContent = "Aucune entrée pour l'instant.";
+    zoneEntrees.appendChild(vide);
+    return;
+  }
+
+  for (const entree of entrees) {
+    const article = document.createElement("article");
+    article.className = "carte entree-journal";
+
+    const titre = document.createElement("h3");
+    titre.textContent = `${formaterDate(entree.date)} — Leçon ${entree.lecon}`;
+    article.appendChild(titre);
+
+    const appris = document.createElement("p");
+    appris.textContent = `Appris : ${entree.appris}`;
+    article.appendChild(appris);
+
+    if (entree.difficile) {                // une chaîne vide "" compte comme faux
+      const difficile = document.createElement("p");
+      difficile.textContent = `Difficile : ${entree.difficile}`;
+      article.appendChild(difficile);
+    }
+
+    zoneEntrees.appendChild(article);
+  }
+}
+
+// … dans l'écouteur "submit", après sauvegarder() : afficherEntrees();
+afficherEntrees();                         // au chargement</code></pre>
+          <pre><code>.entree-journal { margin-top: 16px; }
+.entree-journal p { color: var(--texte); }</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 4 — Supprimer une entrée</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> chaque entrée a un bouton « Supprimer » qui demande une confirmation (<code>confirm("Supprimer cette entrée ?")</code>), puis la retire grâce à son <code>id</code>.</p>
+        </div>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>// Dans la boucle de afficherEntrees(), avant zoneEntrees.appendChild(article) :
+const boutonSuppr = document.createElement("button");
+boutonSuppr.textContent = "Supprimer";
+boutonSuppr.className = "bouton bouton-secondaire bouton-petit";
+boutonSuppr.addEventListener("click", () =&gt; {
+  if (confirm("Supprimer cette entrée ?")) {          // true si l'utilisateur clique sur OK
+    entrees = entrees.filter((e) =&gt; e.id !== entree.id);
+    sauvegarder();
+    afficherEntrees();
+  }
+});
+article.appendChild(boutonSuppr);</code></pre>
+          <pre><code>.bouton-petit { font: inherit; font-size: .85rem; padding: 6px 12px; cursor: pointer; background: transparent; }
+/* font: inherit EN PREMIER : sinon ce raccourci écraserait le font-size (la cascade, leçon 1.3) */</code></pre>
+          <p><code>entrees</code> doit être déclaré avec <code>let</code>, puisqu'on le remplace par le résultat du <code>filter</code>.</p>
+          <p>Commit : <code>git commit -m "Ajoute le journal d'apprentissage en ligne (projet 1.10)"</code>.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 5 (bonus) — Préremplir la date du jour</h3>
+        <div class="attendu"><p><strong>Ce qu'on attend de toi :</strong> au chargement, le champ date contient déjà la date du jour.</p></div>
+        <details class="correction"><summary>Correction</summary>
+          <pre><code>formulaire.date.value = new Date().toISOString().slice(0, 10);   // "2026-10-26" : le format attendu par type="date"</code></pre>
+          <p>Pense à le refaire après <code>formulaire.reset()</code>, qui vide aussi la date.</p>
+        </details>
+      </div>
+
+      <!-- ===================== IA ===================== -->
+      <h2>🤖 Refais-le avec l'IA</h2>
+      <div class="exercice">
+        <div class="attendu"><p><strong>Ce qu'on attend de toi :</strong> ajouter avec l'IA la <strong>modification</strong> d'une entrée existante, et faire relire ton code.</p></div>
+        <ol>
+          <li>« Contexte : projet 1.10, lis <code>site/js/journal.js</code>. Objectif : un bouton "Modifier" par entrée, qui remplit le formulaire avec l'entrée ; "Enregistrer" met alors à jour cette entrée au lieu d'en créer une. Contraintes : garde ma structure, explique chaque ajout. Critère : la modification survit à F5. »</li>
+          <li>Puis : « Fais une revue de mon fichier : bugs possibles, cas oubliés (champs vides, données corrompues dans localStorage), et noms à améliorer. »</li>
+        </ol>
+      </div>
+
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice"><p><strong>1.</strong> Que se passe-t-il sans <code>preventDefault()</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p>La page se recharge à l'envoi du formulaire : le JavaScript n'a pas le temps d'afficher quoi que ce soit.</p></details></div>
+      <div class="exercice"><p><strong>2.</strong> Pourquoi chaque entrée a-t-elle un <code>id</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Pour identifier précisément l'entrée à supprimer ou modifier, même si deux entrées se ressemblent.</p></details></div>
+      <div class="exercice"><p><strong>3.</strong> À quoi sert <code>&lt;label for="…"&gt;</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Il relie le texte au champ : les lecteurs d'écran annoncent le nom du champ, et un clic sur le texte active le champ.</p></details></div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>J'écris un formulaire avec labels, types adaptés et <code>required</code>.</li>
+        <li>J'intercepte <code>submit</code> avec <code>preventDefault()</code> et je lis les champs.</li>
+        <li>Je stocke des objets avec un id, les plus récents en premier.</li>
+        <li>J'affiche une liste d'entrées en toute sécurité (<code>textContent</code>) et je supprime par id.</li>
+        <li>J'affiche une date lisible en français.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p>Ta première entrée… dans ton nouveau journal en ligne ! Puis <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-9-projet-progression.html">← 1.9 : La progression</a>
+        <a class="bouton" href="1-11-mise-en-ligne.html">Projet 1.11 : la mise en ligne →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

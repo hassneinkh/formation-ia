@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.2 · Liens, images et listes — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Leçon 1.2</div>
+      <span class="etiquette">Leçon 1.2 · environ 2 h 30</span>
+      <h1>HTML : textes, liens, images et listes</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> mettre du texte en valeur, relier des pages entre elles et vers d'autres sites,
+        afficher des images accessibles et organiser l'information en listes.
+      </div>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Mettre du texte en valeur : <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;br&gt;</code></h3>
+        <table>
+          <tr><th>Balise</th><th>Sens</th><th>Affichage par défaut</th><th>Quand l'utiliser</th></tr>
+          <tr><td><code>&lt;strong&gt;</code></td><td>C'est <strong>important</strong></td><td>gras</td><td>Un mot clé, un avertissement</td></tr>
+          <tr><td><code>&lt;em&gt;</code></td><td>On <em>insiste</em> en lisant</td><td>italique</td><td>Une nuance, un mot étranger, un titre d'œuvre</td></tr>
+          <tr><td><code>&lt;br&gt;</code></td><td>Retour à la ligne forcé</td><td>—</td><td>Seulement dans une adresse ou un poème. Pas pour espacer des paragraphes !</td></tr>
+        </table>
+        <pre><code>&lt;p&gt;La livraison est &lt;strong&gt;gratuite&lt;/strong&gt; dès 30 €, &lt;em&gt;uniquement&lt;/em&gt; à Bruxelles.&lt;/p&gt;
+&lt;p&gt;Rue Neuve 12&lt;br&gt;1000 Bruxelles&lt;/p&gt;</code></pre>
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>Utiliser <code>&lt;strong&gt;</code> juste pour avoir du gras « joli » : le gras décoratif, c'est le rôle du CSS.</li>
+          <li>Empiler des <code>&lt;br&gt;&lt;br&gt;&lt;br&gt;</code> pour faire de l'espace : utilise des <code>&lt;p&gt;</code> séparés, et le CSS pour l'espacement.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Les liens : <code>&lt;a href="…"&gt;</code></h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Un lien (<em>anchor</em>, ancre) emmène vers une autre page, un autre site, une adresse email ou un endroit de la même page.
+          L'attribut <code>href</code> dit <strong>où</strong> aller ; le contenu de la balise est le texte cliquable.</p>
+
+        <h4>Comment l'écrire : les 5 types de liens</h4>
+        <pre><code><span class="commentaire">&lt;!-- 1. Vers une page de TON site : chemin relatif (comme en leçon 0.1) --&gt;</span>
+&lt;a href="parcours.html"&gt;Voir le parcours&lt;/a&gt;
+&lt;a href="lecons/1-1-html.html"&gt;Leçon 1.1&lt;/a&gt;       <span class="commentaire">&lt;!-- descendre dans un dossier --&gt;</span>
+&lt;a href="../index.html"&gt;Accueil&lt;/a&gt;              <span class="commentaire">&lt;!-- remonter d'un dossier avec .. --&gt;</span>
+
+<span class="commentaire">&lt;!-- 2. Vers un autre site : adresse complète, avec https:// --&gt;</span>
+&lt;a href="https://github.com"&gt;GitHub&lt;/a&gt;
+
+<span class="commentaire">&lt;!-- 3. Dans un nouvel onglet : target + rel (sécurité) --&gt;</span>
+&lt;a href="https://github.com" target="_blank" rel="noopener noreferrer"&gt;GitHub&lt;/a&gt;
+
+<span class="commentaire">&lt;!-- 4. Vers un email --&gt;</span>
+&lt;a href="mailto:contact@exemple.be"&gt;M'écrire&lt;/a&gt;
+
+<span class="commentaire">&lt;!-- 5. Vers un endroit de la même page : # + l'id de l'élément --&gt;</span>
+&lt;a href="#horaires"&gt;Voir les horaires&lt;/a&gt;
+&lt;section id="horaires"&gt; … &lt;/section&gt;</code></pre>
+
+        <h4>Quand ouvrir dans un nouvel onglet ?</h4>
+        <ul>
+          <li>✅ Pour un lien vers un <strong>autre site</strong>, quand tu veux que le visiteur garde ta page ouverte.</li>
+          <li>❌ Pas pour les pages de ton propre site : le visiteur s'attend à rester dans le même onglet.</li>
+          <li>Toujours avec <code>rel="noopener noreferrer"</code> : la page ouverte ne peut pas prendre le contrôle de la tienne.</li>
+        </ul>
+
+        <h4>Un bon texte de lien</h4>
+        <p>Le texte doit dire <strong>où mène le lien</strong>, même lu tout seul. Les lecteurs d'écran listent les liens, et Google lit ce texte (SEO).</p>
+        <p>❌ <code>Pour le parcours, &lt;a href="parcours.html"&gt;cliquez ici&lt;/a&gt;</code><br>
+           ✅ <code>&lt;a href="parcours.html"&gt;Voir tout le parcours&lt;/a&gt;</code></p>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>href="github.com"</code> sans <code>https://</code> : le navigateur cherche un <em>fichier</em> nommé « github.com » dans ton dossier → page introuvable.</li>
+          <li>Oublier <code>../</code> depuis un sous-dossier : depuis <code>lecons/</code>, <code>href="index.html"</code> cherche <code>lecons/index.html</code>, qui n'existe pas.</li>
+          <li>Majuscules : <code>Parcours.html</code> ≠ <code>parcours.html</code> une fois en ligne (leçon 1.11). Écris tout en minuscules.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Les images : <code>&lt;img&gt;</code></h3>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>&lt;img src="images/pizza-margherita.jpg" alt="Pizza margherita sortant du four à bois" width="600" height="400"&gt;
+<span class="commentaire">&lt;!--  ↑ src : le chemin du fichier image (relatif, comme un lien)
+       ↑ alt : la description de l'image, lue si elle ne s'affiche pas ou par un lecteur d'écran
+       ↑ width / height : les dimensions en pixels, pour réserver la place pendant le chargement
+     &lt;img&gt; est une balise orpheline : pas de &lt;/img&gt; --&gt;</span></code></pre>
+
+        <h4>Bien écrire le <code>alt</code></h4>
+        <ul>
+          <li>Décris ce que l'image <strong>apporte</strong> : « Graphique : les ventes doublent en 2025 », pas « image » ou « photo ».</li>
+          <li>Image purement décorative (un trait, un fond) : <code>alt=""</code> (vide, mais présent), pour que les lecteurs d'écran l'ignorent.</li>
+          <li>Le <code>alt</code> est <strong>obligatoire</strong> : accessibilité et SEO (Google ne « voit » pas les images, il lit le alt).</li>
+        </ul>
+
+        <h4>Quel format d'image ?</h4>
+        <table>
+          <tr><th>Format</th><th>Pour…</th></tr>
+          <tr><td><code>.jpg</code></td><td>les photos</td></tr>
+          <tr><td><code>.png</code></td><td>les captures d'écran, les images avec transparence</td></tr>
+          <tr><td><code>.svg</code></td><td>les logos et icônes (net à toutes les tailles)</td></tr>
+          <tr><td><code>.webp</code></td><td>les photos du web moderne (plus léger que jpg)</td></tr>
+        </table>
+
+        <h4>Où ranger les images ?</h4>
+        <p>Dans un dossier <code>images/</code>, à côté de ta page. Noms en minuscules, avec des tirets, sans espace ni accent : <code>photo-profil.jpg</code>, pas <code>Photo de Profil (1).JPG</code>.</p>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>Image cassée (une icône 🖼️ s'affiche) : le chemin est faux, ou le nom ne correspond pas exactement (majuscule, extension <code>.jpeg</code> au lieu de <code>.jpg</code>). Vérifie avec F12 › onglet <em>Console</em>.</li>
+          <li>Une photo de 5 Mo directement du téléphone : la page devient lente. Réduis-la (par exemple sur squoosh.app) sous 300 Ko.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Les listes : <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code></h3>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code><span class="commentaire">&lt;!-- ul = liste à puces (unordered list) : l'ordre n'a pas d'importance --&gt;</span>
+&lt;ul&gt;
+  &lt;li&gt;Tomates&lt;/li&gt;          <span class="commentaire">&lt;!-- li = un élément de liste (list item) --&gt;</span>
+  &lt;li&gt;Mozzarella&lt;/li&gt;
+&lt;/ul&gt;
+
+<span class="commentaire">&lt;!-- ol = liste numérotée (ordered list) : l'ordre compte --&gt;</span>
+&lt;ol&gt;
+  &lt;li&gt;Étaler la pâte&lt;/li&gt;
+  &lt;li&gt;Ajouter la sauce&lt;/li&gt;
+  &lt;li&gt;Cuire 90 secondes&lt;/li&gt;
+&lt;/ol&gt;
+
+<span class="commentaire">&lt;!-- Liste dans une liste : le &lt;ul&gt; va DANS le &lt;li&gt; --&gt;</span>
+&lt;ul&gt;
+  &lt;li&gt;Pizzas
+    &lt;ul&gt;
+      &lt;li&gt;Margherita&lt;/li&gt;
+      &lt;li&gt;Quattro formaggi&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+        <h4>Quand utiliser laquelle ?</h4>
+        <ul>
+          <li><code>&lt;ol&gt;</code> : des étapes, un classement, une recette — si on change l'ordre, le sens change.</li>
+          <li><code>&lt;ul&gt;</code> : des ingrédients, des compétences, des liens de menu — l'ordre est libre.</li>
+          <li>Un menu de navigation est souvent une <code>&lt;ul&gt;</code> de liens dans un <code>&lt;nav&gt;</code>.</li>
+        </ul>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>Du texte directement dans <code>&lt;ul&gt;</code> : seuls des <code>&lt;li&gt;</code> peuvent être ses enfants directs.</li>
+          <li>Taper des « - » ou « 1. » à la main dans des <code>&lt;p&gt;</code> : c'est une liste, utilise la balise.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== EXEMPLE ===================== -->
+      <h2>Exemple complet : tout combiner</h2>
+      <pre><code>&lt;main&gt;
+  &lt;section id="carte"&gt;
+    &lt;h2&gt;Notre carte&lt;/h2&gt;
+    &lt;img src="images/margherita.jpg" alt="Pizza margherita avec basilic frais" width="600" height="400"&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Margherita&lt;/strong&gt; — 11 €&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Regina&lt;/strong&gt; — 13 € &lt;em&gt;(notre préférée)&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/section&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;Commander en 3 étapes&lt;/h2&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Choisis ta pizza dans &lt;a href="#carte"&gt;la carte&lt;/a&gt;.&lt;/li&gt;
+      &lt;li&gt;Appelle-nous ou &lt;a href="mailto:commande@mammamia.be"&gt;écris-nous&lt;/a&gt;.&lt;/li&gt;
+      &lt;li&gt;Viens la chercher : &lt;a href="https://www.openstreetmap.org" target="_blank" rel="noopener noreferrer"&gt;voir le plan&lt;/a&gt;.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+
+      <!-- ===================== EXERCICES ===================== -->
+      <h2>Exercices</h2>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Ma page de favoris</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> <code>exercices/module-1-2/favoris.html</code> (squelette complet) avec :</p>
+          <ul>
+            <li>un <code>&lt;h1&gt;</code> « Mes favoris » dans un <code>&lt;header&gt;</code> ;</li>
+            <li>une section « Mes sites utiles » : une <code>&lt;ul&gt;</code> de <strong>3 liens externes</strong> qui s'ouvrent dans un nouvel onglet ;</li>
+            <li>une section « Mon top 3 des outils » : une <code>&lt;ol&gt;</code> de 3 outils, avec le nom en <code>&lt;strong&gt;</code> et une courte raison ;</li>
+            <li>un <code>&lt;footer&gt;</code> avec un lien email (<code>mailto:</code>).</li>
+          </ul>
+        </div>
+        <p><strong>Comment vérifier :</strong> chaque lien externe ouvre un nouvel onglet ; le top 3 est numéroté automatiquement ; le lien email ouvre ta messagerie.</p>
+        <details class="indice">
+          <summary>Indice</summary>
+          <p>Un lien dans une liste = un <code>&lt;a&gt;</code> <strong>dans</strong> un <code>&lt;li&gt;</code>. Pour le nouvel onglet : <code>target</code> et <code>rel</code> (notion 2, type 3).</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mes favoris&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;h1&gt;Mes favoris&lt;/h1&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+      &lt;section&gt;
+        &lt;h2&gt;Mes sites utiles&lt;/h2&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href="https://github.com" target="_blank" rel="noopener noreferrer"&gt;GitHub, mon code en ligne&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="https://developer.mozilla.org/fr/" target="_blank" rel="noopener noreferrer"&gt;MDN, la doc du web en français&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="https://claude.ai" target="_blank" rel="noopener noreferrer"&gt;Claude, mon assistant IA&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/section&gt;
+
+      &lt;section&gt;
+        &lt;h2&gt;Mon top 3 des outils&lt;/h2&gt;
+        &lt;ol&gt;
+          &lt;li&gt;&lt;strong&gt;VS Code&lt;/strong&gt; — pour écrire mon code.&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Git Bash&lt;/strong&gt; — pour piloter mon PC et Git.&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Claude Code&lt;/strong&gt; — mon coach.&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+      &lt;p&gt;&lt;a href="mailto:ton-email@exemple.com"&gt;M'écrire&lt;/a&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          <p><strong>À retenir :</strong> des textes de lien qui disent où ils mènent, <code>https://</code> pour l'externe, <code>ol</code> parce que c'est un classement.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Ajouter ta photo</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> une image affichée dans <code>exercices/module-1-1/a-propos.html</code>, sous ton <code>&lt;h1&gt;</code>, avec un <code>alt</code> descriptif.
+            Le fichier image est dans <code>exercices/module-1-1/images/</code>, avec un nom sans espace.</p>
+        </div>
+        <ol>
+          <li>Choisis une image (ta photo, un logo, une capture d'écran) et copie-la dans <code>exercices/module-1-1/images/</code>.</li>
+          <li>Renomme-la dans le terminal avec <code>mv</code>, par exemple en <code>photo-profil.jpg</code>.</li>
+          <li>Ajoute la balise <code>&lt;img&gt;</code> dans le header, sous le <code>&lt;h1&gt;</code>.</li>
+        </ol>
+        <p><strong>Comment vérifier :</strong> l'image s'affiche ; si tu changes volontairement le <code>src</code>, c'est ton texte <code>alt</code> qui apparaît.</p>
+        <details class="indice">
+          <summary>Indice</summary>
+          <p>Le chemin part de l'endroit où se trouve la page : <code>a-propos.html</code> et le dossier <code>images</code> sont côte à côte, donc <code>src="images/…"</code>.</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>mkdir exercices/module-1-1/images
+mv "exercices/module-1-1/images/Photo de profil.JPG" exercices/module-1-1/images/photo-profil.jpg</code></pre>
+          <pre><code>&lt;header&gt;
+  &lt;h1&gt;Hassnein Khawary&lt;/h1&gt;
+  &lt;img src="images/photo-profil.jpg" alt="Portrait de Hassnein souriant" width="200" height="200"&gt;
+&lt;/header&gt;</code></pre>
+          <p>Les guillemets autour du premier nom sont nécessaires à cause des espaces (leçon 0.1).</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 3 — Le détective des liens cassés</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> trouver et corriger les <strong>4 erreurs</strong> de ce code, placé dans un fichier <code>site/lecons/exemple.html</code> (imaginaire).</p>
+        </div>
+        <pre><code>&lt;a href="index.html"&gt;Accueil&lt;/a&gt;
+&lt;a href="www.github.com" target="_blank"&gt;Cliquez ici&lt;/a&gt;
+&lt;img src="../Images/Logo IA.PNG"&gt;
+&lt;ul&gt;
+  Mes outils
+  &lt;li&gt;VS Code&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        <details class="indice">
+          <summary>Indice</summary>
+          <p>Regarde : le chemin depuis <code>lecons/</code>, le protocole et la sécurité du lien externe, le nom du fichier image et un attribut manquant, ce qu'il y a directement dans le <code>ul</code>.</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;a href="../index.html"&gt;Accueil&lt;/a&gt;
+&lt;a href="https://github.com" target="_blank" rel="noopener noreferrer"&gt;Mon profil GitHub&lt;/a&gt;
+&lt;img src="../images/logo-ia.png" alt="Logo de la Formation IA"&gt;
+&lt;h3&gt;Mes outils&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;VS Code&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+          <ol>
+            <li>Depuis <code>lecons/</code>, il faut remonter : <code>../index.html</code>.</li>
+            <li>Lien externe : <code>https://</code>, <code>rel="noopener noreferrer"</code>, et un texte qui dit où il mène.</li>
+            <li>Image : nom en minuscules sans espace (renommer le fichier), et un <code>alt</code>.</li>
+            <li>Le texte « Mes outils » ne peut pas être directement dans le <code>ul</code> : il devient un titre au-dessus.</li>
+          </ol>
+        </details>
+      </div>
+
+      <!-- ===================== AJOUT AU SITE ===================== -->
+      <h2>🔧 Ajout au site (ta part du 50/50)</h2>
+      <div class="exercice">
+        <h3>Une carte de projet avec des liens dans le Portfolio</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>site/portfolio.html</code>, une nouvelle carte (copie la structure de la carte existante <code>&lt;div class="carte"&gt;</code>)
+            pour ta <strong>page À propos</strong>, avec un titre, une description et une liste de 2 liens : vers la page (lien interne) et vers ton dépôt GitHub (nouvel onglet).</p>
+        </div>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;div class="carte"&gt;
+  &lt;span class="etiquette"&gt;Terminé&lt;/span&gt;
+  &lt;h3&gt;Ma page À propos&lt;/h3&gt;
+  &lt;p&gt;Qui je suis et comment fonctionne ma formation. HTML sémantique, listes et liens.&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="a-propos.html"&gt;Voir la page&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="https://github.com/TON-PSEUDO/formation-ia" target="_blank" rel="noopener noreferrer"&gt;Voir le code sur GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+          <p>Elle se place dans le <code>&lt;div class="grille"&gt;</code>, à côté de la carte existante : la grille les range automatiquement côte à côte.</p>
+        </details>
+      </div>
+
+      <!-- ===================== IA ===================== -->
+      <h2>🤖 Refais-le avec l'IA</h2>
+      <div class="exercice">
+        <h3>Vérifier les liens que l'IA invente</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> faire générer une page de ressources par Claude, puis <strong>tester chaque lien</strong>. Une IA peut inventer une adresse qui n'existe pas (on appelle ça une <em>hallucination</em>).</p>
+        </div>
+        <ol>
+          <li>Demande : « Contexte : leçon 1.2. Objectif : crée <code>exercices/module-1-2/ressources-ia.html</code> avec une liste de 5 ressources gratuites en français pour apprendre le HTML. Contraintes : liens externes dans un nouvel onglet et sécurisés, textes de liens descriptifs. Critère : tous les liens fonctionnent. »</li>
+          <li>Ouvre la page et clique sur <strong>chaque</strong> lien. Note ceux qui ne marchent pas.</li>
+          <li>Vérifie aussi : <code>rel="noopener noreferrer"</code> partout ? <code>alt</code> sur les images ?</li>
+        </ol>
+        <details class="correction">
+          <summary>Ce qu'il faut retenir</summary>
+          <p>L'IA écrit vite un code correct, mais <strong>les faits</strong> (adresses, prix, noms) doivent toujours être vérifiés. Relire = cliquer, tester, comparer avec ce que tu as appris.</p>
+        </details>
+      </div>
+
+      <!-- ===================== QUESTIONS ===================== -->
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice">
+        <p><strong>1.</strong> Une recette de cuisine : <code>ul</code> ou <code>ol</code> pour les ingrédients ? Et pour les étapes ?</p>
+        <details class="correction"><summary>Réponse</summary>
+          <p>Ingrédients : <code>ul</code> (l'ordre ne compte pas). Étapes : <code>ol</code> (l'ordre compte).</p></details>
+      </div>
+      <div class="exercice">
+        <p><strong>2.</strong> À quoi sert l'attribut <code>alt</code> ?</p>
+        <details class="correction"><summary>Réponse</summary>
+          <p>Il décrit l'image pour ceux qui ne la voient pas : lecteurs d'écran, image qui ne charge pas, et Google.</p></details>
+      </div>
+      <div class="exercice">
+        <p><strong>3.</strong> Depuis <code>site/lecons/1-2.html</code>, quel <code>href</code> pour aller à <code>site/portfolio.html</code> ?</p>
+        <details class="correction"><summary>Réponse</summary>
+          <p><code>../portfolio.html</code> : on remonte de <code>lecons/</code> vers <code>site/</code>.</p></details>
+      </div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>J'utilise <code>strong</code> et <code>em</code> pour le sens, pas pour le look.</li>
+        <li>J'écris des liens internes (avec <code>../</code> si besoin), externes, email et ancres.</li>
+        <li>J'ouvre un lien externe dans un nouvel onglet de façon sécurisée.</li>
+        <li>J'affiche une image avec un <code>alt</code> utile et un nom de fichier propre.</li>
+        <li>Je choisis entre <code>ul</code> et <code>ol</code>, et j'imbrique une liste.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p>Entrée dans <code>journal.md</code>, puis <code>git add</code> → <code>git commit -m "Termine la leçon 1.2 : favoris, image et carte de portfolio"</code> → <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-1-html.html">← 1.1 : HTML</a>
+        <a class="bouton" href="1-3-css-bases.html">Leçon 1.3 : CSS →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.3 · CSS : les bases — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Leçon 1.3</div>
+      <span class="etiquette">Leçon 1.3 · environ 3 h</span>
+      <h1>CSS : sélecteurs, couleurs et box model</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> relier une feuille de style à une page, cibler les bons éléments, choisir couleurs, tailles et polices,
+        comprendre le box model et la cascade, et déboguer le style avec F12.
+      </div>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Relier le CSS et lire une règle</h3>
+        <h4>Relier un fichier CSS</h4>
+        <pre><code>&lt;head&gt;
+  …
+  &lt;link rel="stylesheet" href="style.css"&gt;   <span class="commentaire">&lt;!-- chemin relatif vers le fichier, comme un lien --&gt;</span>
+&lt;/head&gt;</code></pre>
+        <p><strong>Toujours un fichier <code>.css</code> séparé</strong> : un seul fichier stylise toutes les pages, et le HTML reste lisible.
+          (Il existe aussi l'attribut <code>style="…"</code> sur une balise : à éviter, sauf pour un test rapide.)</p>
+
+        <h4>Anatomie d'une règle</h4>
+        <pre><code>h1 {                     <span class="commentaire">/* SÉLECTEUR : qui on stylise */</span>
+  color: #e11d48;        <span class="commentaire">/* PROPRIÉTÉ : VALEUR ;  ← le point-virgule termine chaque déclaration */</span>
+  font-size: 2.5rem;
+}                        <span class="commentaire">/* les accolades entourent les déclarations */</span></code></pre>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>Oublier un <code>;</code> : la déclaration suivante est ignorée sans message d'erreur.</li>
+          <li>Un mauvais chemin dans <code>href</code> : la page s'affiche sans aucun style. Vérifie avec F12 › Console (erreur 404).</li>
+          <li>Écrire en français : <code>couleur: rouge</code> ne marche pas. Le CSS est en anglais : <code>color: red</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Les sélecteurs : cibler les bons éléments</h3>
+        <table>
+          <tr><th>Sélecteur</th><th>Cible</th><th>Quand l'utiliser</th></tr>
+          <tr><td><code>p</code></td><td>tous les <code>&lt;p&gt;</code></td><td>Le style de base d'une balise</td></tr>
+          <tr><td><code>.carte</code></td><td>tous les éléments avec <code>class="carte"</code></td><td><strong>Le plus courant.</strong> Un style réutilisable</td></tr>
+          <tr><td><code>#horaires</code></td><td>l'élément avec <code>id="horaires"</code></td><td>Rarement en CSS (l'id est unique, et trop « fort »). Garde-le pour les ancres et le JavaScript</td></tr>
+          <tr><td><code>.carte h3</code></td><td>les <code>&lt;h3&gt;</code> <em>à l'intérieur</em> d'une <code>.carte</code></td><td>Styliser selon l'endroit</td></tr>
+          <tr><td><code>h1, h2</code></td><td>les <code>h1</code> <strong>et</strong> les <code>h2</code></td><td>Le même style pour plusieurs</td></tr>
+          <tr><td><code>a:hover</code></td><td>un lien survolé par la souris</td><td>Les effets d'interaction</td></tr>
+        </table>
+        <pre><code><span class="commentaire">&lt;!-- HTML : on donne des classes --&gt;</span>
+&lt;p class="intro important"&gt;Bienvenue&lt;/p&gt;      <span class="commentaire">&lt;!-- plusieurs classes : séparées par un espace --&gt;</span>
+
+<span class="commentaire">/* CSS : le point = "classe" */</span>
+.intro { font-size: 1.2rem; }
+.important { font-weight: bold; }</code></pre>
+        <h4>Bien nommer une classe</h4>
+        <p>Nomme selon le <strong>rôle</strong>, pas l'apparence : <code>.prix-promo</code> plutôt que <code>.texte-rouge</code> (si la promo devient verte, le nom resterait faux).</p>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Couleurs, unités et textes</h3>
+        <h4>Les couleurs</h4>
+        <table>
+          <tr><th>Écriture</th><th>Exemple</th><th>Quand</th></tr>
+          <tr><td>Hexadécimal</td><td><code>#e11d48</code></td><td>Le plus courant (copié depuis un outil de design)</td></tr>
+          <tr><td>RGB / transparence</td><td><code>rgb(225 29 72 / 50%)</code></td><td>Quand il faut de la transparence</td></tr>
+          <tr><td>Nom</td><td><code>white</code>, <code>black</code></td><td>Pour des tests rapides</td></tr>
+        </table>
+        <p><code>color</code> = couleur du <strong>texte</strong> ; <code>background</code> = couleur du <strong>fond</strong>. Vérifie toujours le contraste : texte gris clair sur fond blanc = illisible.</p>
+
+        <h4>Les unités</h4>
+        <table>
+          <tr><th>Unité</th><th>Sens</th><th>Pour…</th></tr>
+          <tr><td><code>px</code></td><td>pixels, fixe</td><td>bordures, petites ombres</td></tr>
+          <tr><td><code>rem</code></td><td>multiple de la taille de texte de base (1rem ≈ 16px)</td><td><strong>tailles de texte et espacements</strong> (respecte les réglages de l'utilisateur)</td></tr>
+          <tr><td><code>%</code></td><td>pourcentage du parent</td><td>largeurs</td></tr>
+        </table>
+
+        <h4>Le texte</h4>
+        <pre><code>body {
+  font-family: "Segoe UI", system-ui, sans-serif;  <span class="commentaire">/* liste de secours : si la 1re police manque, la suivante */</span>
+  font-size: 1rem;
+  line-height: 1.6;          <span class="commentaire">/* hauteur de ligne : 1.5 à 1.7 = confortable à lire */</span>
+}
+h1 { font-weight: 700; }     <span class="commentaire">/* épaisseur : 400 normal, 700 gras */</span>
+.centre { text-align: center; }
+a { text-decoration: none; } <span class="commentaire">/* enlève le soulignement */</span></code></pre>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Le box model : chaque élément est une boîte</h3>
+        <pre><code>┌──────────── margin (espace EXTÉRIEUR, transparent) ───────────┐
+│ ┌────────── border (la bordure) ─────────────────────────────┐ │
+│ │ ┌──────── padding (espace INTÉRIEUR, prend le fond) ─────┐ │ │
+│ │ │              content (le contenu : texte, image)       │ │ │
+│ │ └────────────────────────────────────────────────────────┘ │ │
+│ └────────────────────────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────────────┘</code></pre>
+        <pre><code>.carte {
+  padding: 20px;                 <span class="commentaire">/* 20px de chaque côté, à l'intérieur */</span>
+  border: 1px solid #e3e0d8;     <span class="commentaire">/* épaisseur, style, couleur */</span>
+  border-radius: 14px;           <span class="commentaire">/* coins arrondis */</span>
+  margin: 0 0 16px;              <span class="commentaire">/* haut 0, côtés 0, bas 16px */</span>
+}
+* { box-sizing: border-box; }    <span class="commentaire">/* la largeur INCLUT padding et bordure : bien plus simple */</span></code></pre>
+        <h4>Padding ou margin ?</h4>
+        <ul>
+          <li><strong>padding</strong> : pour éloigner le contenu de sa propre bordure (le texte d'un bouton respire).</li>
+          <li><strong>margin</strong> : pour éloigner la boîte de ses voisines.</li>
+        </ul>
+        <p>Les raccourcis : <code>margin: 10px</code> (4 côtés) · <code>margin: 10px 20px</code> (haut/bas, gauche/droite) · <code>margin: 0 auto</code> (centre horizontalement un bloc qui a une largeur).</p>
+      </section>
+
+      <!-- ===================== NOTION 5 ===================== -->
+      <section class="notion">
+        <h3>Notion 5 — La cascade : quand deux règles se disputent</h3>
+        <p>Le C de CSS veut dire <em>Cascading</em>. Quand plusieurs règles visent le même élément :</p>
+        <ol>
+          <li><strong>La plus spécifique gagne</strong> : <code>#id</code> &gt; <code>.classe</code> &gt; <code>balise</code>.</li>
+          <li>À égalité, <strong>la dernière écrite gagne</strong>.</li>
+          <li>Certaines propriétés (couleur, police) <strong>s'héritent</strong> : un <code>color</code> sur <code>body</code> s'applique à tout le texte.</li>
+        </ol>
+        <p>Tu l'as vécu en leçon 0.4 : <code>--accent</code> redéfini plus bas, dans le bloc du mode sombre, gagnait sur ta modification.</p>
+        <h4>Déboguer avec F12</h4>
+        <p>F12 › <em>Elements</em>, clique sur un élément : le panneau <em>Styles</em> montre toutes les règles qui s'appliquent. Les déclarations <s>barrées</s> ont perdu la bataille de la cascade.
+          Tu peux même changer une valeur en direct pour tester (sans modifier ton fichier).</p>
+        <ul class="erreurs">
+          <li><code>!important</code> force une règle à gagner. Ne l'utilise pas pour « réparer » : cherche plutôt pourquoi la règle perd.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== EXERCICES ===================== -->
+      <h2>Exercices</h2>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Habiller ta page À propos</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un fichier <code>exercices/module-1-1/style.css</code> relié à ton <code>a-propos.html</code>, qui donne :</p>
+          <ul>
+            <li>une police sans serif et une hauteur de ligne de 1.6 sur <code>body</code>, une couleur de fond douce ;</li>
+            <li>un <code>h1</code> coloré ;</li>
+            <li>chaque <code>section</code> en « carte » : fond blanc, padding, bordure arrondie, marge en bas ;</li>
+            <li>un <code>footer</code> au texte centré et plus petit.</li>
+          </ul>
+        </div>
+        <p><strong>Comment vérifier :</strong> chaque section apparaît comme une carte séparée ; avec F12, tu retrouves tes règles dans le panneau Styles.</p>
+        <details class="indice"><summary>Indice</summary>
+          <p>4 règles : <code>body</code>, <code>h1</code>, <code>section</code>, <code>footer</code>. N'oublie pas le <code>&lt;link&gt;</code> dans le <code>&lt;head&gt;</code>.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code><span class="commentaire">&lt;!-- Dans le &lt;head&gt; de a-propos.html --&gt;</span>
+&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+          <pre><code>body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  line-height: 1.6;
+  background: #f7f5f0;
+  color: #1d1d1f;
+  margin: 0;
+  padding: 24px;
+}
+
+h1 { color: #e11d48; }
+
+section {
+  background: #ffffff;
+  padding: 20px;
+  border: 1px solid #e3e0d8;
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #5f6368;
+}</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Classes et survol</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>favoris.html</code> (leçon 1.2), une classe <code>lien-externe</code> sur les 3 liens externes,
+            stylisée sans soulignement, en gras, qui change de couleur et se souligne au survol.</p>
+        </div>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;a class="lien-externe" href="https://github.com" target="_blank" rel="noopener noreferrer"&gt;GitHub&lt;/a&gt;</code></pre>
+          <pre><code>.lien-externe {
+  font-weight: 700;
+  text-decoration: none;
+  color: #4f46e5;
+}
+.lien-externe:hover {
+  color: #e11d48;
+  text-decoration: underline;
+}</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 3 — Enquête sur la cascade</h3>
+        <div class="attendu"><p><strong>Ce qu'on attend de toi :</strong> prédire la couleur du texte, puis vérifier.</p></div>
+        <pre><code>&lt;p class="note" id="info"&gt;Quelle couleur ?&lt;/p&gt;
+
+#info { color: green; }
+p { color: blue; }
+.note { color: red; }</code></pre>
+        <details class="correction"><summary>Réponse</summary>
+          <p><strong>Vert</strong> : <code>#info</code> est le plus spécifique (id &gt; classe &gt; balise), même s'il est écrit en premier.</p></details>
+      </div>
+
+      <h2>🔧 Ajout au site</h2>
+      <div class="exercice">
+        <h3>Ta propre couleur d'accent et une classe « mise en avant »</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>site/css/style.css</code>, à la fin, une classe <code>.mise-en-avant</code> (fond <code>var(--accent-doux)</code>, padding, coins arrondis)
+            appliquée à ta section « Pourquoi je me forme » de l'accueil.</p>
+        </div>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>/* Ma contribution (leçon 1.3) */
+.mise-en-avant {
+  background: var(--accent-doux);
+  padding: 20px 24px;
+  border-radius: var(--rayon);
+}</code></pre>
+          <pre><code>&lt;section class="mise-en-avant"&gt;
+  &lt;h2&gt;Pourquoi je me forme&lt;/h2&gt;
+  …</code></pre>
+          <p>On réutilise les variables du site (<code>var(--…)</code>) : la classe suit automatiquement le mode sombre.</p>
+        </details>
+      </div>
+
+      <h2>🤖 Refais-le avec l'IA</h2>
+      <div class="exercice">
+        <div class="attendu"><p><strong>Ce qu'on attend de toi :</strong> demander à Claude un 2e thème pour ta page À propos (<code>style-ia.css</code>), puis lui faire <strong>expliquer 3 règles</strong> que tu n'aurais pas écrites.</p></div>
+        <details class="correction"><summary>Exemple de prompt</summary>
+          <p>« Contexte : leçon 1.3, je connais sélecteurs, couleurs, box model. Objectif : crée <code>exercices/module-1-1/style-ia.css</code>, un thème sombre élégant pour ma page À propos.
+            Contraintes : seulement les notions que je connais, un commentaire par règle. Critère : je change juste le <code>href</code> du <code>&lt;link&gt;</code> pour passer d'un thème à l'autre. »</p></details>
+      </div>
+
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice"><p><strong>1.</strong> Padding ou margin pour éloigner deux cartes l'une de l'autre ?</p>
+        <details class="correction"><summary>Réponse</summary><p><strong>margin</strong> : c'est l'espace à l'extérieur de la boîte.</p></details></div>
+      <div class="exercice"><p><strong>2.</strong> Tu as écrit une règle mais rien ne change. Cite 3 causes possibles.</p>
+        <details class="correction"><summary>Réponse</summary><p>Fichier non enregistré ou page non rafraîchie ; <code>&lt;link&gt;</code> avec un mauvais chemin ; règle plus spécifique ailleurs (cascade) ; faute de frappe ou <code>;</code> manquant. F12 › Styles pour trancher.</p></details></div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>Je relie un fichier CSS et j'écris une règle sans erreur.</li>
+        <li>J'utilise les sélecteurs de balise, de classe, descendant et <code>:hover</code>.</li>
+        <li>Je choisis couleurs, unités (<code>rem</code>) et polices.</li>
+        <li>Je sais la différence entre padding, border et margin.</li>
+        <li>Je comprends la cascade et je débogue avec F12 › Styles.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p><code>git commit -m "Termine la leçon 1.3 : style de la page À propos et classe mise-en-avant"</code> → <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-2-liens-images-listes.html">← 1.2 : Liens et listes</a>
+        <a class="bouton" href="1-4-flexbox-grid.html">Leçon 1.4 : Flexbox et grid →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

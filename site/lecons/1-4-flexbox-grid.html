@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.4 · Flexbox et grid — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Leçon 1.4</div>
+      <span class="etiquette">Leçon 1.4 · environ 3 h</span>
+      <h1>CSS : flexbox et grid</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> placer des éléments côte à côte, les aligner et les espacer avec <strong>flexbox</strong>,
+        et construire des grilles de cartes avec <strong>grid</strong>. Ce sont les deux outils de mise en page du web moderne.
+      </div>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Le flux normal : <code>block</code> et <code>inline</code></h3>
+        <p>Sans CSS de mise en page, les éléments suivent le « flux » :</p>
+        <table>
+          <tr><th>Type</th><th>Comportement</th><th>Exemples</th></tr>
+          <tr><td><strong>block</strong></td><td>prend toute la largeur, empile les uns sous les autres</td><td><code>div</code>, <code>p</code>, <code>h1</code>, <code>section</code>, <code>ul</code></td></tr>
+          <tr><td><strong>inline</strong></td><td>reste dans la ligne de texte, ne prend que sa largeur</td><td><code>a</code>, <code>strong</code>, <code>em</code>, <code>span</code>, <code>img</code></td></tr>
+        </table>
+        <p><code>&lt;div&gt;</code> (bloc) et <code>&lt;span&gt;</code> (en ligne) sont des boîtes <strong>sans sens</strong> : on les utilise seulement pour la mise en page ou le style,
+          quand aucune balise sémantique ne convient.</p>
+        <p>Pour mettre des blocs côte à côte, on change le <code>display</code> du <strong>parent</strong> : <code>flex</code> ou <code>grid</code>.</p>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Flexbox : aligner sur une ligne</h3>
+        <h4>C'est quoi ?</h4>
+        <p><code>display: flex</code> sur un parent range ses <strong>enfants directs</strong> sur une ligne (ou une colonne), et permet de les aligner et de les espacer.</p>
+        <h4>Comment l'écrire</h4>
+        <pre><code>.menu {
+  display: flex;                    <span class="commentaire">/* les enfants se mettent en ligne */</span>
+  flex-direction: row;              <span class="commentaire">/* row (ligne, par défaut) ou column (colonne) */</span>
+  justify-content: space-between;   <span class="commentaire">/* répartition sur l'axe principal (horizontal en row) */</span>
+  align-items: center;              <span class="commentaire">/* alignement sur l'autre axe (vertical en row) */</span>
+  gap: 16px;                        <span class="commentaire">/* espace entre les enfants */</span>
+  flex-wrap: wrap;                  <span class="commentaire">/* passe à la ligne si pas assez de place */</span>
+}</code></pre>
+        <table>
+          <tr><th><code>justify-content</code></th><th>Effet</th></tr>
+          <tr><td><code>flex-start</code></td><td>tout au début</td></tr>
+          <tr><td><code>center</code></td><td>tout au centre</td></tr>
+          <tr><td><code>space-between</code></td><td>le 1er au début, le dernier à la fin, l'espace réparti entre</td></tr>
+          <tr><td><code>flex-end</code></td><td>tout à la fin</td></tr>
+        </table>
+        <p>Sur un <strong>enfant</strong> : <code>flex: 1</code> le fait grandir pour prendre la place restante.</p>
+        <h4>Quand l'utiliser ?</h4>
+        <p>Pour <strong>une ligne ou une colonne</strong> d'éléments : un menu, un en-tête (logo à gauche, liens à droite), des boutons, une carte avec une icône et un texte.
+          Va voir <code>.entete .conteneur</code> dans <code>site/css/style.css</code> : c'est un flexbox.</p>
+        <h4>Centrer parfaitement</h4>
+        <pre><code>.centre-tout { display: flex; justify-content: center; align-items: center; min-height: 100vh; }</code></pre>
+        <ul class="erreurs">
+          <li>Mettre <code>display: flex</code> sur les enfants au lieu du <strong>parent</strong>.</li>
+          <li>Confondre les axes : en <code>column</code>, <code>justify-content</code> devient vertical.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Grid : des lignes ET des colonnes</h3>
+        <h4>Comment l'écrire</h4>
+        <pre><code>.galerie {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;    <span class="commentaire">/* 3 colonnes égales (fr = une part de l'espace libre) */</span>
+  gap: 18px;
+}
+
+<span class="commentaire">/* La recette magique, sans media query : autant de colonnes que possible, de 260px minimum */</span>
+.grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+<span class="commentaire">/* Un enfant qui prend 2 colonnes */</span>
+.vedette { grid-column: span 2; }</code></pre>
+        <p>La classe <code>.grille</code> de ton site utilise exactement cette recette : c'est pour ça que les cartes passent de 3 colonnes sur ordinateur à 1 sur téléphone.</p>
+        <h4>Flexbox ou grid ?</h4>
+        <table>
+          <tr><th>Situation</th><th>Outil</th></tr>
+          <tr><td>Une rangée de liens, de boutons</td><td>flexbox</td></tr>
+          <tr><td>Aligner des éléments dans un en-tête</td><td>flexbox</td></tr>
+          <tr><td>Une galerie, une grille de cartes</td><td>grid</td></tr>
+          <tr><td>La mise en page d'une page entière (colonnes)</td><td>grid</td></tr>
+        </table>
+      </section>
+
+      <!-- ===================== EXERCICES ===================== -->
+      <h2>Exercices</h2>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Une barre de navigation</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> <code>exercices/module-1-4/nav.html</code> + <code>nav.css</code> : un <code>header</code> avec un logo texte à gauche et 3 liens à droite,
+            alignés verticalement au centre, avec 20px entre les liens et un fond sombre.</p>
+        </div>
+        <details class="indice"><summary>Indice</summary>
+          <p>Deux flexbox : le <code>header</code> (logo / nav, <code>space-between</code>) et le <code>nav</code> (les liens, <code>gap</code>).</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;header class="barre"&gt;
+  &lt;a class="logo" href="#"&gt;MonSite&lt;/a&gt;
+  &lt;nav class="liens"&gt;
+    &lt;a href="#"&gt;Accueil&lt;/a&gt;
+    &lt;a href="#"&gt;Projets&lt;/a&gt;
+    &lt;a href="#"&gt;Contact&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+          <pre><code>.barre {
+  display: flex;
+  justify-content: space-between;   /* logo à gauche, nav à droite */
+  align-items: center;
+  padding: 16px 24px;
+  background: #1e1e2e;
+}
+.liens { display: flex; gap: 20px; }
+.barre a { color: #ffffff; text-decoration: none; }
+.logo { font-weight: 700; }</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Une grille de compétences</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> <code>exercices/module-1-4/competences.html</code> + css : 6 cartes (titre + phrase) dans une grille qui affiche
+            3 colonnes sur grand écran et passe automatiquement à 2 puis 1 quand on rétrécit la fenêtre, <strong>sans media query</strong>.</p>
+        </div>
+        <details class="indice"><summary>Indice</summary><p>La « recette magique » de la notion 3.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;main class="competences"&gt;
+  &lt;article class="competence"&gt;&lt;h2&gt;HTML&lt;/h2&gt;&lt;p&gt;Structurer une page.&lt;/p&gt;&lt;/article&gt;
+  &lt;article class="competence"&gt;&lt;h2&gt;CSS&lt;/h2&gt;&lt;p&gt;La mettre en forme.&lt;/p&gt;&lt;/article&gt;
+  &lt;!-- … 4 autres --&gt;
+&lt;/main&gt;</code></pre>
+          <pre><code>.competences {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 24px;
+}
+.competence {
+  background: #ffffff;
+  border: 1px solid #e3e0d8;
+  border-radius: 12px;
+  padding: 18px;
+}</code></pre>
+        </details>
+      </div>
+
+      <h2>🔧 Ajout au site</h2>
+      <div class="exercice">
+        <h3>La carte « vedette » du portfolio</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>style.css</code>, une classe <code>.carte-vedette</code> qui fait occuper <strong>2 colonnes</strong> à une carte dans <code>.grille</code>,
+            appliquée à la carte « Ce site de formation » du portfolio.</p>
+        </div>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>/* Ma contribution (leçon 1.4) */
+.carte-vedette { grid-column: span 2; }
+
+@media (max-width: 600px) {
+  .carte-vedette { grid-column: auto; }   /* sur téléphone, une seule colonne : pas de span */
+}</code></pre>
+          <pre><code>&lt;div class="carte carte-vedette"&gt; … &lt;/div&gt;</code></pre>
+          <p>Le <code>@media</code> sera expliqué en leçon 1.5 : sans lui, sur téléphone, la carte déborderait.</p>
+        </details>
+      </div>
+
+      <h2>🤖 Refais-le avec l'IA</h2>
+      <div class="exercice">
+        <div class="attendu"><p><strong>Ce qu'on attend de toi :</strong> demander à Claude la même barre de navigation, puis lui demander : « Pourquoi as-tu choisi flexbox et pas grid ici ? » Compare avec le tableau de la notion 3.</p></div>
+      </div>
+
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice"><p><strong>1.</strong> Sur quel élément met-on <code>display: flex</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Sur le <strong>parent</strong> : ce sont ses enfants directs qui se rangent.</p></details></div>
+      <div class="exercice"><p><strong>2.</strong> Que veut dire <code>1fr</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Une « fraction » de l'espace disponible : <code>1fr 2fr</code> = la 2e colonne est deux fois plus large.</p></details></div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>Je fais la différence entre block et inline, et je sais quand utiliser div et span.</li>
+        <li>J'aligne et j'espace des éléments avec flexbox.</li>
+        <li>Je crée une grille responsive avec <code>repeat(auto-fill, minmax(…))</code>.</li>
+        <li>Je choisis entre flexbox et grid.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p><code>git commit -m "Termine la leçon 1.4 : navigation flex, grille de compétences, carte vedette"</code> → <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-3-css-bases.html">← 1.3 : CSS</a>
+        <a class="bouton" href="1-5-responsive-variables.html">Leçon 1.5 : Responsive →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

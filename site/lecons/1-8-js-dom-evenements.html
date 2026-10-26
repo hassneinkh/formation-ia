@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.8 · Le DOM et les événements — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Leçon 1.8</div>
+      <span class="etiquette">Leçon 1.8 · environ 4 h</span>
+      <h1>JavaScript : le DOM et les événements</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> faire réagir une page. Trouver des éléments HTML depuis JavaScript, changer leur texte et leur style,
+        en créer de nouveaux, réagir aux clics et à la saisie, et mémoriser des données dans le navigateur.
+        Après cette leçon, tu pourras lire et comprendre <code>site/js/main.js</code> en entier.
+      </div>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Le DOM : la page vue par JavaScript</h3>
+        <h4>C'est quoi ?</h4>
+        <p>Quand le navigateur lit ton HTML, il construit un <strong>arbre d'objets</strong> : le <strong>DOM</strong> (<em>Document Object Model</em>).
+          Chaque balise devient un objet que JavaScript peut lire et modifier. Si JavaScript modifie le DOM, la page change à l'écran, immédiatement.</p>
+        <pre><code>document                     <span class="commentaire">← la page entière (l'objet de départ)</span>
+└─ html
+   ├─ head
+   └─ body
+      ├─ header
+      │  └─ h1  "Ma page"
+      └─ main
+         ├─ p   "Bonjour"
+         └─ button "Clique-moi"</code></pre>
+        <p>Tu vois ce même arbre dans F12 › Elements. C'est le DOM <strong>en direct</strong> : si JavaScript le change, l'onglet Elements change aussi.</p>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Trouver des éléments : <code>querySelector</code></h3>
+        <h4>Comment l'écrire</h4>
+        <pre><code><span class="commentaire">// UN élément : le premier qui correspond (même syntaxe que les sélecteurs CSS !)</span>
+const titre = document.querySelector("h1");
+const bouton = document.querySelector("#valider");      <span class="commentaire">// par id</span>
+const carte = document.querySelector(".carte");         <span class="commentaire">// la première .carte</span>
+
+<span class="commentaire">// TOUS les éléments qui correspondent : une liste</span>
+const cartes = document.querySelectorAll(".carte");
+console.log(cartes.length);                             <span class="commentaire">// combien il y en a</span>
+cartes.forEach((c) =&gt; console.log(c));                 <span class="commentaire">// on la parcourt comme un tableau</span></code></pre>
+        <h4>Quand utiliser lequel ?</h4>
+        <ul>
+          <li><code>querySelector</code> : pour <strong>un</strong> élément précis (souvent avec un id ou une classe unique).</li>
+          <li><code>querySelectorAll</code> : pour agir sur <strong>plusieurs</strong> éléments (tous les liens du menu, toutes les leçons).</li>
+        </ul>
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>Cannot read properties of null</code> → <code>querySelector</code> n'a rien trouvé (renvoie <code>null</code>) : faute dans le sélecteur, oubli du <code>.</code> ou du <code>#</code>,
+            ou script chargé <em>avant</em> le HTML (mets <code>&lt;script&gt;</code> juste avant <code>&lt;/body&gt;</code>).</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Modifier : texte, classes, attributs</h3>
+        <h4>Comment l'écrire</h4>
+        <pre><code>const titre = document.querySelector("h1");
+
+titre.textContent = "Nouveau titre";        <span class="commentaire">// change le TEXTE</span>
+
+titre.classList.add("important");           <span class="commentaire">// ajoute une classe CSS</span>
+titre.classList.remove("important");        <span class="commentaire">// l'enlève</span>
+titre.classList.toggle("important");        <span class="commentaire">// l'ajoute si absente, l'enlève si présente (interrupteur)</span>
+titre.classList.contains("important");      <span class="commentaire">// → true / false</span>
+
+const lien = document.querySelector("a");
+lien.setAttribute("href", "parcours.html"); <span class="commentaire">// change un attribut</span>
+lien.getAttribute("href");                  <span class="commentaire">// le lit</span></code></pre>
+        <h4>Quand utiliser quoi ?</h4>
+        <ul>
+          <li><strong>Changer l'apparence → <code>classList</code></strong>, jamais le style directement. Le style reste dans le CSS, JavaScript ne fait qu'ajouter/enlever des classes.</li>
+          <li><strong>Changer du texte → <code>textContent</code></strong>.</li>
+          <li><code>innerHTML</code> permet d'écrire du HTML (<code>el.innerHTML = "&lt;strong&gt;Hi&lt;/strong&gt;"</code>), mais <strong>jamais avec un texte tapé par un utilisateur</strong> :
+            il pourrait y glisser du code malveillant (faille XSS). Avec du texte utilisateur : <code>textContent</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Créer et supprimer des éléments</h3>
+        <pre><code>const liste = document.querySelector("#liste");
+
+const nouvel = document.createElement("li");   <span class="commentaire">// 1. créer (il n'est pas encore sur la page)</span>
+nouvel.textContent = "Acheter du pain";       <span class="commentaire">// 2. le remplir</span>
+nouvel.classList.add("tache");
+liste.appendChild(nouvel);                    <span class="commentaire">// 3. l'ajouter à la fin de la liste → il apparaît</span>
+
+nouvel.remove();                              <span class="commentaire">// le supprimer de la page</span>
+liste.innerHTML = "";                         <span class="commentaire">// vider complètement un élément</span></code></pre>
+        <h4>Le schéma classique : afficher un tableau de données</h4>
+        <pre><code>const villes = ["Bruxelles", "Liège", "Gand"];
+const ul = document.querySelector("#villes");
+
+function afficherVilles() {
+  ul.innerHTML = "";                         <span class="commentaire">// 1. on vide</span>
+  for (const ville of villes) {             <span class="commentaire">// 2. on recrée un li par donnée</span>
+    const li = document.createElement("li");
+    li.textContent = ville;
+    ul.appendChild(li);
+  }
+}
+afficherVilles();</code></pre>
+        <p><strong>Retiens ce schéma « données → affichage »</strong> : les données (le tableau) sont la vérité ; on vide et on redessine.
+          React (Phase 3) fait exactement ça… automatiquement.</p>
+      </section>
+
+      <!-- ===================== NOTION 5 ===================== -->
+      <section class="notion">
+        <h3>Notion 5 — Les événements : réagir à l'utilisateur</h3>
+        <h4>C'est quoi ?</h4>
+        <p>Un <strong>événement</strong> est quelque chose qui se passe : un clic, une touche, une saisie, un défilement. Tu peux « écouter » un événement
+          et lancer une fonction quand il arrive.</p>
+        <h4>Comment l'écrire</h4>
+        <pre><code>const bouton = document.querySelector("#mon-bouton");
+
+bouton.addEventListener("click", () =&gt; {     <span class="commentaire">// "quand on clique sur le bouton, fais ceci"</span>
+  console.log("Cliqué !");
+});
+<span class="commentaire">//                       ↑ le type d'événement   ↑ la fonction à lancer</span></code></pre>
+        <table>
+          <tr><th>Événement</th><th>Quand</th><th>Exemple d'usage</th></tr>
+          <tr><td><code>click</code></td><td>clic sur l'élément</td><td>boutons, cases à cocher</td></tr>
+          <tr><td><code>input</code></td><td>chaque changement dans un champ</td><td>recherche en direct, compteur de caractères</td></tr>
+          <tr><td><code>change</code></td><td>case cochée/décochée, choix validé</td><td>cases à cocher, listes déroulantes</td></tr>
+          <tr><td><code>submit</code></td><td>envoi d'un formulaire</td><td>formulaires (leçon 1.10)</td></tr>
+          <tr><td><code>keydown</code></td><td>une touche enfoncée</td><td>raccourcis clavier</td></tr>
+          <tr><td><code>scroll</code></td><td>défilement de la page</td><td>bouton « haut de page »</td></tr>
+        </table>
+        <h4>L'objet événement et la valeur d'un champ</h4>
+        <pre><code>const champ = document.querySelector("#prenom");     <span class="commentaire">// un &lt;input id="prenom"&gt;</span>
+const apercu = document.querySelector("#apercu");
+
+champ.addEventListener("input", (evenement) =&gt; {    <span class="commentaire">// la fonction reçoit l'événement</span>
+  apercu.textContent = `Bonjour ${champ.value}`;     <span class="commentaire">// .value = ce qui est écrit dans le champ</span>
+});</code></pre>
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>addEventListener("click", direBonjour())</code> avec des parenthèses : la fonction s'exécute <strong>tout de suite</strong>, une seule fois.
+            Il faut donner la fonction elle-même : <code>addEventListener("click", direBonjour)</code>.</li>
+          <li><code>"onclick"</code> au lieu de <code>"click"</code> : avec <code>addEventListener</code>, pas de « on ».</li>
+          <li><code>champ.value</code> est toujours du <strong>texte</strong>, même si on tape un nombre → <code>Number(champ.value)</code> pour calculer.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 6 ===================== -->
+      <section class="notion">
+        <h3>Notion 6 — Mémoriser : <code>localStorage</code></h3>
+        <h4>C'est quoi ?</h4>
+        <p>Une petite mémoire du navigateur, propre à ton site, qui <strong>survit au rechargement et à la fermeture</strong> de la page. Elle stocke uniquement du <strong>texte</strong>.</p>
+        <h4>Comment l'écrire</h4>
+        <pre><code>localStorage.setItem("prenom", "Hassnein");          <span class="commentaire">// enregistrer (clé, valeur)</span>
+const prenom = localStorage.getItem("prenom");       <span class="commentaire">// lire → "Hassnein" (ou null si rien)</span>
+localStorage.removeItem("prenom");                   <span class="commentaire">// effacer</span>
+
+<span class="commentaire">// Pour un tableau ou un objet : JSON (leçon 1.7)</span>
+const taches = ["Leçon 1.8", "Commit"];
+localStorage.setItem("taches", JSON.stringify(taches));            <span class="commentaire">// tableau → texte</span>
+const relues = JSON.parse(localStorage.getItem("taches")) || [];   <span class="commentaire">// texte → tableau ; [] si rien encore</span></code></pre>
+        <h4>Quand l'utiliser ?</h4>
+        <ul>
+          <li>✅ Préférences et petites données personnelles : thème choisi, cases cochées, brouillons, ta progression.</li>
+          <li>❌ Données importantes ou partagées : elles restent sur <em>ce</em> navigateur, <em>cet</em> ordinateur, et disparaissent si on vide les données du site.
+            Pour ça : une base de données (Supabase, Phase 3).</li>
+          <li>❌ Jamais de mot de passe ni de donnée sensible.</li>
+        </ul>
+        <p>Voir le contenu : F12 › onglet <em>Application</em> (ou <em>Stockage</em>) › <em>Local Storage</em>.</p>
+      </section>
+
+      <!-- ===================== NOTION 7 ===================== -->
+      <section class="notion">
+        <h3>Notion 7 — Relire <code>site/js/main.js</code></h3>
+        <p>Tu as maintenant tout ce qu'il faut. Le code de départ du site :</p>
+        <pre><code>const pageActuelle = window.location.pathname.split("/").pop() || "index.html";
+<span class="commentaire">// window.location.pathname = l'adresse de la page, ex. "/site/parcours.html"</span>
+<span class="commentaire">// .split("/") = découpe en tableau à chaque "/" → ["", "site", "parcours.html"]</span>
+<span class="commentaire">// .pop() = prend le dernier élément → "parcours.html" ; || "index.html" si c'est vide</span>
+
+const liensMenu = document.querySelectorAll(".nav a");     <span class="commentaire">// tous les liens du menu (notion 2)</span>
+
+liensMenu.forEach(function (lien) {                         <span class="commentaire">// pour chaque lien…</span>
+  const cible = lien.getAttribute("href").split("/").pop(); <span class="commentaire">// …le nom du fichier visé (notion 3)</span>
+  if (cible === pageActuelle) {                             <span class="commentaire">// si c'est la page actuelle…</span>
+    lien.classList.add("actif");                            <span class="commentaire">// …on ajoute la classe "actif" (le CSS la colore)</span>
+  }
+});</code></pre>
+      </section>
+
+      <!-- ===================== EXERCICES ===================== -->
+      <h2>Exercices</h2>
+      <div class="encadre">
+        <p><strong>Préparation :</strong> <code>exercices/module-1-8/</code> avec un <code>index.html</code>, un <code>style.css</code> et un <code>script.js</code>, tous reliés.
+          Chaque exercice ajoute un bout de HTML dans <code>index.html</code> et le code correspondant dans <code>script.js</code>.</p>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Le compteur de clics</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un texte « Clics : 0 » et deux boutons « +1 » et « Remettre à zéro ».
+            Le texte se met à jour à chaque clic. À partir de 10 clics, le texte devient rouge (via une classe CSS <code>.beaucoup</code>).</p>
+        </div>
+        <details class="indice"><summary>Indice 1</summary><p>Un <code>let compteur = 0;</code> pour la donnée, et une fonction <code>afficher()</code> qui met à jour le texte et la classe.</p></details>
+        <details class="indice"><summary>Indice 2</summary><p>Pour la classe : <code>classList.toggle("beaucoup", compteur &gt;= 10)</code> — avec un 2e argument, <code>toggle</code> ajoute si c'est vrai et enlève si c'est faux.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;p id="affichage"&gt;Clics : 0&lt;/p&gt;
+&lt;button id="plus"&gt;+1&lt;/button&gt;
+&lt;button id="reset"&gt;Remettre à zéro&lt;/button&gt;</code></pre>
+          <pre><code>.beaucoup { color: #e11d48; font-weight: 700; }</code></pre>
+          <pre><code>// 1. Les éléments
+const affichage = document.querySelector("#affichage");
+const boutonPlus = document.querySelector("#plus");
+const boutonReset = document.querySelector("#reset");
+
+// 2. La donnée
+let compteur = 0;
+
+// 3. L'affichage : met la page en accord avec la donnée
+function afficher() {
+  affichage.textContent = `Clics : ${compteur}`;
+  affichage.classList.toggle("beaucoup", compteur &gt;= 10);
+}
+
+// 4. Les événements : changent la donnée, puis réaffichent
+boutonPlus.addEventListener("click", () =&gt; {
+  compteur++;
+  afficher();
+});
+
+boutonReset.addEventListener("click", () =&gt; {
+  compteur = 0;
+  afficher();
+});</code></pre>
+          <p><strong>Le schéma à retenir</strong> (le même dans tous les exercices) : <strong>éléments → donnée → fonction d'affichage → événements qui modifient la donnée et réaffichent</strong>.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — L'aperçu de carte de visite</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> deux champs (<code>&lt;input&gt;</code>) « Prénom » et « Métier », et une carte qui affiche en direct
+            « Hassnein — Développeur web » pendant la saisie. Sous les champs : « 12 / 30 caractères » pour le métier.</p>
+        </div>
+        <details class="indice"><summary>Indice</summary><p>Événement <code>input</code> sur chaque champ, <code>.value</code> pour lire, <code>.length</code> pour compter les caractères d'un texte.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;label for="prenom"&gt;Prénom&lt;/label&gt;
+&lt;input id="prenom" type="text"&gt;
+&lt;label for="metier"&gt;Métier&lt;/label&gt;
+&lt;input id="metier" type="text" maxlength="30"&gt;
+&lt;p id="compteur-metier"&gt;0 / 30 caractères&lt;/p&gt;
+&lt;div class="carte-visite"&gt;&lt;p id="apercu"&gt;Ton nom — ton métier&lt;/p&gt;&lt;/div&gt;</code></pre>
+          <pre><code>const champPrenom = document.querySelector("#prenom");
+const champMetier = document.querySelector("#metier");
+const apercu = document.querySelector("#apercu");
+const compteurMetier = document.querySelector("#compteur-metier");
+
+function mettreAJour() {
+  const prenom = champPrenom.value || "Ton nom";     // || : texte par défaut si le champ est vide
+  const metier = champMetier.value || "ton métier";
+  apercu.textContent = `${prenom} — ${metier}`;      // textContent : sûr avec du texte tapé
+  compteurMetier.textContent = `${champMetier.value.length} / 30 caractères`;
+}
+
+champPrenom.addEventListener("input", mettreAJour);  // sans parenthèses : on DONNE la fonction
+champMetier.addEventListener("input", mettreAJour);</code></pre>
+          <p><code>&lt;label for="…"&gt;</code> relie le texte au champ (cliquer sur le texte active le champ) : important pour l'accessibilité. On le reverra en 1.10.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 3 — La liste de tâches qui se souvient</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un champ, un bouton « Ajouter » et une liste <code>&lt;ul&gt;</code>.</p>
+          <ul>
+            <li>« Ajouter » crée une tâche (ignorer si le champ est vide), vide le champ ;</li>
+            <li>chaque tâche a un bouton « ✕ » qui la supprime ;</li>
+            <li>après un rechargement de la page (<code>F5</code>), <strong>les tâches sont toujours là</strong>.</li>
+          </ul>
+        </div>
+        <p><strong>Comment vérifier :</strong> ajoute 3 tâches, supprime la 2e, recharge : il en reste 2. F12 › Application › Local Storage montre la clé <code>taches</code>.</p>
+        <details class="indice"><summary>Indice 1 : l'organisation</summary>
+          <p>Un tableau <code>taches</code> (la donnée), une fonction <code>sauvegarder()</code> (tableau → localStorage), une fonction <code>afficher()</code> (tableau → page).
+            Chaque action modifie le tableau, puis appelle <code>sauvegarder()</code> et <code>afficher()</code>.</p></details>
+        <details class="indice"><summary>Indice 2 : supprimer</summary>
+          <p>Dans <code>afficher()</code>, en créant le bouton ✕ de la tâche numéro <code>i</code>, ajoute-lui un écouteur qui fait <code>taches.splice(i, 1)</code> (retire 1 élément à la position i).</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;input id="nouvelle-tache" type="text" placeholder="Nouvelle tâche"&gt;
+&lt;button id="ajouter"&gt;Ajouter&lt;/button&gt;
+&lt;ul id="liste-taches"&gt;&lt;/ul&gt;</code></pre>
+          <pre><code>// 1. Les éléments
+const champ = document.querySelector("#nouvelle-tache");
+const boutonAjouter = document.querySelector("#ajouter");
+const liste = document.querySelector("#liste-taches");
+
+// 2. La donnée : relue depuis la mémoire du navigateur, ou un tableau vide
+let taches = JSON.parse(localStorage.getItem("taches")) || [];
+
+// 3. Enregistrer
+function sauvegarder() {
+  localStorage.setItem("taches", JSON.stringify(taches));
+}
+
+// 4. Afficher : on vide, puis on recrée un &lt;li&gt; par tâche
+function afficher() {
+  liste.innerHTML = "";
+  taches.forEach((tache, i) =&gt; {          // forEach donne aussi la position i
+    const li = document.createElement("li");
+    li.textContent = tache;
+
+    const boutonSuppr = document.createElement("button");
+    boutonSuppr.textContent = "✕";
+    boutonSuppr.addEventListener("click", () =&gt; {
+      taches.splice(i, 1);                 // retire la tâche n° i du tableau
+      sauvegarder();
+      afficher();
+    });
+
+    li.appendChild(boutonSuppr);
+    liste.appendChild(li);
+  });
+}
+
+// 5. Ajouter
+boutonAjouter.addEventListener("click", () =&gt; {
+  const texte = champ.value.trim();        // trim() enlève les espaces au début et à la fin
+  if (texte === "") {
+    return;                                // champ vide : on ne fait rien
+  }
+  taches.push(texte);
+  champ.value = "";
+  sauvegarder();
+  afficher();
+});
+
+// 6. Au chargement de la page : afficher ce qui était mémorisé
+afficher();</code></pre>
+          <p><strong>Félicitations :</strong> tu viens d'écrire une vraie petite application. Le journal (1.10) utilisera exactement cette structure.</p>
+        </details>
+      </div>
+
+      <!-- ===================== AJOUT AU SITE ===================== -->
+      <h2>🔧 Ajout au site (ta part du 50/50)</h2>
+      <div class="exercice">
+        <h3>Le bouton « Haut de page »</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>site/js/main.js</code>, créer <strong>en JavaScript</strong> un bouton « ↑ » ajouté à toutes les pages,
+            fixé en bas à droite, <strong>invisible</strong> en haut de page, qui <strong>apparaît</strong> quand on a défilé de plus de 400px,
+            et qui remonte en haut au clic. Le style est dans <code>site/css/style.css</code>, avec les variables du site.</p>
+        </div>
+        <details class="indice"><summary>Indice 1</summary><p><code>document.createElement("button")</code> puis <code>document.body.appendChild(…)</code>. La position de défilement : <code>window.scrollY</code>.</p></details>
+        <details class="indice"><summary>Indice 2</summary><p>Une classe <code>.visible</code> ajoutée/retirée avec <code>classList.toggle("visible", window.scrollY &gt; 400)</code> dans un écouteur <code>scroll</code> sur <code>window</code>.
+          Pour remonter : <code>window.scrollTo({ top: 0, behavior: "smooth" })</code>.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>// Ma contribution (leçon 1.8) : bouton "haut de page"
+const boutonHaut = document.createElement("button");
+boutonHaut.textContent = "↑";
+boutonHaut.className = "bouton-haut";
+boutonHaut.setAttribute("aria-label", "Revenir en haut de la page");   // texte lu par les lecteurs d'écran
+document.body.appendChild(boutonHaut);
+
+window.addEventListener("scroll", () =&gt; {
+  boutonHaut.classList.toggle("visible", window.scrollY &gt; 400);
+});
+
+boutonHaut.addEventListener("click", () =&gt; {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});</code></pre>
+          <pre><code>/* Ma contribution (leçon 1.8) */
+.bouton-haut {
+  position: fixed;          /* reste au même endroit de l'écran pendant le défilement */
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0;               /* invisible… */
+  pointer-events: none;     /* …et non cliquable */
+  transition: opacity .2s;
+}
+.bouton-haut.visible {
+  opacity: 1;
+  pointer-events: auto;
+}</code></pre>
+        </details>
+      </div>
+
+      <!-- ===================== IA ===================== -->
+      <h2>🤖 Refais-le avec l'IA</h2>
+      <div class="exercice">
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> faire construire par l'IA une version améliorée de ta liste de tâches, <strong>par étapes</strong>, comme un chef de projet.</p>
+        </div>
+        <ol>
+          <li>Écris une mini-spécification : « Contexte : leçon 1.8, j'ai fait une liste de tâches avec localStorage (fichier joint). Objectif : ajoute (1) une case pour marquer une tâche comme faite, barrée quand elle est cochée, (2) un compteur "3 tâches restantes". Contraintes : garde ma structure (données → sauvegarder → afficher), JavaScript sans framework, commentaires en français. Critère : tout est mémorisé après F5. »</li>
+          <li>Demande-lui de faire <strong>une fonctionnalité à la fois</strong>, et teste entre chaque.</li>
+          <li>Pour chaque changement, demande-toi : « Est-ce que je saurais l'écrire moi-même maintenant ? » Sinon, demande une explication.</li>
+        </ol>
+        <details class="correction"><summary>Ce qu'il faut remarquer</summary>
+          <p>Les tâches deviennent des <strong>objets</strong> (<code>{ texte, faite }</code>) au lieu de simples textes : c'est le passage de la 1.7 à un vrai modèle de données.
+            Découper le travail en petites étapes testées, c'est <strong>la</strong> méthode pour construire avec l'IA (Phase 4).</p></details>
+      </div>
+
+      <!-- ===================== QUESTIONS ===================== -->
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice"><p><strong>1.</strong> <code>document.querySelector(".menu")</code> renvoie <code>null</code>. Cite 2 causes possibles.</p>
+        <details class="correction"><summary>Réponse</summary><p>Aucun élément n'a la classe <code>menu</code> (faute, ou oubli du point) ; ou le script s'exécute avant que le HTML soit chargé (balise <code>script</code> mal placée).</p></details></div>
+      <div class="exercice"><p><strong>2.</strong> Pour rendre un élément rouge depuis JavaScript, que fais-tu ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Je crée une classe dans le CSS et je l'ajoute avec <code>classList.add(…)</code>. Le style reste dans le CSS.</p></details></div>
+      <div class="exercice"><p><strong>3.</strong> Pourquoi <code>JSON.stringify</code> avant <code>localStorage.setItem</code> pour un tableau ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Parce que localStorage ne stocke que du texte : on transforme le tableau en texte, puis <code>JSON.parse</code> pour le relire.</p></details></div>
+      <div class="exercice"><p><strong>4.</strong> Pourquoi <code>textContent</code> plutôt que <code>innerHTML</code> pour afficher ce qu'un visiteur a tapé ?</p>
+        <details class="correction"><summary>Réponse</summary><p><code>innerHTML</code> interprète le HTML : un visiteur pourrait injecter du code malveillant. <code>textContent</code> affiche le texte tel quel.</p></details></div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>Je sais ce qu'est le DOM et je le vois dans F12.</li>
+        <li>Je trouve des éléments avec <code>querySelector</code> / <code>querySelectorAll</code>.</li>
+        <li>Je change un texte et des classes, je lis et modifie des attributs.</li>
+        <li>Je crée, ajoute et supprime des éléments.</li>
+        <li>J'écoute des événements (<code>click</code>, <code>input</code>, <code>scroll</code>) et je lis <code>.value</code>.</li>
+        <li>Je mémorise un tableau avec <code>localStorage</code> et JSON.</li>
+        <li>Je comprends chaque ligne de <code>site/js/main.js</code>.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p><code>git commit -m "Termine la leçon 1.8 : compteur, liste de tâches et bouton haut de page"</code> → <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-7-js-fonctions-tableaux-objets.html">← 1.7 : Fonctions, tableaux, objets</a>
+        <a class="bouton" href="1-9-projet-progression.html">Projet 1.9 : la progression →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

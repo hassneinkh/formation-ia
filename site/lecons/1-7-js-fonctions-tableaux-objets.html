@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.7 · Fonctions, tableaux et objets — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Leçon 1.7</div>
+      <span class="etiquette">Leçon 1.7 · environ 4 h</span>
+      <h1>JavaScript : fonctions, tableaux et objets</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> ranger ton code dans des fonctions réutilisables, manipuler des listes de données (tableaux)
+        et des fiches d'information (objets). Avec ces trois outils, tu peux représenter un vrai panier e-commerce, une liste de leçons ou de notes.
+        C'est aussi exactement ce que React utilise partout.
+      </div>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Les fonctions : des recettes réutilisables</h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Une fonction est une <strong>recette</strong> avec un nom : tu l'écris une fois, puis tu l'utilises (tu l'« appelles ») autant de fois que tu veux,
+          avec des ingrédients différents.</p>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code><span class="commentaire">// 1. DÉCLARER la fonction (écrire la recette)</span>
+function calculerTTC(prixHT, taux) {       <span class="commentaire">// prixHT et taux = les PARAMÈTRES (les ingrédients)</span>
+  const tva = prixHT * taux / 100;
+  return prixHT + tva;                     <span class="commentaire">// return = le résultat que la fonction RENVOIE</span>
+}
+
+<span class="commentaire">// 2. APPELER la fonction (cuisiner) avec des ARGUMENTS (les vraies valeurs)</span>
+const prix1 = calculerTTC(100, 21);        <span class="commentaire">// → 121</span>
+const prix2 = calculerTTC(50, 6);          <span class="commentaire">// → 53</span>
+console.log(prix1, prix2);</code></pre>
+
+        <h4>La version courte : la fonction fléchée</h4>
+        <pre><code>const calculerTTC = (prixHT, taux) =&gt; {
+  return prixHT + prixHT * taux / 100;
+};
+
+<span class="commentaire">// Si le corps tient en UNE expression : encore plus court, le return est implicite</span>
+const doubler = (n) =&gt; n * 2;
+console.log(doubler(4));   <span class="commentaire">// → 8</span></code></pre>
+        <p>Les deux écritures font la même chose. La fonction fléchée est très utilisée en React : apprends à la lire.</p>
+
+        <h4>Quand créer une fonction ?</h4>
+        <ul>
+          <li>✅ Quand tu fais <strong>la même chose à plusieurs endroits</strong> (règle : si tu copies-colles du code, fais-en une fonction).</li>
+          <li>✅ Quand un bloc de code a <strong>un rôle clair</strong> qu'on peut nommer : <code>calculerTotal</code>, <code>afficherMessage</code>, <code>estValide</code>.</li>
+          <li>Nomme-la avec un <strong>verbe</strong> : elle <em>fait</em> quelque chose.</li>
+        </ul>
+
+        <h4><code>return</code> ou <code>console.log</code> ?</h4>
+        <p><code>console.log</code> <strong>affiche</strong> pour toi, développeur. <code>return</code> <strong>renvoie</strong> une valeur que le reste du programme peut utiliser
+          (la ranger dans une variable, l'additionner…). Une fonction de calcul doit presque toujours faire un <code>return</code>.</p>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>Oublier le <code>return</code> : la fonction renvoie <code>undefined</code>.</li>
+          <li>Oublier les parenthèses à l'appel : <code>calculerTTC</code> (la recette elle-même) au lieu de <code>calculerTTC(100, 21)</code> (le résultat).</li>
+          <li>Écrire du code après le <code>return</code> : il n'est jamais exécuté, la fonction s'arrête au <code>return</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Les tableaux : des listes de valeurs</h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Un tableau (<em>array</em>) est une <strong>liste ordonnée</strong> de valeurs, rangée dans une seule variable. Chaque valeur a une position, son <strong>indice</strong>,
+          qui commence à <strong>0</strong>.</p>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>const villes = ["Bruxelles", "Liège", "Gand"];
+<span class="commentaire">//  indice :        0           1        2</span>
+
+console.log(villes[0]);       <span class="commentaire">// → "Bruxelles" (le PREMIER est à l'indice 0)</span>
+console.log(villes.length);   <span class="commentaire">// → 3 (le nombre d'éléments)</span>
+console.log(villes[villes.length - 1]);   <span class="commentaire">// → "Gand" (le dernier)</span>
+
+villes.push("Namur");         <span class="commentaire">// AJOUTE à la fin → ["Bruxelles", "Liège", "Gand", "Namur"]</span>
+villes.includes("Liège");     <span class="commentaire">// → true (est-ce que la liste contient… ?)</span>
+villes.indexOf("Gand");       <span class="commentaire">// → 2 (à quelle position ?)</span></code></pre>
+        <p>Remarque : on peut faire <code>push</code> sur un tableau en <code>const</code>. <code>const</code> empêche de remplacer <em>la boîte</em>, pas d'ajouter dedans.</p>
+
+        <h4>Parcourir un tableau</h4>
+        <pre><code><span class="commentaire">// for...of : « pour chaque ville dans villes »  ← le plus lisible</span>
+for (const ville of villes) {
+  console.log(`J'aime ${ville}`);
+}
+
+<span class="commentaire">// forEach : la même chose, avec une fonction</span>
+villes.forEach((ville) =&gt; console.log(ville));</code></pre>
+
+        <h4>Transformer et filtrer : <code>map</code> et <code>filter</code></h4>
+        <pre><code>const prix = [10, 25, 40, 8];
+
+<span class="commentaire">// map : crée un NOUVEAU tableau en transformant CHAQUE élément</span>
+const prixTTC = prix.map((p) =&gt; p * 1.21);
+<span class="commentaire">// → [12.1, 30.25, 48.4, 9.68]</span>
+
+<span class="commentaire">// filter : crée un NOUVEAU tableau avec seulement les éléments qui passent le test</span>
+const petitsPrix = prix.filter((p) =&gt; p &lt; 20);
+<span class="commentaire">// → [10, 8]</span>
+
+<span class="commentaire">// reduce : réduit tout le tableau à UNE valeur (ici la somme)</span>
+const total = prix.reduce((somme, p) =&gt; somme + p, 0);
+<span class="commentaire">// → 83   (0 = valeur de départ de la somme)</span></code></pre>
+
+        <h4>Quand utiliser quoi ?</h4>
+        <table>
+          <tr><th>Je veux…</th><th>J'utilise</th></tr>
+          <tr><td>faire quelque chose avec chaque élément (afficher…)</td><td><code>for...of</code> ou <code>forEach</code></td></tr>
+          <tr><td>transformer chaque élément en autre chose</td><td><code>map</code> <em>(React l'utilise pour afficher des listes !)</em></td></tr>
+          <tr><td>garder seulement certains éléments</td><td><code>filter</code></td></tr>
+          <tr><td>calculer un total, une moyenne</td><td><code>reduce</code> (ou une boucle avec un <code>let</code>)</td></tr>
+          <tr><td>savoir si un élément existe</td><td><code>includes</code></td></tr>
+        </table>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>villes[3]</code> sur un tableau de 3 éléments → <code>undefined</code> (les indices vont de 0 à 2).</li>
+          <li>Croire que <code>map</code> ou <code>filter</code> modifient le tableau d'origine : ils en créent un <strong>nouveau</strong>. Range le résultat dans une variable.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Les objets : des fiches d'information</h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Un objet regroupe plusieurs informations sur <strong>une même chose</strong>, chacune avec un nom (sa <strong>propriété</strong>). Comme une fiche produit ou une carte d'identité.</p>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>const produit = {
+  nom: "Pizza Margherita",     <span class="commentaire">// propriété: valeur,  ← virgule entre les propriétés</span>
+  prix: 11,
+  vegetarien: true,
+  ingredients: ["tomate", "mozzarella", "basilic"]   <span class="commentaire">// une propriété peut être un tableau</span>
+};
+
+console.log(produit.nom);          <span class="commentaire">// → "Pizza Margherita"  (accès avec un point)</span>
+console.log(produit["prix"]);      <span class="commentaire">// → 11  (accès avec des crochets : utile si le nom est dans une variable)</span>
+produit.prix = 12;                 <span class="commentaire">// modifier une propriété</span>
+produit.enStock = true;            <span class="commentaire">// ajouter une propriété</span></code></pre>
+
+        <h4>Le duo le plus important : un tableau d'objets</h4>
+        <pre><code>const lecons = [
+  { numero: "0.1", titre: "Le terminal", terminee: true },
+  { numero: "0.2", titre: "Git", terminee: true },
+  { numero: "1.6", titre: "JavaScript", terminee: false }
+];
+
+<span class="commentaire">// Combien de leçons terminées ?</span>
+const terminees = lecons.filter((lecon) =&gt; lecon.terminee);
+console.log(`${terminees.length} / ${lecons.length} leçons terminées`);   <span class="commentaire">// → 2 / 3</span>
+
+<span class="commentaire">// La liste des titres</span>
+const titres = lecons.map((lecon) =&gt; lecon.titre);   <span class="commentaire">// → ["Le terminal", "Git", "JavaScript"]</span></code></pre>
+        <p><strong>Retiens cette forme</strong> : presque toutes les données d'une application (produits, utilisateurs, messages, leçons) sont des tableaux d'objets.
+          Quand tu recevras des données d'une API (Phase 2) ou de Supabase (Phase 3), elles auront cette forme.</p>
+
+        <h4>Quand utiliser un tableau ou un objet ?</h4>
+        <ul>
+          <li><strong>Tableau</strong> : une liste de choses du même genre (des villes, des produits). L'ordre compte, on parcourt.</li>
+          <li><strong>Objet</strong> : les caractéristiques d'une seule chose (le nom, le prix… d'un produit). On accède par nom.</li>
+        </ul>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>Oublier la virgule entre deux propriétés → <code>SyntaxError</code>.</li>
+          <li><code>Cannot read properties of undefined (reading 'nom')</code> → tu essaies de lire <code>.nom</code> sur quelque chose qui n'existe pas (par exemple <code>lecons[5].nom</code> sur un tableau de 3).</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Un avant-goût de JSON</h3>
+        <p>Pour <strong>stocker</strong> ou <strong>envoyer</strong> un objet (dans le navigateur, à un serveur), on le transforme en texte au format <strong>JSON</strong> :</p>
+        <pre><code>const texte = JSON.stringify(lecons);   <span class="commentaire">// objet → texte</span>
+<span class="commentaire">// '[{"numero":"0.1","titre":"Le terminal","terminee":true}, …]'</span>
+const retour = JSON.parse(texte);       <span class="commentaire">// texte → objet</span></code></pre>
+        <p>Tu t'en serviras dès la leçon 1.8 pour <strong>mémoriser</strong> des données, puis dans le projet de suivi de progression (1.9).</p>
+      </section>
+
+      <!-- ===================== EXERCICES ===================== -->
+      <h2>Exercices</h2>
+      <div class="encadre">
+        <p><strong>Préparation :</strong> comme en 1.6, crée <code>exercices/module-1-7/index.html</code> et <code>script.js</code>, puis travaille dans la console.</p>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Tes premières fonctions</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> 3 fonctions, chacune avec un <code>return</code>, testées avec <code>console.log</code> :</p>
+          <ul>
+            <li><code>calculerTTC(prixHT, taux)</code> → le prix TTC ;</li>
+            <li><code>estMajeur(age)</code> → <code>true</code> si 18 ans ou plus ;</li>
+            <li><code>formaterPrix(montant)</code> → un texte comme <code>"12.50 €"</code>.</li>
+          </ul>
+          <p>Bonus : combine-les : <code>formaterPrix(calculerTTC(100, 21))</code> → <code>"121.00 €"</code>.</p>
+        </div>
+        <details class="indice"><summary>Indice</summary><p>Une comparaison donne déjà <code>true</code>/<code>false</code> : <code>return age &gt;= 18;</code> suffit, pas besoin de <code>if</code>.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>function calculerTTC(prixHT, taux) {
+  return prixHT + prixHT * taux / 100;
+}
+
+function estMajeur(age) {
+  return age &gt;= 18;                 // la comparaison EST le résultat
+}
+
+const formaterPrix = (montant) =&gt; `${montant.toFixed(2)} €`;   // fléchée, return implicite
+
+console.log(calculerTTC(100, 21));              // → 121
+console.log(estMajeur(19), estMajeur(15));      // → true false
+console.log(formaterPrix(12.5));                // → "12.50 €"
+console.log(formaterPrix(calculerTTC(100, 21))); // → "121.00 €" : le résultat de l'une devient l'argument de l'autre</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Le panier e-commerce</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un tableau <code>panier</code> de 4 objets <code>{ nom, prix, quantite }</code>, puis :</p>
+          <ol>
+            <li>afficher chaque ligne : <code>2 x T-shirt — 39.98 €</code> ;</li>
+            <li>une fonction <code>calculerTotal(panier)</code> qui renvoie le total (prix × quantité pour chaque article) ;</li>
+            <li>la liste des articles à moins de 20 € (avec <code>filter</code>) ;</li>
+            <li>le total TTC formaté avec tes fonctions de l'exercice 1.</li>
+          </ol>
+        </div>
+        <p><strong>Comment vérifier :</strong> calcule le total à la main pour 2 articles et compare.</p>
+        <details class="indice"><summary>Indice 1</summary><p>Pour chaque <code>article</code> du panier : <code>article.prix * article.quantite</code>.</p></details>
+        <details class="indice"><summary>Indice 2</summary><p>Pour le total : un <code>let total = 0;</code> et une boucle <code>for...of</code> qui ajoute, ou un <code>reduce</code>.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>const panier = [
+  { nom: "T-shirt", prix: 19.99, quantite: 2 },
+  { nom: "Casquette", prix: 14.5, quantite: 1 },
+  { nom: "Sweat", prix: 49, quantite: 1 },
+  { nom: "Stickers", prix: 3, quantite: 5 }
+];
+
+// 1. Afficher chaque ligne
+for (const article of panier) {
+  const sousTotal = article.prix * article.quantite;
+  console.log(`${article.quantite} x ${article.nom} — ${sousTotal.toFixed(2)} €`);
+}
+
+// 2. Le total
+function calculerTotal(articles) {
+  let total = 0;
+  for (const article of articles) {
+    total += article.prix * article.quantite;
+  }
+  return total;
+}
+// Version reduce (même résultat) :
+// const calculerTotal = (articles) =&gt; articles.reduce((s, a) =&gt; s + a.prix * a.quantite, 0);
+
+// 3. Les articles à moins de 20 €
+const petitsPrix = panier.filter((article) =&gt; article.prix &lt; 20);
+console.log(petitsPrix.map((article) =&gt; article.nom));   // → ["T-shirt", "Casquette", "Stickers"]
+
+// 4. Total TTC formaté
+const totalHT = calculerTotal(panier);
+console.log(`Total TTC : ${formaterPrix(calculerTTC(totalHT, 21))}`);</code></pre>
+          <p><strong>À retenir :</strong> <code>calculerTotal</code> reçoit le panier en paramètre au lieu de lire directement la variable : elle marche avec <em>n'importe quel</em> panier.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 3 — Les statistiques de ta formation</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un tableau <code>lecons</code> avec les leçons 0.1 à 1.7 (objets <code>{ numero, titre, terminee }</code>, en mettant <code>true</code> pour celles que tu as vraiment finies), puis afficher :</p>
+          <pre><code>Leçons terminées : 6 / 11 (55 %)
+Prochaine leçon : 1.3 — CSS : les bases</code></pre>
+          <p>(Les chiffres dépendent de ce que tu as vraiment terminé.)</p>
+        </div>
+        <details class="indice"><summary>Indice</summary>
+          <p>Le pourcentage : <code>Math.round(terminees / total * 100)</code>. La prochaine : <code>lecons.find((l) =&gt; !l.terminee)</code> renvoie le <strong>premier</strong> élément qui passe le test.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>const lecons = [
+  { numero: "0.1", titre: "Le terminal", terminee: true },
+  { numero: "0.2", titre: "Git", terminee: true },
+  { numero: "0.3", titre: "GitHub", terminee: true },
+  { numero: "0.4", titre: "VS Code et Claude Code", terminee: true },
+  { numero: "1.1", titre: "HTML : la structure", terminee: true },
+  { numero: "1.2", titre: "Liens, images, listes", terminee: true },
+  { numero: "1.3", titre: "CSS : les bases", terminee: false },
+  { numero: "1.4", titre: "Flexbox et grid", terminee: false },
+  { numero: "1.5", titre: "Responsive", terminee: false },
+  { numero: "1.6", titre: "JavaScript : les bases", terminee: false },
+  { numero: "1.7", titre: "Fonctions, tableaux, objets", terminee: false }
+];
+
+const nbTerminees = lecons.filter((l) =&gt; l.terminee).length;
+const pourcentage = Math.round(nbTerminees / lecons.length * 100);
+console.log(`Leçons terminées : ${nbTerminees} / ${lecons.length} (${pourcentage} %)`);
+
+const prochaine = lecons.find((l) =&gt; !l.terminee);   // ! = NON terminée
+if (prochaine) {                                      // au cas où tout serait terminé
+  console.log(`Prochaine leçon : ${prochaine.numero} — ${prochaine.titre}`);
+} else {
+  console.log("Tout est terminé, bravo !");
+}</code></pre>
+          <p>C'est <strong>exactement</strong> la logique que tu coderas pour de vrai dans le projet 1.9 (la barre de progression du site).</p>
+        </details>
+      </div>
+
+      <!-- ===================== AJOUT AU SITE ===================== -->
+      <h2>🔧 Ajout au site (ta part du 50/50)</h2>
+      <div class="exercice">
+        <h3>Ranger ton message de bienvenue dans une fonction</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>site/js/main.js</code>, transformer ton code de la leçon 1.6 en une fonction <code>obtenirSalutation(heure)</code>
+            qui <strong>renvoie</strong> le texte, puis l'appeler pour l'afficher.</p>
+        </div>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>// Ma contribution (leçons 1.6 – 1.7)
+function obtenirSalutation(heure) {
+  if (heure &lt; 12) {
+    return "Bonjour";
+  } else if (heure &lt; 18) {
+    return "Bon après-midi";
+  }
+  return "Bonsoir";        // pas besoin de else : les return précédents ont déjà arrêté la fonction
+}
+
+console.log(`${obtenirSalutation(new Date().getHours())} — bonne session de formation !`);</code></pre>
+          <p>Avantage : la fonction se teste facilement : <code>obtenirSalutation(9)</code>, <code>obtenirSalutation(20)</code>…</p>
+        </details>
+      </div>
+
+      <!-- ===================== IA ===================== -->
+      <h2>🤖 Refais-le avec l'IA</h2>
+      <div class="exercice">
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> apprendre à faire <strong>relire et améliorer</strong> ton code par l'IA.</p>
+        </div>
+        <ol>
+          <li>Donne ton code de l'exercice 2 à Claude : « Voici mon panier (leçon 1.7). Propose une version plus courte avec <code>map</code>, <code>filter</code> et <code>reduce</code>, et explique chaque ligne. »</li>
+          <li>Compare : laquelle des deux versions comprends-tu le mieux ? Une version plus courte n'est pas toujours meilleure : <strong>la meilleure est celle qu'on comprend</strong>.</li>
+        </ol>
+      </div>
+
+      <!-- ===================== QUESTIONS ===================== -->
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice"><p><strong>1.</strong> Quel est l'indice du premier élément d'un tableau ?</p>
+        <details class="correction"><summary>Réponse</summary><p><strong>0</strong>. Le dernier est à <code>tableau.length - 1</code>.</p></details></div>
+      <div class="exercice"><p><strong>2.</strong> Différence entre <code>map</code> et <code>filter</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p><code>map</code> transforme chaque élément (même nombre d'éléments) ; <code>filter</code> garde ceux qui passent un test (souvent moins d'éléments).</p></details></div>
+      <div class="exercice"><p><strong>3.</strong> Comment lire le prix de <code>{ nom: "Sweat", prix: 49 }</code> rangé dans <code>article</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p><code>article.prix</code></p></details></div>
+      <div class="exercice"><p><strong>4.</strong> Une fonction sans <code>return</code> renvoie quoi ?</p>
+        <details class="correction"><summary>Réponse</summary><p><code>undefined</code>.</p></details></div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>J'écris une fonction avec paramètres et <code>return</code>, classique et fléchée.</li>
+        <li>Je crée un tableau, je lis un élément par son indice, j'ajoute avec <code>push</code>.</li>
+        <li>Je parcours avec <code>for...of</code> et j'utilise <code>map</code>, <code>filter</code>, <code>find</code>, <code>reduce</code>.</li>
+        <li>Je crée un objet et je lis/modifie ses propriétés.</li>
+        <li>Je manipule un tableau d'objets.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p><code>git commit -m "Termine la leçon 1.7 : fonctions, panier e-commerce et statistiques"</code> → <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-6-js-bases.html">← 1.6 : JavaScript</a>
+        <a class="bouton" href="1-8-js-dom-evenements.html">Leçon 1.8 : DOM et événements →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

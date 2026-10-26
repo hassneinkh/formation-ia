@@ -16,6 +16,7 @@
         <a href="../parcours.html">Parcours</a>
         <a href="../journal.html">Journal</a>
         <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
       </nav>
     </div>
   </header>
@@ -23,122 +24,401 @@
   <main class="conteneur">
     <article class="lecon">
       <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 0 › Leçon 0.1</div>
-      <span class="etiquette">Leçon 0.1 · environ 1 h 30</span>
+      <span class="etiquette">Leçon 0.1 · environ 2 h</span>
       <h1>Le terminal : piloter ton ordinateur au clavier</h1>
 
       <div class="objectif">
-        <strong>Objectif :</strong> à la fin de cette leçon, tu sais te déplacer dans tes dossiers,
-        créer des dossiers et des fichiers, et lire leur contenu, uniquement avec des commandes.
+        <strong>Objectif :</strong> à la fin de cette leçon, tu sais ouvrir le bon terminal, savoir où tu te trouves,
+        te déplacer dans tes dossiers, créer, renommer et supprimer des dossiers et des fichiers, et écrire dedans.
+        Uniquement au clavier.
       </div>
 
-      <h2>Pourquoi le terminal ?</h2>
+      <h2>Pourquoi apprendre le terminal ?</h2>
       <p>
-        Le terminal, c'est une fenêtre où tu <strong>écris des ordres</strong> à ton ordinateur au lieu de cliquer.
-        Tous les outils de développeur s'utilisent ainsi : Git, Node.js, Next.js, Expo… et même Claude Code
-        lance des commandes dans un terminal quand il travaille pour toi.
+        Le terminal est une fenêtre où tu <strong>écris des ordres</strong> à ton ordinateur au lieu de cliquer.
+        Chaque ordre s'appelle une <strong>commande</strong>. Tous les outils de développeur s'utilisent ainsi :
+        Git, Node.js, Next.js, Expo… Et quand Claude Code travaille pour toi, il tape lui aussi des commandes dans un terminal.
         Comprendre le terminal, c'est comprendre ce que fait l'IA à ta place.
       </p>
 
-      <h2>Ouvrir Git Bash</h2>
-      <p>
-        Sur Windows, on utilise <strong>Git Bash</strong>, installé avec Git (déjà présent sur ton PC).
-        Il accepte les mêmes commandes que Mac et Linux : ce que tu apprends ici marche partout.
-      </p>
-      <ol>
-        <li>Appuie sur la touche Windows et tape <code>Git Bash</code>.</li>
-        <li>Ouvre-le. Tu vois une ligne qui finit par <code>$</code> : c'est l'<strong>invite</strong>. Le terminal attend ton ordre.</li>
-      </ol>
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Le bon terminal : Git Bash</h3>
 
-      <h2>Les commandes essentielles</h2>
-      <p>Tu tapes une commande, puis tu appuies sur <strong>Entrée</strong>.</p>
-      <table>
-        <tr><th>Commande</th><th>Ce qu'elle fait</th><th>Moyen mnémotechnique</th></tr>
-        <tr><td><code>pwd</code></td><td>Affiche le dossier où tu te trouves</td><td><em>print working directory</em></td></tr>
-        <tr><td><code>ls</code></td><td>Liste le contenu du dossier</td><td><em>list</em></td></tr>
-        <tr><td><code>cd nom</code></td><td>Entre dans le dossier « nom »</td><td><em>change directory</em></td></tr>
-        <tr><td><code>cd ..</code></td><td>Remonte d'un dossier</td><td><code>..</code> = le dossier parent</td></tr>
-        <tr><td><code>cd ~</code></td><td>Revient à ton dossier personnel</td><td><code>~</code> = la maison</td></tr>
-        <tr><td><code>mkdir nom</code></td><td>Crée un dossier</td><td><em>make directory</em></td></tr>
-        <tr><td><code>touch nom.txt</code></td><td>Crée un fichier vide</td><td>« toucher » un fichier le fait exister</td></tr>
-        <tr><td><code>cat nom.txt</code></td><td>Affiche le contenu d'un fichier</td><td><em>concatenate</em></td></tr>
-        <tr><td><code>clear</code></td><td>Nettoie l'écran</td><td></td></tr>
-      </table>
+        <h4>C'est quoi ?</h4>
+        <p>Windows contient plusieurs terminaux, qui ne parlent pas la même « langue » :</p>
+        <table>
+          <tr><th>Terminal</th><th>Son invite (le début de la ligne)</th><th>Comprend les commandes de la formation ?</th></tr>
+          <tr><td>Invite de commandes (cmd)</td><td><code>C:\Users\hsnyt&gt;</code></td><td>❌ Non</td></tr>
+          <tr><td>PowerShell</td><td><code>PS C:\Users\hsnyt&gt;</code></td><td>⚠️ En partie</td></tr>
+          <tr><td><strong>Git Bash</strong></td><td><code>hsnyt@PC MINGW64 ~</code> puis <code>$</code></td><td>✅ Oui</td></tr>
+        </table>
+        <p>On utilise <strong>Git Bash</strong> (installé avec Git) : ses commandes sont les mêmes que sur Mac et Linux,
+          donc ce que tu apprends ici marche partout.</p>
 
-      <pre><code><span class="commentaire"># Exemple : aller dans ton projet de formation</span>
-cd ~/Documents/formation-ia
-pwd
-<span class="commentaire"># → /c/Users/hsnyt/Documents/formation-ia</span>
-ls
-<span class="commentaire"># → CLAUDE.md  PROGRESSION.md  README.md  exercices  journal.md  projets  site</span></code></pre>
-
-      <div class="encadre astuce">
-        <p><strong>Deux super-pouvoirs :</strong></p>
+        <h4>Comment l'ouvrir ?</h4>
         <ul>
-          <li><strong>Tab</strong> : tape le début d'un nom (<code>cd Docu</code>) puis Tab, et le terminal complète tout seul.</li>
-          <li><strong>Flèche du haut</strong> : rappelle les commandes précédentes, pour ne pas tout retaper.</li>
+          <li><strong>Seul :</strong> touche Windows, tape <code>Git Bash</code>, puis Entrée.</li>
+          <li><strong>Dans VS Code</strong> (leçon 0.4) : menu <em>Terminal › Nouveau terminal</em>, flèche <strong>˅</strong> à côté du <strong>+</strong>, puis <em>Git Bash</em>.</li>
         </ul>
-      </div>
 
-      <div class="encadre attention">
-        <p><strong>Attention aux espaces.</strong> Pour le terminal, un espace sépare deux choses.
-        Un dossier nommé <code>Mes projets</code> doit s'écrire entre guillemets : <code>cd "Mes projets"</code>.
-        C'est pour ça que les développeurs nomment leurs fichiers <code>avec-des-tirets</code>.</p>
-      </div>
+        <h4>Comment savoir que tu es au bon endroit ?</h4>
+        <p>La dernière ligne se termine par un <strong><code>$</code></strong>. C'est l'<strong>invite</strong> : le terminal attend ta commande.
+          Tu tapes la commande <em>après</em> le <code>$</code> (sans retaper le <code>$</code>), puis tu appuies sur <strong>Entrée</strong>.</p>
 
-      <h3>Écrire dans un fichier</h3>
-      <pre><code>echo "Bonjour" &gt; salut.txt     <span class="commentaire"># crée (ou remplace) le fichier avec ce texte</span>
-echo "Deuxième ligne" &gt;&gt; salut.txt   <span class="commentaire"># ajoute une ligne à la fin</span>
-cat salut.txt</code></pre>
+        <h4>Copier-coller dans Git Bash</h4>
+        <table>
+          <tr><th>Action</th><th>Comment faire</th></tr>
+          <tr><td>Coller</td><td><strong>Clic droit › Paste</strong>, ou <code>Shift + Inser</code></td></tr>
+          <tr><td>Copier</td><td><strong>Sélectionne le texte à la souris</strong> : c'est copié automatiquement</td></tr>
+        </table>
 
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>'touch' n'est pas reconnu en tant que commande interne…</code> → tu es dans l'Invite de commandes (cmd), pas dans Git Bash. Ouvre Git Bash.</li>
+          <li><code>Ctrl+C</code> ne copie pas : dans un terminal, il <strong>arrête</strong> la commande en cours. Et <code>Ctrl+V</code> ne colle pas dans Git Bash.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Les chemins : l'adresse d'un dossier</h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Tes dossiers sont rangés comme des boîtes dans des boîtes. Un <strong>chemin</strong>, c'est l'adresse d'un dossier ou d'un fichier :
+          la liste des boîtes à ouvrir pour y arriver, séparées par des <code>/</code>.</p>
+        <pre><code>/c/Users/hsnyt/Documents/formation-ia/site/index.html
+<span class="commentaire">  ↑ disque C › Users › hsnyt › Documents › formation-ia › site › le fichier index.html</span></code></pre>
+
+        <h4>Les raccourcis à connaître</h4>
+        <table>
+          <tr><th>Symbole</th><th>Signifie</th><th>Exemple</th></tr>
+          <tr><td><code>~</code></td><td>Ton dossier personnel (<code>/c/Users/hsnyt</code>), « la maison »</td><td><code>~/Documents</code></td></tr>
+          <tr><td><code>.</code></td><td>Le dossier où tu es maintenant, « ici »</td><td><code>code .</code> (ouvre VS Code ici)</td></tr>
+          <tr><td><code>..</code></td><td>Le dossier parent, celui juste au-dessus</td><td><code>cd ..</code> (remonte d'un niveau)</td></tr>
+        </table>
+
+        <h4>Chemin relatif ou absolu ?</h4>
+        <ul>
+          <li><strong>Absolu</strong> : l'adresse complète, qui marche d'où que tu sois. Exemple : <code>~/Documents/formation-ia</code>.</li>
+          <li><strong>Relatif</strong> : l'adresse <em>à partir de là où tu es</em>. Si tu es déjà dans <code>formation-ia</code>, tu écris juste <code>site</code>.</li>
+        </ul>
+        <p><strong>Quand utiliser quoi ?</strong> Le relatif est plus court quand la cible est proche. L'absolu est plus sûr quand tu ne sais plus où tu es.</p>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>No such file or directory</code> → le chemin est faux, ou tu n'es pas dans le dossier que tu crois. Tape <code>pwd</code> pour vérifier où tu es.</li>
+          <li>Écrire <code>\</code> (le style Windows) au lieu de <code>/</code> : dans Git Bash, on utilise toujours <code>/</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Se repérer et se déplacer : <code>pwd</code>, <code>ls</code>, <code>cd</code></h3>
+
+        <h4>Comment l'écrire</h4>
+        <table>
+          <tr><th>Commande</th><th>Ce qu'elle fait</th><th>Quand l'utiliser</th></tr>
+          <tr><td><code>pwd</code></td><td>Affiche le chemin du dossier où tu es (<em>print working directory</em>)</td><td>Dès que tu as un doute sur l'endroit où tu es</td></tr>
+          <tr><td><code>ls</code></td><td>Liste ce que contient le dossier (<em>list</em>)</td><td>Pour voir les noms exacts avant de taper une commande</td></tr>
+          <tr><td><code>ls -la</code></td><td>Liste en détail, y compris les éléments cachés</td><td>Pour savoir si c'est un dossier (ligne qui commence par <code>d</code>) ou un fichier (<code>-</code>)</td></tr>
+          <tr><td><code>cd nom</code></td><td>Entre dans le dossier « nom » (<em>change directory</em>)</td><td>Pour te placer là où tu vas travailler</td></tr>
+          <tr><td><code>cd ..</code></td><td>Remonte d'un niveau</td><td>Pour revenir au dossier parent</td></tr>
+          <tr><td><code>cd ~</code></td><td>Revient à ton dossier personnel</td><td>Quand tu es perdu : on repart de la maison</td></tr>
+        </table>
+
+        <h4>Exemple complet</h4>
+        <pre><code><span class="commentaire"># Où suis-je ?</span>
+pwd
+<span class="commentaire"># → /c/Users/hsnyt</span>
+
+<span class="commentaire"># Aller dans le projet (chemin relatif depuis la maison)</span>
+cd Documents/formation-ia
+
+<span class="commentaire"># Qu'y a-t-il ici ?</span>
+ls
+<span class="commentaire"># → CLAUDE.md  PROGRESSION.md  README.md  exercices  journal.md  projets  site</span>
+
+<span class="commentaire"># Entrer dans site, regarder, puis remonter</span>
+cd site
+ls
+cd ..</code></pre>
+
+        <div class="encadre astuce">
+          <p><strong>Deux super-pouvoirs à utiliser tout le temps :</strong></p>
+          <ul>
+            <li><strong>Tab</strong> : tape le début d'un nom (<code>cd Docu</code>) puis Tab, et le terminal complète tout seul. Moins de fautes de frappe !</li>
+            <li><strong>Flèche du haut</strong> : rappelle les commandes précédentes, pour ne pas tout retaper.</li>
+          </ul>
+        </div>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>cd..</code> sans espace → il faut un espace entre la commande et ce qui suit : <code>cd ..</code></li>
+          <li>Les espaces dans les noms : <code>cd Mes projets</code> ne marche pas, car le terminal croit que ce sont deux choses.
+            Il faut des guillemets : <code>cd "Mes projets"</code>. C'est pour ça que les développeurs nomment tout <code>avec-des-tirets</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Créer : <code>mkdir</code> (dossier) et <code>touch</code> (fichier)</h3>
+
+        <h4>C'est quoi ?</h4>
+        <p><code>mkdir</code> (<em>make directory</em>) crée un <strong>dossier</strong>. <code>touch</code> crée un <strong>fichier vide</strong>.</p>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>mkdir mon-dossier                  <span class="commentaire"># crée le dossier "mon-dossier" ici</span>
+mkdir exercices/module-0-1         <span class="commentaire"># crée "module-0-1" DANS le dossier "exercices" (qui doit déjà exister)</span>
+mkdir -p a/b/c                     <span class="commentaire"># -p crée aussi les dossiers parents s'ils n'existent pas</span>
+touch notes.txt                    <span class="commentaire"># crée le fichier vide "notes.txt" ici</span>
+touch exercices/module-0-1/notes.txt   <span class="commentaire"># crée le fichier dans ce dossier</span></code></pre>
+
+        <h4>Quand utiliser lequel ?</h4>
+        <table>
+          <tr><th>Tu veux…</th><th>Utilise</th></tr>
+          <tr><td>une boîte pour ranger des choses</td><td><code>mkdir</code></td></tr>
+          <tr><td>un fichier dans lequel écrire (texte, code, notes)</td><td><code>touch</code></td></tr>
+        </table>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>mkdir commandes.txt</code> → crée un <strong>dossier</strong> qui s'appelle « commandes.txt », même avec le <code>.txt</code>.
+            Tu ne pourras pas écrire dedans (erreur <code>Is a directory</code>). Pour un fichier, c'est <code>touch</code>.</li>
+          <li>Un nom légèrement différent : <code>module-04</code> ou <code>modules-01</code> au lieu de <code>module-0-1</code>.
+            Pour l'ordinateur, un seul caractère différent = un autre dossier.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 5 ===================== -->
+      <section class="notion">
+        <h3>Notion 5 — Écrire et lire : <code>echo</code>, <code>&gt;</code>, <code>&gt;&gt;</code>, <code>cat</code></h3>
+
+        <h4>C'est quoi ?</h4>
+        <ul>
+          <li><code>echo "texte"</code> affiche un texte à l'écran.</li>
+          <li>Avec une <strong>flèche</strong>, ce texte part dans un fichier au lieu de l'écran.</li>
+          <li><code>cat fichier</code> affiche le contenu d'un fichier.</li>
+        </ul>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>echo "Bonjour"                     <span class="commentaire"># affiche Bonjour à l'écran</span>
+echo "Bonjour" &gt; salut.txt         <span class="commentaire"># &gt;  : ÉCRASE le fichier et met "Bonjour" dedans (le crée s'il n'existe pas)</span>
+echo "Ça va ?" &gt;&gt; salut.txt        <span class="commentaire"># &gt;&gt; : AJOUTE une ligne à la fin, sans rien effacer</span>
+cat salut.txt                      <span class="commentaire"># affiche le contenu :</span>
+<span class="commentaire"># → Bonjour</span>
+<span class="commentaire"># → Ça va ?</span></code></pre>
+
+        <h4>Quand utiliser <code>&gt;</code> ou <code>&gt;&gt;</code> ?</h4>
+        <table>
+          <tr><th>Symbole</th><th>Effet</th><th>À utiliser pour…</th></tr>
+          <tr><td><code>&gt;</code> (une flèche)</td><td>Remplace tout le contenu</td><td>Repartir de zéro</td></tr>
+          <tr><td><code>&gt;&gt;</code> (deux flèches)</td><td>Ajoute à la fin</td><td>Compléter un fichier ligne par ligne</td></tr>
+        </table>
+        <p>Moyen mnémotechnique : <strong>deux flèches, deux fois plus de lignes</strong>.</p>
+
+        <div class="encadre">
+          <p><strong>Pour écrire beaucoup de texte</strong>, le terminal n'est pas pratique : on ouvre le fichier dans un éditeur
+            avec <code>code nom-du-fichier</code> (VS Code, leçon 0.4). <code>echo</code> sert pour une ou deux lignes rapides.</p>
+        </div>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>Utiliser <code>&gt;</code> trois fois de suite : à la fin, il ne reste que la dernière ligne, car chaque <code>&gt;</code> efface la précédente.</li>
+          <li>Oublier l'extension : <code>echo "x" &gt; commandes</code> crée un fichier « commandes », différent de « commandes.txt ».</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 6 ===================== -->
+      <section class="notion">
+        <h3>Notion 6 — Renommer et supprimer : <code>mv</code>, <code>rmdir</code>, <code>rm</code></h3>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>mv ancien-nom nouveau-nom          <span class="commentaire"># renomme un fichier OU un dossier (mv = move, déplacer)</span>
+mv notes.txt exercices/            <span class="commentaire"># déplace notes.txt dans le dossier exercices</span>
+rmdir dossier-vide                 <span class="commentaire"># supprime un dossier, SEULEMENT s'il est vide (donc sans risque)</span>
+rm fichier.txt                     <span class="commentaire"># supprime un fichier DÉFINITIVEMENT</span></code></pre>
+
+        <h4>Quand utiliser quoi ?</h4>
+        <ul>
+          <li><strong>Une faute dans un nom ?</strong> → <code>mv</code>. Renommer = déplacer vers un nouveau nom.</li>
+          <li><strong>Un dossier vide en trop ?</strong> → <code>rmdir</code>.</li>
+          <li><strong>Un fichier inutile ?</strong> → <code>rm</code>, mais avec prudence.</li>
+        </ul>
+
+        <div class="encadre attention">
+          <p><strong>⚠️ <code>rm</code> ne passe pas par la corbeille.</strong> Le fichier disparaît pour de bon.
+            Avant d'appuyer sur Entrée, relis le nom. N'utilise jamais <code>rm -rf</code> (suppression forcée de tout un dossier)
+            sans être absolument sûr de toi.</p>
+        </div>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>rmdir: failed to remove '…': Directory not empty</code> → le dossier contient encore quelque chose. Regarde avec <code>ls</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== EXERCICES ===================== -->
       <h2>Exercices</h2>
 
       <div class="exercice">
         <h3>Exercice 1 — Se repérer</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> te placer dans <code>~/Documents/formation-ia/site</code> en utilisant Tab,
+            puis revenir dans <code>formation-ia</code>. Aucun fichier à créer.</p>
+        </div>
         <ol>
-          <li>Ouvre Git Bash et tape <code>pwd</code>. Où es-tu ?</li>
-          <li>Tape <code>ls</code>. Reconnais-tu les dossiers ?</li>
-          <li>Va dans <code>Documents/formation-ia</code> en utilisant la touche Tab.</li>
-          <li>Entre dans <code>site</code>, puis liste son contenu. Remonte ensuite d'un niveau.</li>
+          <li>Ouvre <strong>Git Bash</strong> (vérifie le <code>$</code>).</li>
+          <li>Tape <code>pwd</code>. Note où tu es.</li>
+          <li>Tape <code>ls</code>. Repère le dossier <code>Documents</code>.</li>
+          <li>Va dans <code>Documents/formation-ia</code> avec <code>cd</code>, en utilisant <strong>Tab</strong> pour compléter les noms.</li>
+          <li>Entre dans <code>site</code>, liste son contenu, puis remonte d'un niveau.</li>
         </ol>
-      </div>
-
-      <div class="exercice">
-        <h3>Exercice 2 — Construire avec des commandes</h3>
-        <p>Depuis <code>formation-ia</code>, et <strong>sans utiliser la souris</strong> :</p>
-        <ol>
-          <li>Crée le dossier <code>exercices/module-0-1</code>.</li>
-          <li>Entre dedans et crée un fichier <code>commandes.txt</code>.</li>
-          <li>Écris dedans, une ligne à la fois, les 3 commandes que tu trouves les plus utiles.</li>
-          <li>Affiche le fichier pour vérifier.</li>
-        </ol>
-        <details>
+        <p><strong>Comment vérifier que c'est réussi :</strong> à la fin, <code>pwd</code> affiche <code>/c/Users/hsnyt/Documents/formation-ia</code>.</p>
+        <details class="indice">
           <summary>Indice</summary>
-          <p>Tu as besoin de <code>mkdir</code>, <code>cd</code>, <code>echo … &gt;&gt;</code> et <code>cat</code>.
-          Pour créer un dossier dans un autre dossier : <code>mkdir exercices/module-0-1</code>.</p>
+          <p>Tape <code>cd Docu</code> puis Tab : le terminal complète <code>Documents/</code>. Continue avec <code>form</code> + Tab.</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>pwd                         <span class="commentaire"># → /c/Users/hsnyt (la maison)</span>
+ls                          <span class="commentaire"># on voit Documents dans la liste</span>
+cd Documents/formation-ia   <span class="commentaire"># chemin relatif depuis la maison</span>
+cd site                     <span class="commentaire"># on entre dans site</span>
+ls                          <span class="commentaire"># → css  index.html  journal.html  js  lecons  parcours.html  portfolio.html</span>
+cd ..                       <span class="commentaire"># on remonte dans formation-ia</span>
+pwd                         <span class="commentaire"># → /c/Users/hsnyt/Documents/formation-ia ✅</span></code></pre>
         </details>
       </div>
 
       <div class="exercice">
-        <h3>Exercice 3 — Vérifier avec Claude</h3>
-        <p>Dans Claude Code, écris : <em>« J'ai fini l'exercice 2 de la leçon 0.1, peux-tu vérifier mon fichier ? »</em>
-        Claude va lire ton fichier et te donner un retour.</p>
+        <h3>Exercice 2 — Construire avec des commandes</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> à la fin, ce fichier existe :</p>
+          <pre><code>formation-ia/exercices/module-0-1/commandes.txt</code></pre>
+          <p>Il contient <strong>3 lignes</strong> : les 3 commandes que tu trouves les plus utiles, une par ligne. Tout est fait <strong>sans la souris</strong>.</p>
+        </div>
+        <ol>
+          <li>Place-toi dans <code>formation-ia</code>.</li>
+          <li>Crée le dossier <code>module-0-1</code> dans <code>exercices</code>.</li>
+          <li>Entre dans ce dossier.</li>
+          <li>Écris tes 3 commandes dans <code>commandes.txt</code>, une ligne à la fois.</li>
+          <li>Affiche le fichier pour vérifier.</li>
+        </ol>
+        <p><strong>Comment vérifier que c'est réussi :</strong> <code>cat commandes.txt</code> affiche exactement 3 lignes, et <code>ls -la</code>
+          montre <code>commandes.txt</code> sur une ligne qui commence par <code>-</code> (un fichier, pas un dossier).</p>
+        <details class="indice">
+          <summary>Indice 1</summary>
+          <p>Il te faut, dans l'ordre : <code>cd</code>, <code>mkdir</code>, <code>cd</code>, trois fois <code>echo … &gt;&gt;</code>, puis <code>cat</code>.</p>
+        </details>
+        <details class="indice">
+          <summary>Indice 2</summary>
+          <p>Avec <code>&gt;&gt;</code>, le fichier est créé tout seul à la première ligne : pas besoin de <code>touch</code> avant.
+            Vérifie le nom du dossier caractère par caractère : <code>module-0-1</code>.</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>cd ~/Documents/formation-ia          <span class="commentaire"># 1. on se place dans le projet (chemin absolu, marche d'où qu'on soit)</span>
+mkdir exercices/module-0-1           <span class="commentaire"># 2. on crée le dossier dans "exercices"</span>
+cd exercices/module-0-1              <span class="commentaire"># 3. on entre dedans</span>
+echo "pwd" &gt;&gt; commandes.txt          <span class="commentaire"># 4. première ligne (le fichier est créé)</span>
+echo "cd" &gt;&gt; commandes.txt           <span class="commentaire">#    deuxième ligne, ajoutée à la fin</span>
+echo "ls" &gt;&gt; commandes.txt           <span class="commentaire">#    troisième ligne</span>
+cat commandes.txt                    <span class="commentaire"># 5. vérification</span>
+<span class="commentaire"># → pwd</span>
+<span class="commentaire"># → cd</span>
+<span class="commentaire"># → ls</span></code></pre>
+          <p><strong>Pourquoi <code>&gt;&gt;</code> et pas <code>&gt;</code> ?</strong> Avec <code>&gt;</code>, chaque ligne effacerait la précédente, et il n'en resterait qu'une.</p>
+          <p><strong>Tu t'es trompé de nom de dossier ?</strong> Corrige avec <code>mv exercices/mauvais-nom exercices/module-0-1</code>.</p>
+        </details>
       </div>
 
+      <div class="exercice">
+        <h3>Exercice 3 — Ranger et réparer</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> t'entraîner à renommer et supprimer sans risque.
+            À la fin, le dossier <code>exercices/module-0-1/brouillon</code> a été créé, renommé en <code>archive</code>, puis supprimé.</p>
+        </div>
+        <ol>
+          <li>Dans <code>exercices/module-0-1</code>, crée un dossier <code>brouillon</code>.</li>
+          <li>Renomme-le en <code>archive</code>. Vérifie avec <code>ls</code>.</li>
+          <li>Supprime-le avec la commande qui ne supprime que les dossiers vides.</li>
+        </ol>
+        <p><strong>Comment vérifier que c'est réussi :</strong> <code>ls</code> n'affiche plus que <code>commandes.txt</code>.</p>
+        <details class="indice">
+          <summary>Indice</summary>
+          <p>Relis la notion 6 : <code>mv</code> pour renommer, <code>rmdir</code> pour supprimer un dossier vide.</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>mkdir brouillon          <span class="commentaire"># 1. création</span>
+mv brouillon archive     <span class="commentaire"># 2. renommage : "déplacer" brouillon vers le nom archive</span>
+ls                       <span class="commentaire"># → archive  commandes.txt</span>
+rmdir archive            <span class="commentaire"># 3. suppression (il est vide, donc sans danger)</span>
+ls                       <span class="commentaire"># → commandes.txt ✅</span></code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 4 — Faire vérifier par Claude</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> envoyer à Claude Code une demande de relecture, et lire son retour.</p>
+        </div>
+        <p>Écris dans Claude Code : <em>« J'ai fini l'exercice 2 de la leçon 0.1, peux-tu vérifier mon fichier ? »</em>
+          Claude lit ton fichier et te dit ce qui est bien et ce qu'il faut corriger.</p>
+      </div>
+
+      <!-- ===================== QUESTIONS ===================== -->
+      <h2>Questions pour vérifier que tu as compris</h2>
+
+      <div class="exercice">
+        <p><strong>1.</strong> Tu tapes <code>echo "ls" &gt; test.txt</code> trois fois de suite, avec trois commandes différentes. Combien de lignes contient le fichier à la fin ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p><strong>Une seule</strong> : la dernière. Chaque <code>&gt;</code> écrase le fichier. Pour ajouter, il faut <code>&gt;&gt;</code>.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <p><strong>2.</strong> Tu tapes <code>touch</code> et tu obtiens <em>« 'touch' n'est pas reconnu… »</em>. Que se passe-t-il ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p>Tu es dans l'<strong>Invite de commandes</strong> (cmd) de Windows, pas dans Git Bash. L'invite commence par <code>C:\</code> au lieu de finir par <code>$</code>. Ouvre Git Bash.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <p><strong>3.</strong> Tu es dans <code>~/Documents/formation-ia/site/lecons</code>. Quelle commande te ramène dans <code>formation-ia</code> en une seule fois ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p><code>cd ../..</code> : on remonte deux fois (<code>lecons</code> → <code>site</code> → <code>formation-ia</code>).
+            Ou, avec un chemin absolu : <code>cd ~/Documents/formation-ia</code>.</p>
+        </details>
+      </div>
+
+      <!-- ===================== FIN ===================== -->
       <h2>Checklist</h2>
       <ul class="checklist">
-        <li>Je sais ouvrir Git Bash.</li>
+        <li>J'ouvre Git Bash et je reconnais son invite <code>$</code>.</li>
+        <li>Je sais ce qu'est un chemin, et ce que veulent dire <code>~</code>, <code>.</code> et <code>..</code>.</li>
         <li>Je sais où je suis (<code>pwd</code>) et ce qu'il y a autour (<code>ls</code>).</li>
         <li>Je me déplace avec <code>cd</code>, <code>cd ..</code> et <code>cd ~</code>.</li>
-        <li>Je crée des dossiers et des fichiers (<code>mkdir</code>, <code>touch</code>, <code>echo</code>).</li>
+        <li>Je fais la différence entre <code>mkdir</code> (dossier) et <code>touch</code> (fichier).</li>
+        <li>Je fais la différence entre <code>&gt;</code> (écraser) et <code>&gt;&gt;</code> (ajouter).</li>
+        <li>Je renomme avec <code>mv</code> et je supprime prudemment.</li>
         <li>J'utilise Tab et la flèche du haut.</li>
       </ul>
 
       <h2>Journal</h2>
-      <p>Ouvre <code>journal.md</code> et écris ta première entrée avec le modèle qui s'y trouve.</p>
+      <p>Ouvre ton journal avec <code>code journal.md</code> (depuis <code>formation-ia</code>). Sous la ligne <code>--&gt;</code>, écris :</p>
+      <pre><code>## 2026-10-26 — Leçon 0.1
+- **Ce que j'ai appris :** …
+- **Ce qui était difficile :** …
+- **Une question que je me pose encore :** …</code></pre>
+      <p>Enregistre avec <code>Ctrl+S</code>.</p>
 
       <div class="encadre">
-        <p><strong>Pas encore de commit ?</strong> Normal : Git arrive dans la leçon suivante.
-        Ton premier commit enregistrera tout ce travail.</p>
+        <p><strong>Pas encore de commit ?</strong> Normal : Git arrive dans la leçon suivante. Ton premier commit enregistrera tout ce travail.</p>
       </div>
 
       <nav class="navigation-lecon">

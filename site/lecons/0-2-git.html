@@ -16,6 +16,7 @@
         <a href="../parcours.html">Parcours</a>
         <a href="../journal.html">Journal</a>
         <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
       </nav>
     </div>
   </header>
@@ -23,112 +24,334 @@
   <main class="conteneur">
     <article class="lecon">
       <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 0 › Leçon 0.2</div>
-      <span class="etiquette">Leçon 0.2 · environ 2 h · GitHub</span>
+      <span class="etiquette">Leçon 0.2 · environ 2 h 30 · GitHub</span>
       <h1>Git : ton premier historique</h1>
 
       <div class="objectif">
-        <strong>Objectif :</strong> transformer ton dossier <code>formation-ia</code> en dépôt Git,
-        faire tes premiers commits et savoir lire l'historique.
+        <strong>Objectif :</strong> transformer ton dossier <code>formation-ia</code> en dépôt Git, savoir lire ce que Git te dit,
+        faire des commits avec de bons messages, et relire ton historique.
       </div>
 
-      <h2>C'est quoi, Git ?</h2>
-      <p>
-        Imagine un jeu vidéo avec des <strong>points de sauvegarde</strong>. À chaque étape importante,
-        tu sauvegardes. Si tu fais une bêtise, tu reviens au dernier point. <strong>Git, c'est ça pour ton code.</strong>
-      </p>
-      <ul>
-        <li>Chaque point de sauvegarde s'appelle un <strong>commit</strong>.</li>
-        <li>Chaque commit a un <strong>message</strong> qui explique ce qui a changé.</li>
-        <li>L'ensemble des commits forme l'<strong>historique</strong> du projet.</li>
-        <li>Un dossier suivi par Git s'appelle un <strong>dépôt</strong> (en anglais, <em>repository</em> ou <em>repo</em>).</li>
-      </ul>
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — C'est quoi, Git ?</h3>
 
-      <div class="encadre">
-        <p><strong>Git ≠ GitHub.</strong> Git est le logiciel qui garde l'historique <em>sur ton ordinateur</em>.
-        GitHub est un site web qui garde une copie de tes dépôts <em>dans le cloud</em> (leçon 0.3).</p>
+        <h4>L'image à retenir</h4>
+        <p>Pense à un jeu vidéo avec des <strong>points de sauvegarde</strong>. À chaque étape importante, tu sauvegardes.
+          Si tu fais une bêtise, tu reviens au dernier point. <strong>Git fait ça pour ton code.</strong></p>
+
+        <h4>Le vocabulaire</h4>
+        <table>
+          <tr><th>Mot</th><th>Sens</th></tr>
+          <tr><td><strong>Dépôt</strong> (<em>repository</em>, « repo »)</td><td>Un dossier suivi par Git. Ici : <code>formation-ia</code>.</td></tr>
+          <tr><td><strong>Commit</strong></td><td>Un point de sauvegarde : une photo de tes fichiers à un instant, avec un message.</td></tr>
+          <tr><td><strong>Historique</strong></td><td>La liste de tous les commits, du plus récent au plus ancien.</td></tr>
+          <tr><td><strong>Branche</strong></td><td>Une ligne d'historique. La principale s'appelle <code>main</code> (on verra les autres en Phase 2).</td></tr>
+        </table>
+
+        <h4>Git ou GitHub ?</h4>
+        <table>
+          <tr><th></th><th>Git</th><th>GitHub</th></tr>
+          <tr><td>C'est…</td><td>un logiciel sur <strong>ton ordinateur</strong></td><td>un <strong>site web</strong></td></tr>
+          <tr><td>Il sert à…</td><td>garder l'historique</td><td>garder une copie dans le cloud et la partager</td></tr>
+          <tr><td>On le voit dans…</td><td>cette leçon</td><td>la leçon 0.3</td></tr>
+        </table>
+
+        <h4>Quand faire un commit ?</h4>
+        <ul>
+          <li>✅ Quand tu as terminé <strong>une petite étape qui fonctionne</strong> : un exercice, une section de page, une correction.</li>
+          <li>✅ Avant d'essayer quelque chose de risqué : tu pourras revenir en arrière.</li>
+          <li>❌ Pas à chaque ligne tapée, ni une seule fois par semaine. La bonne taille : <strong>une idée = un commit</strong>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Te présenter à Git : <code>git config</code></h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Chaque commit porte le nom et l'email de son auteur. Tu les donnes à Git <strong>une seule fois</strong> sur ton ordinateur.</p>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>git config --global user.name "Ton Prénom Nom"         <span class="commentaire"># ton nom, entre guillemets</span>
+git config --global user.email "ton-email@exemple.com" <span class="commentaire"># ton email</span>
+git config --global init.defaultBranch main            <span class="commentaire"># la branche principale s'appellera "main"</span>
+git config --global --list                             <span class="commentaire"># vérifie : affiche tous tes réglages</span></code></pre>
+        <p><code>--global</code> veut dire « pour tous mes projets sur cet ordinateur ».</p>
+
+        <div class="encadre attention">
+          <p><strong>Ton email devient visible</strong> dans l'historique public de tes projets. Dans la leçon 0.3,
+            tu le remplaceras par l'adresse privée que GitHub te donne.</p>
+        </div>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Créer le dépôt : <code>git init</code></h3>
+
+        <h4>C'est quoi ?</h4>
+        <p><code>git init</code> dit à Git : « à partir de maintenant, suis ce dossier ». Il crée un dossier caché <code>.git</code>
+          qui contient tout l'historique. <strong>Ne touche jamais à ce dossier à la main.</strong></p>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>cd ~/Documents/formation-ia    <span class="commentaire"># 1. se placer DANS le dossier du projet</span>
+git init                       <span class="commentaire"># 2. créer le dépôt</span>
+<span class="commentaire"># → Initialized empty Git repository in C:/Users/hsnyt/Documents/formation-ia/.git/</span></code></pre>
+
+        <h4>Quand l'utiliser ?</h4>
+        <ul>
+          <li>✅ <strong>Une seule fois par projet</strong>, au tout début, dans le dossier racine du projet.</li>
+          <li>❌ Jamais dans ta maison (<code>~</code>) ni dans <code>Documents</code> : Git suivrait tout ton ordinateur.</li>
+          <li>❌ Jamais une deuxième fois dans le même projet.</li>
+        </ul>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>fatal: not a git repository</code> → tu n'es pas dans le dossier du projet, ou tu n'as pas encore fait <code>git init</code>. Vérifie avec <code>pwd</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Les 3 zones et <code>git status</code></h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>C'est <strong>LE</strong> concept de Git. Un fichier passe par 3 zones, comme des courses :</p>
+        <table>
+          <tr><th>Zone</th><th>Comme…</th><th>Pour y aller</th></tr>
+          <tr><td>1. <strong>Dossier de travail</strong></td><td>les articles dans les rayons : tu les modifies librement</td><td>tu modifies un fichier</td></tr>
+          <tr><td>2. <strong>Panier</strong> (<em>staging</em>)</td><td>le chariot : ce que tu as choisi d'acheter</td><td><code>git add</code></td></tr>
+          <tr><td>3. <strong>Historique</strong></td><td>le ticket de caisse : enregistré pour toujours</td><td><code>git commit</code></td></tr>
+        </table>
+        <p><strong>Pourquoi un panier ?</strong> Pour choisir précisément quoi sauvegarder ensemble.
+          Si tu as modifié 3 fichiers mais que seulement 2 vont ensemble, tu mets ces 2 dans le panier et tu fais un commit, puis le 3e dans un autre commit.</p>
+
+        <h4>Comment lire <code>git status</code></h4>
+        <p><code>git status</code> te dit dans quelle zone est chaque fichier. <strong>C'est ta boussole : tape-le avant et après chaque commande Git.</strong></p>
+        <table>
+          <tr><th>Git affiche…</th><th>Ça veut dire…</th><th>Prochaine action</th></tr>
+          <tr><td><code>Untracked files</code> (en rouge)</td><td>Fichier nouveau, que Git ne suit pas encore</td><td><code>git add</code></td></tr>
+          <tr><td><code>Changes not staged for commit</code> (en rouge)</td><td>Fichier suivi, modifié, mais pas dans le panier</td><td><code>git add</code></td></tr>
+          <tr><td><code>Changes to be committed</code> (en vert)</td><td>Dans le panier, prêt</td><td><code>git commit</code></td></tr>
+          <tr><td><code>nothing to commit, working tree clean</code></td><td>Tout est sauvegardé</td><td>Rien : bravo !</td></tr>
+        </table>
+
+        <h4>Voir le détail : <code>git diff</code></h4>
+        <pre><code>git diff            <span class="commentaire"># montre les lignes modifiées qui ne sont PAS encore dans le panier</span>
+git diff --staged   <span class="commentaire"># montre ce qui EST dans le panier</span></code></pre>
+        <p>Les lignes qui commencent par <code>+</code> (vert) sont ajoutées, celles avec <code>-</code> (rouge) sont supprimées.
+          Appuie sur <strong><code>q</code></strong> pour quitter l'affichage.</p>
+      </section>
+
+      <!-- ===================== NOTION 5 ===================== -->
+      <section class="notion">
+        <h3>Notion 5 — Remplir le panier : <code>git add</code></h3>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>git add journal.md         <span class="commentaire"># ajoute UN fichier précis au panier</span>
+git add site/css/style.css journal.md   <span class="commentaire"># plusieurs fichiers, séparés par un espace</span>
+git add .                  <span class="commentaire"># ajoute TOUT ce qui a changé dans le dossier actuel (le point = « ici »)</span></code></pre>
+
+        <h4>Quand utiliser lequel ?</h4>
+        <ul>
+          <li><code>git add nom-du-fichier</code> → quand tu veux contrôler exactement ce qui part dans le commit. <strong>C'est la bonne habitude.</strong></li>
+          <li><code>git add .</code> → quand tu es sûr que <em>tous</em> les changements vont ensemble. Fais toujours <code>git status</code> avant, pour voir ce que tu ajoutes.</li>
+        </ul>
+
+        <h4>Retirer un fichier du panier</h4>
+        <pre><code>git restore --staged journal.md   <span class="commentaire"># le fichier sort du panier ; tes modifications sont conservées</span></code></pre>
+      </section>
+
+      <!-- ===================== NOTION 6 ===================== -->
+      <section class="notion">
+        <h3>Notion 6 — Sauvegarder : <code>git commit</code> et un bon message</h3>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>git commit -m "Ajoute mon entrée de journal pour la leçon 0.2"
+<span class="commentaire">#           ↑ -m = message, toujours entre guillemets</span></code></pre>
+
+        <h4>Un bon message</h4>
+        <p>La règle : <strong>quelqu'un qui lit seulement le message comprend ce qui a changé.</strong>
+          Commence par un verbe d'action au présent : <em>Ajoute, Corrige, Modifie, Supprime, Renomme</em>.</p>
+        <table>
+          <tr><th>❌ Mauvais</th><th>Pourquoi</th><th>✅ Bon</th></tr>
+          <tr><td><code>modif</code></td><td>Modif de quoi ?</td><td><code>Change la couleur d'accent du site en rouge</code></td></tr>
+          <tr><td><code>premier commit : base</code></td><td>« Base » de quoi ?</td><td><code>Premier commit : base du site de formation</code></td></tr>
+          <tr><td><code>je comprend comment git add</code></td><td>Décrit ton ressenti, pas le changement</td><td><code>Ajoute l'exercice 2 de la leçon 0.2</code></td></tr>
+        </table>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><strong>Tu as oublié <code>-m</code></strong> et un éditeur bizarre (Vim) s'ouvre en plein terminal. Pour en sortir sans paniquer :
+            appuie sur <code>Échap</code>, tape <code>:q!</code> puis Entrée. Le commit est annulé : recommence avec <code>-m "…"</code>.</li>
+          <li><code>nothing added to commit</code> → ton panier est vide. Tu as oublié <code>git add</code>.</li>
+          <li><code>warning: LF will be replaced by CRLF</code> → ce n'est <strong>pas une erreur</strong>. Windows et Mac/Linux n'écrivent pas les fins de ligne pareil, et Git s'en occupe. Tu peux ignorer ce message.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 7 ===================== -->
+      <section class="notion">
+        <h3>Notion 7 — Relire l'historique : <code>git log</code></h3>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>git log --oneline
+<span class="commentaire"># → 7063c77 Update README.md</span>
+<span class="commentaire"># → 1d28fe5 Ajoute l'exercice 2 de la leçon 0.2</span>
+<span class="commentaire"># → 4ec4e38 Premier commit : base du site de formation</span></code></pre>
+        <p>Chaque ligne = un commit. Le code au début (<code>7063c77</code>) est son <strong>identifiant</strong> unique.
+          Le plus récent est en haut. Si la liste est longue, appuie sur <strong><code>q</code></strong> pour quitter.</p>
+      </section>
+
+      <!-- ===================== RÉSUMÉ ===================== -->
+      <div class="encadre astuce">
+        <p><strong>Le cycle que tu feras des centaines de fois :</strong></p>
+        <p><code>git status</code> → <code>git add fichier</code> → <code>git status</code> → <code>git commit -m "Verbe + ce qui a changé"</code> → <code>git log --oneline</code></p>
       </div>
 
-      <h2>Les 3 zones de Git</h2>
-      <p>C'est LE concept à comprendre. Un fichier passe par trois étapes :</p>
-      <table>
-        <tr><th>Zone</th><th>Ce que c'est</th><th>Commande pour y aller</th></tr>
-        <tr><td>1. Dossier de travail</td><td>Tes fichiers, tels que tu les modifies</td><td>(tu modifies un fichier)</td></tr>
-        <tr><td>2. Zone de préparation (<em>staging</em>)</td><td>Le « panier » de ce que tu veux sauvegarder</td><td><code>git add</code></td></tr>
-        <tr><td>3. Historique</td><td>Les commits enregistrés pour toujours</td><td><code>git commit</code></td></tr>
-      </table>
-      <p>Pourquoi un panier ? Pour choisir précisément quoi sauvegarder ensemble, comme quand tu ranges tes courses par rayon.</p>
-
-      <h2>Étape 1 — Te présenter à Git (une seule fois)</h2>
-      <p>Chaque commit porte le nom de son auteur. Dans Git Bash, avec <strong>tes</strong> informations :</p>
-      <pre><code>git config --global user.name "Ton Prénom Nom"
-git config --global user.email "ton-email@exemple.com"
-git config --global init.defaultBranch main
-<span class="commentaire"># Vérifier :</span>
-git config --global --list</code></pre>
-      <div class="encadre attention">
-        <p><strong>Ton email devient visible</strong> dans l'historique public de tes projets.
-        Dans la leçon 0.3, on le remplacera par l'adresse « privée » que GitHub te donne.</p>
-      </div>
-
-      <h2>Étape 2 — Créer le dépôt</h2>
-      <pre><code>cd ~/Documents/formation-ia
-git init          <span class="commentaire"># crée un dépôt vide (un dossier caché .git)</span>
-git status        <span class="commentaire"># montre l'état : quels fichiers sont nouveaux ou modifiés</span></code></pre>
-      <p>
-        <code>git status</code> affiche tes fichiers en <span style="color:#dc2626">rouge</span> : Git les voit,
-        mais ils ne sont pas encore dans le panier. <strong><code>git status</code> est ta boussole</strong> :
-        tape-le tout le temps.
-      </p>
-
-      <h2>Étape 3 — Ton premier commit</h2>
-      <pre><code>git add .                                  <span class="commentaire"># met TOUS les fichiers dans le panier (le point = « tout »)</span>
-git status                                 <span class="commentaire"># ils sont maintenant en vert</span>
-git commit -m "Premier commit : base du site de formation"
-git log --oneline                          <span class="commentaire"># affiche l'historique, une ligne par commit</span></code></pre>
-
-      <h3>Un bon message de commit</h3>
-      <table>
-        <tr><th>❌ Mauvais</th><th>✅ Bon</th></tr>
-        <tr><td><code>modif</code></td><td><code>Ajoute la leçon 0.1 dans mon journal</code></td></tr>
-        <tr><td><code>trucs</code></td><td><code>Corrige la couleur des liens du menu</code></td></tr>
-        <tr><td><code>aaaa</code></td><td><code>Crée l'exercice 2 sur les commandes du terminal</code></td></tr>
-      </table>
-      <p>La règle : quelqu'un qui lit seulement le message doit comprendre ce qui a changé.</p>
-
+      <!-- ===================== EXERCICES ===================== -->
       <h2>Exercices</h2>
 
       <div class="exercice">
         <h3>Exercice 1 — Le premier commit</h3>
-        <p>Fais les étapes 1, 2 et 3 ci-dessus. À la fin, <code>git log --oneline</code> doit afficher ton commit.</p>
-      </div>
-
-      <div class="exercice">
-        <h3>Exercice 2 — Le cycle complet</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> ton dossier <code>formation-ia</code> devient un dépôt Git,
+            avec <strong>un commit</strong> qui contient tous les fichiers actuels.</p>
+        </div>
         <ol>
-          <li>Ouvre <code>journal.md</code> et ajoute ton entrée sur la leçon 0.2.</li>
-          <li>Tape <code>git status</code>. Que remarques-tu ?</li>
-          <li>Tape <code>git diff</code> : il affiche exactement les lignes modifiées (appuie sur <code>q</code> pour quitter).</li>
-          <li>Mets le fichier dans le panier, puis fais un commit avec un <strong>bon</strong> message.</li>
-          <li>Vérifie avec <code>git log --oneline</code> : tu as maintenant 2 commits.</li>
+          <li>Configure ton nom, ton email et la branche <code>main</code> (notion 2).</li>
+          <li>Place-toi dans <code>formation-ia</code> et crée le dépôt (notion 3).</li>
+          <li>Regarde l'état avec <code>git status</code>.</li>
+          <li>Mets tout dans le panier, vérifie, puis fais le commit avec un bon message.</li>
         </ol>
-        <details>
+        <p><strong>Comment vérifier que c'est réussi :</strong> <code>git log --oneline</code> affiche 1 ligne, et <code>git status</code> affiche <code>working tree clean</code>.</p>
+        <details class="indice">
           <summary>Indice</summary>
-          <p>Pour ajouter un seul fichier au panier : <code>git add journal.md</code>.</p>
+          <p>Pour le tout premier commit, tous les fichiers vont ensemble : c'est le bon moment pour <code>git add .</code>.</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>git config --global user.name "Hassnein Khawary"
+git config --global user.email "ton-email@exemple.com"
+git config --global init.defaultBranch main
+cd ~/Documents/formation-ia
+git init                          <span class="commentaire"># crée le dépôt</span>
+git status                        <span class="commentaire"># tout est en rouge : Untracked files</span>
+git add .                         <span class="commentaire"># tout dans le panier</span>
+git status                        <span class="commentaire"># tout est en vert : Changes to be committed</span>
+git commit -m "Premier commit : base du site de formation"
+git log --oneline                 <span class="commentaire"># → abc1234 Premier commit : base du site de formation ✅</span></code></pre>
         </details>
       </div>
 
       <div class="exercice">
-        <h3>Exercice 3 — Explique avec tes mots</h3>
-        <p>Écris dans <code>exercices/module-0-2/git-en-3-phrases.md</code> ce que sont un commit, le panier (staging)
-        et l'historique, comme si tu l'expliquais à un ami. Puis fais un commit. Demande ensuite à Claude de vérifier ton explication.</p>
+        <h3>Exercice 2 — Le cycle complet avec ton journal</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> une nouvelle entrée dans <code>journal.md</code>, enregistrée dans <strong>un nouveau commit</strong> qui ne contient que ce fichier.</p>
+        </div>
+        <ol>
+          <li>Ouvre le journal : <code>code journal.md</code>. Sous la ligne <code>--&gt;</code>, écris ton entrée sur la leçon 0.2 avec le modèle (date, leçon, 3 questions). Enregistre (<code>Ctrl+S</code>).</li>
+          <li>Tape <code>git status</code>. Dans quelle zone est <code>journal.md</code> ?</li>
+          <li>Tape <code>git diff</code> pour voir tes lignes ajoutées, puis <code>q</code>.</li>
+          <li>Mets <strong>seulement</strong> <code>journal.md</code> dans le panier, puis fais le commit.</li>
+          <li>Vérifie avec <code>git log --oneline</code>.</li>
+        </ol>
+        <p><strong>Comment vérifier que c'est réussi :</strong> <code>git log --oneline</code> affiche un commit de plus, et <code>git show --stat</code> (le détail du dernier commit) ne liste que <code>journal.md</code>.</p>
+        <details class="indice">
+          <summary>Indice</summary>
+          <p>À l'étape 2, cherche la phrase <code>Changes not staged for commit</code> dans le tableau de la notion 4.
+            À l'étape 4, utilise <code>git add</code> avec le <strong>nom du fichier</strong>, pas le point.</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <p>Exemple d'entrée de journal (à écrire avec <em>tes</em> mots) :</p>
+          <pre><code>## 2026-10-26 — Leçon 0.2
+- **Ce que j'ai appris :** Git garde des points de sauvegarde, et un fichier passe par 3 zones.
+- **Ce qui était difficile :** comprendre à quoi sert le panier.
+- **Une question que je me pose encore :** comment revenir à un ancien commit ?</code></pre>
+          <p>Les commandes :</p>
+          <pre><code>git status         <span class="commentaire"># journal.md est en rouge : "Changes not staged for commit"</span>
+                   <span class="commentaire"># → il est dans la zone 1, le dossier de travail</span>
+git diff           <span class="commentaire"># lignes ajoutées en vert avec un +, puis q pour quitter</span>
+git add journal.md <span class="commentaire"># zone 2 : le panier</span>
+git status         <span class="commentaire"># journal.md est en vert : "Changes to be committed"</span>
+git commit -m "Ajoute mon entrée de journal pour la leçon 0.2"   <span class="commentaire"># zone 3 : l'historique</span>
+git log --oneline  <span class="commentaire"># le nouveau commit est en haut ✅</span></code></pre>
+        </details>
       </div>
 
+      <div class="exercice">
+        <h3>Exercice 3 — Explique Git avec tes mots</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un fichier <code>exercices/module-0-2/git-en-3-phrases.md</code> avec
+            <strong>3 phrases</strong> qui expliquent un commit, le panier et l'historique, comme à un ami qui n'y connaît rien. Puis un commit.</p>
+        </div>
+        <ol>
+          <li>Crée le dossier <code>exercices/module-0-2</code> (leçon 0.1).</li>
+          <li>Ouvre le fichier avec <code>code exercices/module-0-2/git-en-3-phrases.md</code> (VS Code le crée s'il n'existe pas).</li>
+          <li>Écris tes 3 phrases, enregistre.</li>
+          <li>Fais un commit qui ne contient que ce fichier.</li>
+          <li>Demande à Claude Code : <em>« Vérifie mon explication de Git dans exercices/module-0-2. »</em></li>
+        </ol>
+        <p><strong>Comment vérifier que c'est réussi :</strong> chaque phrase utilise une image de la vie quotidienne, et un ami qui ne code pas pourrait la comprendre.</p>
+        <details class="indice">
+          <summary>Indice</summary>
+          <p>Reprends les images de la leçon (jeu vidéo, courses) ou invente les tiennes : un album photo, un brouillon, un classeur…</p>
+        </details>
+        <details class="correction">
+          <summary>Correction : un exemple (les tiennes peuvent être différentes)</summary>
+          <pre><code># Git en 3 phrases
+
+- **Un commit**, c'est une photo de mon projet à un moment précis, avec une légende
+  qui explique ce qui a changé.
+- **Le panier (staging)**, c'est la pile de photos que je choisis de coller dans l'album :
+  je ne colle que celles qui vont ensemble.
+- **L'historique**, c'est l'album complet : toutes les photos dans l'ordre, que je peux
+  feuilleter pour revenir en arrière.</code></pre>
+          <pre><code>mkdir exercices/module-0-2
+code exercices/module-0-2/git-en-3-phrases.md     <span class="commentaire"># écrire, puis Ctrl+S</span>
+git add exercices/module-0-2/git-en-3-phrases.md
+git commit -m "Ajoute mon explication de Git en 3 phrases"</code></pre>
+        </details>
+      </div>
+
+      <!-- ===================== QUESTIONS ===================== -->
+      <h2>Questions pour vérifier que tu as compris</h2>
+
+      <div class="exercice">
+        <p><strong>1.</strong> Tu viens de modifier <code>journal.md</code> et tu l'as enregistré. Dans quelle zone est-il ? Et après <code>git add journal.md</code> ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p>D'abord dans la zone 1, le <strong>dossier de travail</strong> (en rouge dans <code>git status</code>).
+            Après <code>git add</code>, dans la zone 2, le <strong>panier</strong> (en vert). Il ira dans l'historique au <code>git commit</code>.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <p><strong>2.</strong> Tu tapes <code>git commit -m "Corrige le menu"</code> et Git répond <code>nothing added to commit</code>. Pourquoi ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p>Le panier est vide : tu as oublié <code>git add</code>. Fais <code>git status</code>, ajoute le fichier, puis recommence le commit.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <p><strong>3.</strong> Lequel de ces messages est le meilleur, et pourquoi ? <code>update</code> · <code>Corrige la faute dans le titre de l'accueil</code> · <code>j'ai fait des trucs</code></p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p><code>Corrige la faute dans le titre de l'accueil</code> : il commence par un verbe d'action et dit précisément <em>quoi</em> et <em>où</em>.</p>
+        </details>
+      </div>
+
+      <!-- ===================== FIN ===================== -->
       <h2>Checklist</h2>
       <ul class="checklist">
         <li>Je sais la différence entre Git et GitHub.</li>
+        <li>Je sais quand faire <code>git init</code> (une fois, dans le dossier du projet).</li>
         <li>Je connais les 3 zones : dossier de travail, panier, historique.</li>
-        <li>J'utilise <code>git status</code>, <code>git add</code>, <code>git commit -m</code>, <code>git log --oneline</code>.</li>
-        <li>J'écris des messages de commit clairs.</li>
+        <li>Je lis <code>git status</code> et je sais quelle commande taper ensuite.</li>
+        <li>J'utilise <code>git add fichier</code>, <code>git commit -m</code>, <code>git log --oneline</code> et <code>git diff</code>.</li>
+        <li>J'écris des messages de commit qui commencent par un verbe d'action.</li>
+        <li>Je sais sortir de Vim (<code>Échap</code>, <code>:q!</code>) si je l'ouvre par erreur.</li>
       </ul>
 
       <h2>Journal et commit</h2>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.11 · Mise en ligne et portfolio — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Projet 1.11</div>
+      <span class="etiquette">Projet 1.11 · environ 3 h · GitHub</span>
+      <h1>Mise en ligne avec GitHub Pages et portfolio</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> publier ton site sur Internet, gratuitement, avec une vraie adresse que tu peux envoyer à n'importe qui.
+        Ranger ton dépôt avec un <code>.gitignore</code> et un bon README, et transformer la page Portfolio en vitrine.
+        <strong>C'est le livrable de la Phase 1.</strong>
+      </div>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Comment un site arrive sur Internet</h3>
+        <p>Jusqu'ici, ton site existe sur ton PC (fichiers) et sur GitHub (code). Pour qu'un visiteur l'ouvre, il faut un <strong>hébergeur</strong> :
+          un ordinateur allumé en permanence qui envoie tes fichiers à qui les demande. <strong>GitHub Pages</strong> le fait gratuitement pour les sites
+          « statiques » (HTML, CSS, JavaScript, sans serveur), exactement comme le tien.</p>
+        <table>
+          <tr><th>Étape</th><th>Où</th></tr>
+          <tr><td>Tu modifies, tu commits, tu <code>git push</code></td><td>ton PC → GitHub</td></tr>
+          <tr><td>GitHub Pages republie automatiquement</td><td>GitHub → Internet (environ 1 minute)</td></tr>
+          <tr><td>Le visiteur ouvre <code>https://ton-pseudo.github.io/formation-ia/</code></td><td>Internet → son navigateur</td></tr>
+        </table>
+        <p>En Phase 3, tu passeras à <strong>Vercel</strong>, qui fait la même chose pour les applications Next.js.</p>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Le petit problème du dossier <code>site/</code></h3>
+        <p>GitHub Pages publie soit la <strong>racine</strong> du dépôt, soit un dossier <code>/docs</code>. Ton site est dans <code>site/</code>.
+          La solution la plus simple : une page <code>index.html</code> à la racine qui <strong>redirige</strong> vers <code>site/</code>.</p>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta http-equiv="refresh" content="0; url=site/"&gt;   <span class="commentaire">&lt;!-- après 0 seconde, va vers site/ --&gt;</span>
+    &lt;title&gt;Formation IA&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;&lt;a href="site/"&gt;Accéder à la formation&lt;/a&gt;&lt;/p&gt;      <span class="commentaire">&lt;!-- au cas où la redirection est bloquée --&gt;</span>
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Les pièges de la mise en ligne</h3>
+        <ul class="erreurs">
+          <li><strong>Les majuscules comptent en ligne</strong> : sur Windows, <code>Logo.PNG</code> et <code>logo.png</code> sont le même fichier ; sur le serveur, non. Image ou page introuvable en ligne mais pas sur ton PC ? Vérifie la casse.</li>
+          <li><strong>Les chemins absolus</strong> comme <code>C:\Users\…</code> ou <code>/site/index.html</code> ne marchent pas en ligne. Toujours des chemins relatifs (<code>css/style.css</code>, <code>../index.html</code>).</li>
+          <li><strong>Tout est public</strong> : le code et ton journal <code>journal.md</code> sont lisibles par tous. Rien de privé, jamais de mot de passe ni de clé.</li>
+          <li><strong>localStorage est par navigateur et par adresse</strong> : ta progression cochée en local (<code>localhost</code> ou fichier) ne se retrouve pas sur la version en ligne. Normal : c'est une autre « adresse ».</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Un dépôt professionnel : <code>.gitignore</code> et README</h3>
+        <h4><code>.gitignore</code> : ce que Git doit ignorer</h4>
+        <p>Un fichier texte à la racine, une règle par ligne. Git ne suivra jamais ces fichiers.</p>
+        <pre><code><span class="commentaire"># Fichiers système</span>
+.DS_Store
+Thumbs.db
+desktop.ini
+
+<span class="commentaire"># Réglages d'éditeur</span>
+.vscode/
+
+<span class="commentaire"># Secrets (Phase 4-5 : clés API) — JAMAIS sur GitHub</span>
+.env
+
+<span class="commentaire"># Dépendances installées (Phase 3)</span>
+node_modules/</code></pre>
+        <p><strong>Quand ?</strong> Dès le début d'un projet. Attention : un fichier <em>déjà commité</em> n'est pas retiré par le <code>.gitignore</code>.</p>
+        <h4>Le README : la vitrine du dépôt</h4>
+        <p>C'est la première chose qu'un visiteur voit sur GitHub. Un bon README dit : ce qu'est le projet, <strong>le lien du site en ligne</strong>, les technologies, et comment l'ouvrir.
+          Il s'écrit en <strong>Markdown</strong> : <code># Titre</code>, <code>**gras**</code>, <code>- liste</code>, <code>[texte](https://lien)</code>, <code>![alt](image.png)</code>.</p>
+      </section>
+
+      <!-- ===================== ÉTAPES ===================== -->
+      <h2>Le projet, étape par étape</h2>
+
+      <div class="exercice">
+        <h3>Étape 1 — Ranger le dépôt</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un fichier <code>.gitignore</code> à la racine (notion 4), et la page <code>index.html</code> de redirection à la racine (notion 2). Commit et push.</p>
+        </div>
+        <p><strong>Comment vérifier :</strong> en ouvrant le <code>index.html</code> de la racine, tu arrives sur l'accueil de la formation.</p>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>cd ~/Documents/formation-ia
+code .gitignore          # coller les règles de la notion 4, Ctrl+S
+code index.html          # coller la page de redirection de la notion 2, Ctrl+S
+git add .gitignore index.html
+git commit -m "Ajoute le .gitignore et la redirection vers le site pour GitHub Pages"
+git push</code></pre>
+          <p>Le nom <code>.gitignore</code> commence par un point : c'est un fichier « caché ». <code>ls -la</code> l'affiche.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 2 — Activer GitHub Pages</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> ton site accessible à l'adresse <code>https://ton-pseudo.github.io/formation-ia/</code>.</p>
+        </div>
+        <ol>
+          <li>Sur github.com, ouvre ton dépôt <code>formation-ia</code> › onglet <strong>Settings</strong>.</li>
+          <li>Dans le menu de gauche : <strong>Pages</strong>.</li>
+          <li><em>Source</em> : <strong>Deploy from a branch</strong>. <em>Branch</em> : <strong>main</strong>, dossier <strong>/ (root)</strong>. Clique sur <strong>Save</strong>.</li>
+          <li>Attends 1 à 2 minutes et rafraîchis : GitHub affiche « Your site is live at … ». Clique sur l'adresse.</li>
+        </ol>
+        <p><strong>Comment vérifier :</strong> l'adresse s'ouvre sur ton téléphone, en 4G (sans le wifi de ton PC) : ton site est vraiment sur Internet.
+          Navigue dans toutes les pages et vérifie qu'aucune image ni aucun lien n'est cassé.</p>
+        <details class="indice"><summary>Ça ne marche pas ?</summary>
+          <ul>
+            <li>Erreur 404 : attends encore 2 minutes ; vérifie que l'<code>index.html</code> de redirection est bien poussé à la racine (visible sur la page du dépôt).</li>
+            <li>Le dépôt doit être <strong>public</strong> (leçon 0.3).</li>
+            <li>Onglet <strong>Actions</strong> du dépôt : la publication y apparaît (rond orange = en cours, coche verte = publié, croix rouge = erreur).</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 3 — Le README vitrine</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un <code>README.md</code> qui commence par le nom du projet, une phrase de description, <strong>le lien vers le site en ligne</strong>,
+            la liste des technologies, puis la feuille de route existante. Vérifie l'aperçu dans VS Code (<code>Ctrl+Shift+V</code>), puis sur GitHub après le push.</p>
+        </div>
+        <details class="correction"><summary>Correction : le début du README (ouvre-la après avoir essayé)</summary>
+          <pre><code># Formation IA — de débutant à builder
+
+Ma plateforme de formation personnelle, construite en apprenant : dev web, IA, SEO, mobile et business.
+
+🌐 **Site en ligne :** [ton-pseudo.github.io/formation-ia](https://ton-pseudo.github.io/formation-ia/)
+
+## Technologies
+- HTML sémantique et CSS (flexbox, grid, variables, mode sombre)
+- JavaScript (DOM, événements, localStorage)
+- Git, GitHub et GitHub Pages
+
+## Fonctionnalités
+- Suivi de progression avec barre et cases mémorisées
+- Journal d'apprentissage en ligne
+- Portfolio de projets</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Étape 4 — Le portfolio vitrine</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>site/portfolio.html</code>, remplacer le bloc <code>.chantier</code> et compléter la grille pour avoir <strong>une carte par projet</strong> de la Phase 1
+            (au moins : le site de formation, la page À propos, le suivi de progression, le journal). Chaque carte contient :</p>
+          <ul>
+            <li>une étiquette d'état (« Terminé », « En cours ») et un titre ;</li>
+            <li>une phrase qui dit <strong>le problème résolu</strong> (pas juste « une page ») ;</li>
+            <li>une liste des technologies utilisées ;</li>
+            <li>les liens : voir le projet, voir le code sur GitHub.</li>
+          </ul>
+          <p>Bonus : une capture d'écran par projet (<code>site/images/portfolio-…png</code>, avec un <code>alt</code>).</p>
+        </div>
+        <details class="indice"><summary>Indice</summary>
+          <p>Un lien vers un fichier précis sur GitHub a la forme <code>https://github.com/ton-pseudo/formation-ia/blob/main/site/js/progression.js</code>.</p></details>
+        <details class="correction"><summary>Correction : une carte complète (ouvre-la après avoir essayé)</summary>
+          <pre><code>&lt;article class="carte"&gt;
+  &lt;img src="images/portfolio-progression.png"
+       alt="Page Parcours avec la barre de progression à 16 % et des leçons cochées"&gt;
+  &lt;span class="etiquette"&gt;Terminé&lt;/span&gt;
+  &lt;h3&gt;Suivi de progression&lt;/h3&gt;
+  &lt;p&gt;Savoir en un coup d'œil où j'en suis dans 75 leçons : cases mémorisées et barre de progression.&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;JavaScript (DOM, événements)&lt;/li&gt;
+    &lt;li&gt;localStorage et JSON&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;
+    &lt;a href="parcours.html"&gt;Voir le projet&lt;/a&gt; ·
+    &lt;a href="https://github.com/ton-pseudo/formation-ia/blob/main/site/js/progression.js"
+       target="_blank" rel="noopener noreferrer"&gt;Voir le code&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/article&gt;</code></pre>
+          <p><code>&lt;article&gt;</code> plutôt que <code>&lt;div&gt;</code> : chaque carte est un contenu autonome (leçon 1.1). La grille et le style <code>.carte</code> existent déjà : rien à ajouter au CSS,
+            sauf <code>.carte img { border-radius: 10px; margin-bottom: 12px; }</code> si tu ajoutes des captures.</p>
+          <p>Commit : <code>git commit -m "Termine le portfolio de la Phase 1 et publie le site"</code> → <code>git push</code>.</p>
+        </details>
+      </div>
+
+      <!-- ===================== IA ===================== -->
+      <h2>🤖 Refais-le avec l'IA : l'audit avant publication</h2>
+      <div class="exercice">
+        <div class="attendu"><p><strong>Ce qu'on attend de toi :</strong> faire auditer ton site par Claude comme le ferait un client exigeant, puis corriger toi-même.</p></div>
+        <p>« Contexte : je viens de publier mon site (Phase 1, HTML/CSS/JS). Objectif : fais un audit avant de le montrer à des recruteurs. Contraintes : classe tes remarques en
+          3 catégories (bloquant, important, détail), vérifie les liens cassés, les <code>alt</code>, les titres, l'affichage mobile et les fautes d'orthographe. Ne modifie rien : je corrige moi-même. »</p>
+      </div>
+
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice"><p><strong>1.</strong> Une image s'affiche sur ton PC mais pas en ligne. Première chose à vérifier ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Les majuscules du nom de fichier et du <code>src</code> (le serveur les distingue), puis que l'image a bien été commitée et poussée.</p></details></div>
+      <div class="exercice"><p><strong>2.</strong> Tu modifies ton site. Que faut-il faire pour que la version en ligne change ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Commit, puis <code>git push</code>. GitHub Pages republie tout seul en environ une minute.</p></details></div>
+      <div class="exercice"><p><strong>3.</strong> Pourquoi <code>.env</code> dans le <code>.gitignore</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Ce fichier contiendra tes clés secrètes (API) : il ne doit jamais être publié sur GitHub, où des robots cherchent les clés oubliées.</p></details></div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>Mon site est en ligne et fonctionne sur téléphone.</li>
+        <li>Mon dépôt a un <code>.gitignore</code> et un README avec le lien du site.</li>
+        <li>Je connais les pièges : majuscules, chemins, données publiques.</li>
+        <li>Mon portfolio présente chaque projet avec le problème résolu, les technologies et les liens.</li>
+      </ul>
+
+      <div class="encadre astuce">
+        <p>🎉 <strong>Phase 1 terminée !</strong> Tu as un site publié, avec du HTML, du CSS, du JavaScript et des données mémorisées.
+          Envoie l'adresse à quelqu'un de ton entourage : c'est ton premier vrai projet en ligne.</p>
+      </div>
+
+      <h2>Journal et commit</h2>
+      <p>Une entrée de bilan de la Phase 1 dans ton journal en ligne : qu'est-ce que tu sais faire maintenant que tu ne savais pas il y a un mois ?</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-10-projet-journal.html">← 1.10 : Le journal</a>
+        <a class="bouton" href="../parcours.html">Parcours →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

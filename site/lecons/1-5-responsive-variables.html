@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.5 · Responsive et variables — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Leçon 1.5</div>
+      <span class="etiquette">Leçon 1.5 · environ 2 h 30</span>
+      <h1>CSS : responsive et variables</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> faire une page qui s'adapte du téléphone à l'ordinateur, tester tous les écrans avec F12,
+        et organiser ton design avec des variables CSS, mode sombre compris.
+      </div>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Pourquoi le « responsive » ?</h3>
+        <p>Plus de la moitié des visites web se font sur téléphone, et Google classe les sites d'abord selon leur version mobile.
+          Un site <strong>responsive</strong> s'adapte à la largeur de l'écran.</p>
+        <h4>Les 3 bases à toujours avoir</h4>
+        <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;   <span class="commentaire">&lt;!-- sans lui, le téléphone affiche une version miniature --&gt;</span>
+
+img { max-width: 100%; height: auto; }   <span class="commentaire">/* une image ne dépasse jamais son conteneur */</span>
+.conteneur { max-width: 1080px; margin: 0 auto; padding: 0 20px; }   <span class="commentaire">/* largeur max + marges de sécurité */</span></code></pre>
+        <h4>Tester avec F12</h4>
+        <p>F12, puis l'icône 📱 (<em>Toggle device toolbar</em>, ou <code>Ctrl+Shift+M</code>) : choisis un modèle de téléphone ou tire sur le bord pour changer la largeur.</p>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Les media queries</h3>
+        <h4>C'est quoi ?</h4>
+        <p>Un bloc de règles qui ne s'applique <strong>que si</strong> une condition est vraie, le plus souvent une largeur d'écran.</p>
+        <h4>Comment l'écrire : « mobile d'abord »</h4>
+        <pre><code><span class="commentaire">/* 1. Styles de base : pour le TÉLÉPHONE (le plus simple, une colonne) */</span>
+.colonnes { display: grid; gap: 16px; }
+
+<span class="commentaire">/* 2. Dès 768px de large (tablette) : 2 colonnes */</span>
+@media (min-width: 768px) {
+  .colonnes { grid-template-columns: 1fr 1fr; }
+}
+
+<span class="commentaire">/* 3. Dès 1024px (ordinateur) : 3 colonnes */</span>
+@media (min-width: 1024px) {
+  .colonnes { grid-template-columns: 1fr 1fr 1fr; }
+}</code></pre>
+        <p><strong>Pourquoi « mobile d'abord » ?</strong> On part du plus simple et on <em>ajoute</em> pour les grands écrans. Le code est plus court et le téléphone charge moins de règles.
+          (Le site de formation utilise parfois l'inverse, <code>max-width</code>, pour de petits ajustements : les deux existent.)</p>
+        <table>
+          <tr><th>Largeurs courantes</th><th>Appareil</th></tr>
+          <tr><td>&lt; 600px</td><td>téléphone</td></tr>
+          <tr><td>768px</td><td>tablette</td></tr>
+          <tr><td>1024px et plus</td><td>ordinateur</td></tr>
+        </table>
+        <ul class="erreurs">
+          <li>Une largeur fixe (<code>width: 900px</code>) sur un bloc : sur téléphone, la page déborde et défile sur le côté. Préfère <code>max-width</code>.</li>
+          <li>Oublier la balise viewport : les media queries semblent ne pas marcher sur téléphone.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Les variables CSS</h3>
+        <h4>C'est quoi ?</h4>
+        <p>Une valeur nommée, définie une fois et réutilisée partout. Change-la à un endroit : tout le site suit. C'est la base d'un <strong>design system</strong>.</p>
+        <h4>Comment l'écrire</h4>
+        <pre><code>:root {                       <span class="commentaire">/* :root = toute la page : les variables sont disponibles partout */</span>
+  --accent: #4f46e5;          <span class="commentaire">/* une variable commence par deux tirets */</span>
+  --rayon: 14px;
+}
+.bouton {
+  background: var(--accent);  <span class="commentaire">/* var(--nom) pour l'utiliser */</span>
+  border-radius: var(--rayon);
+}</code></pre>
+        <h4>Le mode sombre</h4>
+        <pre><code>@media (prefers-color-scheme: dark) {
+  :root {
+    --fond: #121214;          <span class="commentaire">/* on redéfinit SEULEMENT les variables */</span>
+    --texte: #ececf1;
+  }
+}</code></pre>
+        <p>Tu reconnais <code>site/css/style.css</code> ? C'est exactement ça. Toutes les règles utilisent <code>var(--…)</code>, donc le mode sombre ne demande qu'un bloc.</p>
+        <h4>Quand utiliser une variable ?</h4>
+        <p>Pour toute valeur <strong>répétée</strong> ou qui fait partie de l'<strong>identité</strong> du site : couleurs, arrondis, ombres, largeur max, polices.</p>
+      </section>
+
+      <!-- ===================== EXERCICES ===================== -->
+      <h2>Exercices</h2>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Ta page À propos en responsive + mode sombre</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> réécrire <code>exercices/module-1-1/style.css</code> pour que :</p>
+          <ul>
+            <li>toutes les couleurs soient des <strong>variables</strong> dans <code>:root</code> (au moins <code>--fond</code>, <code>--surface</code>, <code>--texte</code>, <code>--accent</code>) ;</li>
+            <li>un bloc <code>prefers-color-scheme: dark</code> les redéfinisse ;</li>
+            <li>les 2 sections soient l'une sous l'autre sur téléphone, et <strong>côte à côte</strong> dès 768px ;</li>
+            <li>la photo ne déborde jamais.</li>
+          </ul>
+        </div>
+        <p><strong>Comment vérifier :</strong> F12 › 📱 à 375px puis 1024px ; change le thème de Windows (clair/sombre) et rafraîchis.</p>
+        <details class="indice"><summary>Indice</summary>
+          <p>Les 2 sections sont dans <code>main</code> : c'est lui qui devient une grille à 2 colonnes dans la media query.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>:root {
+  --fond: #f7f5f0;
+  --surface: #ffffff;
+  --texte: #1d1d1f;
+  --accent: #e11d48;
+  --bordure: #e3e0d8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fond: #121214;
+    --surface: #1b1b1f;
+    --texte: #ececf1;
+    --accent: #fb7185;
+    --bordure: #2c2c33;
+  }
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  line-height: 1.6;
+  background: var(--fond);
+  color: var(--texte);
+  margin: 0;
+  padding: 24px;
+}
+h1 { color: var(--accent); }
+img { max-width: 100%; height: auto; }
+
+main { display: grid; gap: 16px; }          /* téléphone : une colonne */
+
+@media (min-width: 768px) {
+  main { grid-template-columns: 1fr 1fr; }  /* tablette et plus : deux colonnes */
+}
+
+section {
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+  padding: 20px;
+}
+footer { text-align: center; font-size: 0.9rem; }</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Le détective du débordement</h3>
+        <div class="attendu"><p><strong>Ce qu'on attend de toi :</strong> trouver pourquoi cette page défile horizontalement sur téléphone, et corriger.</p></div>
+        <pre><code>.bandeau { width: 1200px; padding: 20px; }
+.photo { width: 800px; }</code></pre>
+        <details class="correction"><summary>Correction</summary>
+          <pre><code>.bandeau { max-width: 1200px; padding: 20px; }   /* max-width : peut rétrécir */
+.photo { max-width: 100%; height: auto; }</code></pre>
+          <p>Une largeur fixe plus grande que l'écran force le défilement. <code>max-width</code> donne une limite sans empêcher de rétrécir.</p>
+        </details>
+      </div>
+
+      <h2>🔧 Ajout au site</h2>
+      <div class="exercice">
+        <h3>Une nouvelle variable de design</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> dans <code>site/css/style.css</code>, ajoute une variable <code>--espace</code> (24px) dans <code>:root</code>,
+            et utilise-la pour le padding de <code>.carte</code> et de <code>.phase</code>. Vérifie le site sur téléphone avec F12.</p>
+        </div>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>:root {
+  …
+  --espace: 24px;   /* Ma contribution (leçon 1.5) */
+}
+.carte { … padding: var(--espace); … }
+.phase { … padding: var(--espace); … }</code></pre>
+        </details>
+      </div>
+
+      <h2>🤖 Refais-le avec l'IA</h2>
+      <div class="exercice">
+        <div class="attendu"><p><strong>Ce qu'on attend de toi :</strong> demander à Claude un <strong>audit responsive</strong> de ta page À propos : « Liste les problèmes d'affichage sur un écran de 375px et explique chaque correction. »
+          Teste chaque correction toi-même avec F12 avant de l'accepter.</p></div>
+      </div>
+
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice"><p><strong>1.</strong> Que fait <code>@media (min-width: 768px) { … }</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Il applique les règles à l'intérieur seulement quand l'écran fait <strong>au moins</strong> 768px de large.</p></details></div>
+      <div class="exercice"><p><strong>2.</strong> Pourquoi le mode sombre du site ne demande-t-il qu'un seul bloc ?</p>
+        <details class="correction"><summary>Réponse</summary><p>Parce que toutes les règles utilisent des variables : il suffit de redéfinir les variables, pas les règles.</p></details></div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>J'ai toujours la balise viewport, des images en <code>max-width: 100%</code>.</li>
+        <li>J'écris des media queries « mobile d'abord ».</li>
+        <li>Je teste avec F12 en mode appareil.</li>
+        <li>Je crée et j'utilise des variables CSS, et je fais un mode sombre.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p><code>git commit -m "Termine la leçon 1.5 : page À propos responsive et variable d'espacement"</code> → <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-4-flexbox-grid.html">← 1.4 : Flexbox et grid</a>
+        <a class="bouton" href="1-6-js-bases.html">Leçon 1.6 : JavaScript →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

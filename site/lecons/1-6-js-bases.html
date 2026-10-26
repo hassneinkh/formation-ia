@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.6 · JavaScript : les bases — Formation IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="../index.html"><span class="logo-icone">IA</span> Formation IA</a>
+      <nav class="nav">
+        <a href="../index.html">Accueil</a>
+        <a href="../parcours.html">Parcours</a>
+        <a href="../journal.html">Journal</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <article class="lecon">
+      <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 1 › Leçon 1.6</div>
+      <span class="etiquette">Leçon 1.6 · environ 4 h</span>
+      <h1>JavaScript : variables, conditions et boucles</h1>
+
+      <div class="objectif">
+        <strong>Objectif :</strong> écrire tes premiers programmes. Stocker des informations dans des variables,
+        faire des calculs, prendre des décisions avec des conditions, répéter des actions avec des boucles,
+        et lire les erreurs dans la console.
+      </div>
+
+      <h2>Pourquoi JavaScript ?</h2>
+      <p>
+        HTML = la structure, CSS = l'apparence, <strong>JavaScript = le comportement</strong>. C'est le seul langage de programmation
+        que tous les navigateurs comprennent. Et c'est la base de tout ce qui t'attend : React (Phase 3), les apps mobiles (Phase 7),
+        et les produits IA (Phase 5) s'écrivent en JavaScript. <strong>C'est la leçon la plus importante de la Phase 1.</strong>
+      </p>
+
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Où écrire du JavaScript, et la console</h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Le JavaScript s'écrit dans un fichier <code>.js</code>, relié à la page HTML. Le navigateur l'exécute ligne par ligne, de haut en bas.</p>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code><span class="commentaire">&lt;!-- index.html : juste avant &lt;/body&gt; --&gt;</span>
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+        <pre><code><span class="commentaire">// script.js</span>
+console.log("Bonjour depuis JavaScript !");   <span class="commentaire">// affiche un message dans la console</span></code></pre>
+        <p><strong>Pourquoi juste avant <code>&lt;/body&gt;</code> ?</strong> Pour que tout le HTML soit déjà chargé quand le script s'exécute (important en leçon 1.8).</p>
+
+        <h4>La console : ton tableau de bord</h4>
+        <p>F12 › onglet <strong>Console</strong>. Tu y vois :</p>
+        <ul>
+          <li>ce que tu affiches avec <code>console.log(…)</code> — ton outil n°1 pour comprendre ce que fait ton code ;</li>
+          <li>les <strong>erreurs en rouge</strong>, avec le fichier et le numéro de ligne (par exemple <code>script.js:12</code>) ;</li>
+          <li>une ligne où tu peux taper du JavaScript directement pour tester : essaie <code>2 + 2</code> puis Entrée.</li>
+        </ul>
+
+        <h4>Les commentaires</h4>
+        <pre><code><span class="commentaire">// Commentaire sur une ligne</span>
+<span class="commentaire">/* Commentaire
+   sur plusieurs lignes */</span></code></pre>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>Rien ne se passe : le fichier n'est pas relié (vérifie le <code>src</code>), ou tu ne regardes pas la console.</li>
+          <li><code>&lt;script src="script.js"/&gt;</code> : la balise <code>script</code> doit toujours être fermée par <code>&lt;/script&gt;</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Les variables : <code>const</code> et <code>let</code></h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Une variable, c'est une <strong>boîte avec une étiquette</strong> : tu ranges une valeur dedans et tu la retrouves avec son nom.</p>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>const prenom = "Hassnein";   <span class="commentaire">// const : la valeur ne changera PAS</span>
+let age = 19;                <span class="commentaire">// let : la valeur PEUT changer</span>
+age = 20;                    <span class="commentaire">// on remplace la valeur (sans re-écrire let)</span>
+console.log(prenom, age);    <span class="commentaire">// → Hassnein 20</span></code></pre>
+        <p>Anatomie : <code>const</code> (le mot-clé) · <code>prenom</code> (le nom) · <code>=</code> (« reçoit », pas « égale ») · <code>"Hassnein"</code> (la valeur) · <code>;</code> (fin de l'instruction).</p>
+
+        <h4>Quand utiliser <code>const</code> ou <code>let</code> ?</h4>
+        <ul>
+          <li><strong>Par défaut : <code>const</code>.</strong> La plupart des valeurs ne changent pas, et ça évite les erreurs.</li>
+          <li><code>let</code> seulement si tu sais que la valeur va changer : un compteur, un total qui augmente.</li>
+          <li><code>var</code> : l'ancienne façon. Tu la verras dans de vieux tutoriels ; ne l'utilise pas.</li>
+        </ul>
+
+        <h4>Bien nommer</h4>
+        <p>En <strong>camelCase</strong> (première lettre en minuscule, chaque nouveau mot en majuscule), un nom qui dit ce que contient la boîte :
+          <code>prixTotal</code>, <code>nombreDeLecons</code>, <code>estConnecte</code>. Pas <code>x</code>, <code>truc</code>, ni d'espace ou de tiret.</p>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>TypeError: Assignment to constant variable</code> → tu essaies de changer une <code>const</code>. Utilise <code>let</code> si elle doit changer.</li>
+          <li><code>ReferenceError: prenon is not defined</code> → faute de frappe dans le nom, ou variable pas encore créée. JavaScript respecte les majuscules : <code>Prenom</code> ≠ <code>prenom</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Les types de valeurs</h3>
+        <table>
+          <tr><th>Type</th><th>Exemple</th><th>Pour…</th></tr>
+          <tr><td><strong>string</strong> (texte)</td><td><code>"Bruxelles"</code> ou <code>'Bruxelles'</code></td><td>des mots, des phrases</td></tr>
+          <tr><td><strong>number</strong> (nombre)</td><td><code>19</code>, <code>12.5</code></td><td>des calculs (point pour les décimales !)</td></tr>
+          <tr><td><strong>boolean</strong> (vrai/faux)</td><td><code>true</code>, <code>false</code></td><td>des oui/non : <code>estMajeur</code>, <code>estTermine</code></td></tr>
+          <tr><td><strong>undefined</strong></td><td><code>let x;</code></td><td>« pas encore de valeur »</td></tr>
+          <tr><td><strong>null</strong></td><td><code>null</code></td><td>« vide, volontairement »</td></tr>
+        </table>
+        <pre><code>console.log(typeof "19");   <span class="commentaire">// → "string"  (entre guillemets = du texte !)</span>
+console.log(typeof 19);     <span class="commentaire">// → "number"</span></code></pre>
+
+        <h4>Assembler du texte : les template strings</h4>
+        <pre><code>const prenom = "Hassnein";
+const age = 19;
+<span class="commentaire">// Avec des accents graves ` (clavier belge : AltGr + touche µ, à gauche d'Entrée ; clavier français : AltGr + 7 ; puis espace)</span>
+const phrase = `Je m'appelle ${prenom} et j'ai ${age} ans.`;
+console.log(phrase);        <span class="commentaire">// → Je m'appelle Hassnein et j'ai 19 ans.</span></code></pre>
+        <p><strong>Quand ?</strong> Dès que tu mélanges du texte et des variables. <code>${…}</code> insère la valeur. C'est plus lisible que <code>"Je m'appelle " + prenom + "…"</code>.</p>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>"5" + 3</code> donne <code>"53"</code> (du texte collé), pas 8 ! Un nombre entre guillemets est du texte. Convertis avec <code>Number("5")</code>.</li>
+          <li><code>12,5</code> au lieu de <code>12.5</code> : en code, la décimale est un <strong>point</strong>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Les opérateurs : calculer et comparer</h3>
+        <h4>Calculer</h4>
+        <pre><code>const prixHT = 100;
+const tva = prixHT * 0.21;          <span class="commentaire">// * multiplier  → 21</span>
+const prixTTC = prixHT + tva;       <span class="commentaire">// + additionner → 121</span>
+const parPersonne = prixTTC / 4;    <span class="commentaire">// / diviser     → 30.25</span>
+const reste = 10 % 3;               <span class="commentaire">// % reste de la division → 1 (pratique pour pair/impair)</span>
+
+let compteur = 0;
+compteur = compteur + 1;            <span class="commentaire">// augmenter de 1…</span>
+compteur += 1;                      <span class="commentaire">// …en plus court</span>
+compteur++;                         <span class="commentaire">// …encore plus court → compteur vaut 3</span></code></pre>
+
+        <h4>Comparer (le résultat est <code>true</code> ou <code>false</code>)</h4>
+        <table>
+          <tr><th>Opérateur</th><th>Sens</th><th>Exemple → résultat</th></tr>
+          <tr><td><code>===</code></td><td>strictement égal</td><td><code>age === 19</code> → <code>true</code></td></tr>
+          <tr><td><code>!==</code></td><td>différent</td><td><code>ville !== "Liège"</code> → <code>true</code></td></tr>
+          <tr><td><code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code></td><td>plus grand, plus petit…</td><td><code>age &gt;= 18</code> → <code>true</code></td></tr>
+          <tr><td><code>&amp;&amp;</code></td><td>ET (les deux vrais)</td><td><code>age &gt;= 18 &amp;&amp; aPermis</code></td></tr>
+          <tr><td><code>||</code></td><td>OU (au moins un vrai)</td><td><code>estSamedi || estDimanche</code></td></tr>
+          <tr><td><code>!</code></td><td>NON (inverse)</td><td><code>!estTermine</code></td></tr>
+        </table>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><code>=</code> au lieu de <code>===</code> dans une comparaison : <code>=</code> <em>range</em> une valeur, <code>===</code> <em>compare</em>.</li>
+          <li><code>==</code> (deux signes) : il compare de façon « souple » (<code>"5" == 5</code> donne <code>true</code>). Utilise toujours <code>===</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 5 ===================== -->
+      <section class="notion">
+        <h3>Notion 5 — Les conditions : <code>if</code>, <code>else if</code>, <code>else</code></h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Faire <strong>une chose ou une autre</strong> selon une situation : « <em>si</em> le panier dépasse 30 €, la livraison est gratuite, <em>sinon</em> elle coûte 4,90 € ».</p>
+
+        <h4>Comment l'écrire</h4>
+        <pre><code>const total = 42;
+
+if (total &gt;= 30) {                  <span class="commentaire">// la condition, entre parenthèses</span>
+  console.log("Livraison gratuite"); <span class="commentaire">// exécuté si la condition est vraie</span>
+} else {
+  console.log("Livraison : 4,90 €"); <span class="commentaire">// exécuté sinon</span>
+}
+
+<span class="commentaire">// Plusieurs cas : else if, testés DANS L'ORDRE, le premier vrai gagne</span>
+const note = 14;
+if (note &gt;= 16) {
+  console.log("Grande distinction");
+} else if (note &gt;= 14) {
+  console.log("Distinction");        <span class="commentaire">// ← celui-ci (16 est faux, 14 est vrai)</span>
+} else if (note &gt;= 10) {
+  console.log("Réussi");
+} else {
+  console.log("Échec");
+}</code></pre>
+
+        <h4>Quand l'utiliser ?</h4>
+        <p>Dès que ton programme doit <strong>réagir différemment</strong> : un formulaire mal rempli, un utilisateur connecté ou non, une case cochée ou non.</p>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>Mauvais ordre des <code>else if</code> : si tu testes <code>note &gt;= 10</code> en premier, un 18 affiche « Réussi ». Va du plus exigeant au moins exigeant.</li>
+          <li>Oublier une accolade <code>}</code> : <code>SyntaxError: Unexpected end of input</code>. L'indentation t'aide à voir ce qui manque.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 6 ===================== -->
+      <section class="notion">
+        <h3>Notion 6 — Les boucles : <code>for</code> et <code>while</code></h3>
+
+        <h4>C'est quoi ?</h4>
+        <p>Répéter une action <strong>sans copier-coller</strong> le code : afficher 10 lignes, parcourir 69 leçons, compter jusqu'à 100.</p>
+
+        <h4>La boucle <code>for</code> : quand tu sais combien de fois</h4>
+        <pre><code>for (let i = 1; i &lt;= 5; i++) {
+  console.log(`Tour numéro ${i}`);
+}
+<span class="commentaire">//   let i = 1  → DÉPART : un compteur i commence à 1</span>
+<span class="commentaire">//   i &lt;= 5     → CONDITION : on continue tant que i vaut 5 ou moins</span>
+<span class="commentaire">//   i++        → ÉTAPE : après chaque tour, i augmente de 1</span>
+<span class="commentaire">// Affiche : Tour numéro 1, Tour numéro 2, … Tour numéro 5</span></code></pre>
+
+        <h4>La boucle <code>while</code> : quand tu ne sais pas combien de fois</h4>
+        <pre><code>let epargne = 0;
+let mois = 0;
+while (epargne &lt; 1000) {    <span class="commentaire">// tant que l'objectif n'est pas atteint…</span>
+  epargne += 150;           <span class="commentaire">// …j'épargne 150 € par mois</span>
+  mois++;
+}
+console.log(`Objectif atteint en ${mois} mois`);   <span class="commentaire">// → 7 mois</span></code></pre>
+
+        <h4>Combiner boucle et condition</h4>
+        <pre><code>for (let i = 1; i &lt;= 10; i++) {
+  if (i % 2 === 0) {                    <span class="commentaire">// reste de la division par 2 = 0 → pair</span>
+    console.log(`${i} est pair`);
+  }
+}</code></pre>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li><strong>La boucle infinie</strong> : une condition qui ne devient jamais fausse (oublier <code>i++</code> ou <code>epargne += …</code>). La page se fige : ferme l'onglet, corrige, rouvre.</li>
+          <li>Décalage de un : <code>i &lt; 5</code> fait 4 tours si on part de 1. Vérifie avec un <code>console.log(i)</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== EXEMPLE ===================== -->
+      <h2>Exemple complet : le calculateur de commande</h2>
+      <pre><code><span class="commentaire">// Données de la commande</span>
+const prixPizza = 12.5;
+const quantite = 3;
+const estEtudiant = true;
+
+<span class="commentaire">// Calculs</span>
+let total = prixPizza * quantite;            <span class="commentaire">// 37.5</span>
+if (estEtudiant) {
+  total = total * 0.9;                       <span class="commentaire">// -10 % étudiant → 33.75</span>
+}
+
+<span class="commentaire">// Livraison</span>
+let livraison = 4.9;
+if (total &gt;= 30) {
+  livraison = 0;
+}
+
+<span class="commentaire">// Résultat</span>
+console.log(`Sous-total : ${total.toFixed(2)} €`);       <span class="commentaire">// toFixed(2) : 2 décimales → 33.75</span>
+console.log(`Livraison : ${livraison.toFixed(2)} €`);
+console.log(`À payer : ${(total + livraison).toFixed(2)} €`);</code></pre>
+
+      <!-- ===================== EXERCICES ===================== -->
+      <h2>Exercices</h2>
+      <div class="encadre">
+        <p><strong>Préparation (une fois) :</strong> crée <code>exercices/module-1-6/</code> avec un <code>index.html</code> (squelette complet, un <code>&lt;h1&gt;</code> « Exercices JavaScript »,
+          et <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code> avant <code>&lt;/body&gt;</code>) et un <code>script.js</code>. Ouvre la page, puis F12 › Console.
+          Pour chaque exercice, écris le code dans <code>script.js</code>, enregistre, rafraîchis.</p>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 1 — Ta carte d'identité</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> 4 variables (prénom, ville, âge, <code>estEtudiant</code>) avec le bon mot-clé et le bon type,
+            puis <strong>une</strong> phrase affichée dans la console avec un template string :</p>
+          <pre><code>Je m'appelle Hassnein, j'habite à Bruxelles, j'ai 19 ans. Étudiant : true</code></pre>
+          <p>Puis augmente l'âge de 1 et affiche-le à nouveau.</p>
+        </div>
+        <p><strong>Comment vérifier :</strong> la console affiche la phrase, puis <code>20</code>, sans erreur rouge.</p>
+        <details class="indice"><summary>Indice</summary>
+          <p>Seul l'âge change : c'est le seul en <code>let</code>. Les accents graves <code>`…`</code> et <code>${…}</code> pour la phrase.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>const prenom = "Hassnein";     // texte → string, ne change pas → const
+const ville = "Bruxelles";
+let age = 19;                  // nombre, va changer → let
+const estEtudiant = true;      // oui/non → boolean
+
+console.log(`Je m'appelle ${prenom}, j'habite à ${ville}, j'ai ${age} ans. Étudiant : ${estEtudiant}`);
+
+age++;                         // age vaut maintenant 20
+console.log(age);</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 2 — Le calculateur de TVA belge</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> à partir d'un <code>prixHT</code> et d'une <code>categorie</code> (<code>"standard"</code>, <code>"restaurant"</code> ou <code>"alimentation"</code>),
+            calculer le prix TTC avec le bon taux belge et afficher :</p>
+          <pre><code>Prix HT : 100.00 € — TVA (21 %) : 21.00 € — Prix TTC : 121.00 €</code></pre>
+          <p>Taux : standard 21 %, restaurant 12 %, alimentation 6 %. Teste les 3 catégories en changeant la variable.</p>
+        </div>
+        <p><strong>Comment vérifier :</strong> 100 € en restaurant donne 112.00 € ; en alimentation 106.00 €.</p>
+        <details class="indice"><summary>Indice 1</summary><p>Une variable <code>let taux;</code> sans valeur, puis un <code>if / else if / else</code> qui lui donne 21, 12 ou 6.</p></details>
+        <details class="indice"><summary>Indice 2</summary><p>TVA = prixHT × taux / 100. Pour 2 décimales : <code>.toFixed(2)</code>.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>const prixHT = 100;
+const categorie = "restaurant";
+
+let taux;                              // pas encore de valeur : elle dépend de la catégorie
+if (categorie === "restaurant") {
+  taux = 12;
+} else if (categorie === "alimentation") {
+  taux = 6;
+} else {
+  taux = 21;                           // tout le reste : taux standard
+}
+
+const tva = prixHT * taux / 100;
+const prixTTC = prixHT + tva;
+
+console.log(`Prix HT : ${prixHT.toFixed(2)} € — TVA (${taux} %) : ${tva.toFixed(2)} € — Prix TTC : ${prixTTC.toFixed(2)} €`);</code></pre>
+          <p><strong>Pourquoi <code>else</code> pour le standard ?</strong> C'est le cas « par défaut » : toute catégorie inconnue reçoit 21 %.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 3 — Les mentions</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> une variable <code>note</code> (sur 20). Afficher la mention : 18+ « La plus grande distinction », 16+ « Grande distinction »,
+            14+ « Distinction », 12+ « Satisfaction », 10+ « Réussi », sinon « Échec ». Si la note est négative ou au-dessus de 20 : « Note invalide ».</p>
+        </div>
+        <p><strong>Comment vérifier :</strong> teste 20, 17, 10, 9, -3 et 25.</p>
+        <details class="indice"><summary>Indice</summary><p>Teste d'abord le cas invalide, avec <code>||</code>. Ensuite, du plus haut au plus bas.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>const note = 17;
+
+if (note &lt; 0 || note &gt; 20) {          // OU : il suffit qu'une des deux soit vraie
+  console.log("Note invalide");
+} else if (note &gt;= 18) {
+  console.log("La plus grande distinction");
+} else if (note &gt;= 16) {
+  console.log("Grande distinction");    // ← 17
+} else if (note &gt;= 14) {
+  console.log("Distinction");
+} else if (note &gt;= 12) {
+  console.log("Satisfaction");
+} else if (note &gt;= 10) {
+  console.log("Réussi");
+} else {
+  console.log("Échec");
+}</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 4 — Boucles : la table et le « Bruxelles-Liège »</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong></p>
+          <ol>
+            <li>Afficher la table de multiplication d'un nombre choisi, de 1 à 10 : <code>7 x 1 = 7</code> … <code>7 x 10 = 70</code>.</li>
+            <li>Pour les nombres de 1 à 20 : afficher « Bruxelles » s'il est divisible par 3, « Liège » s'il est divisible par 5,
+              « Bruxelles-Liège » s'il est divisible par les deux, sinon le nombre lui-même. (C'est un classique des entretiens d'embauche, le « FizzBuzz » !)</li>
+          </ol>
+        </div>
+        <p><strong>Comment vérifier :</strong> 3 → Bruxelles, 5 → Liège, 15 → Bruxelles-Liège, 7 → 7.</p>
+        <details class="indice"><summary>Indice</summary>
+          <p>Divisible par 3 = <code>i % 3 === 0</code>. Pour le cas « les deux », pense à l'ordre des conditions (notion 5) : teste-le en premier.</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>// 1. Table de multiplication
+const nombre = 7;
+for (let i = 1; i &lt;= 10; i++) {
+  console.log(`${nombre} x ${i} = ${nombre * i}`);
+}
+
+// 2. Bruxelles-Liège
+for (let i = 1; i &lt;= 20; i++) {
+  if (i % 3 === 0 &amp;&amp; i % 5 === 0) {   // les deux EN PREMIER, sinon 15 afficherait "Bruxelles"
+    console.log("Bruxelles-Liège");
+  } else if (i % 3 === 0) {
+    console.log("Bruxelles");
+  } else if (i % 5 === 0) {
+    console.log("Liège");
+  } else {
+    console.log(i);
+  }
+}</code></pre>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <h3>Exercice 5 — Lire une erreur</h3>
+        <div class="attendu"><p><strong>Ce qu'on attend de toi :</strong> copier ce code, lire chaque erreur rouge dans la console, et corriger les <strong>3 bugs</strong> un par un.</p></div>
+        <pre><code>const panier = 25;
+const livraison = 5
+if (panier = 30) {
+  livraison = 0;
+}
+console.log(`Total : ${panier + livraisonn}`);</code></pre>
+        <details class="indice"><summary>Indice</summary><p>Comparaison ou rangement ? <code>const</code> qui change ? Faute de frappe dans un nom ?</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>const panier = 25;
+let livraison = 5;                // 1. let : la valeur peut changer (et on ajoute le ;)
+if (panier &gt;= 30) {               // 2. on COMPARE (&gt;=), on ne range pas (=)
+  livraison = 0;
+}
+console.log(`Total : ${panier + livraison}`);   // 3. "livraisonn" → "livraison"</code></pre>
+          <p><strong>La méthode :</strong> lis le message, va à la ligne indiquée (<code>script.js:3</code>), corrige <strong>une</strong> erreur, rafraîchis, recommence.</p>
+        </details>
+      </div>
+
+      <!-- ===================== AJOUT AU SITE ===================== -->
+      <h2>🔧 Ajout au site (ta part du 50/50)</h2>
+      <div class="exercice">
+        <h3>Un message de bienvenue dans la console</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> à la fin de <code>site/js/main.js</code>, un message dans la console qui dépend de l'heure :
+            « Bonjour » avant 12 h, « Bon après-midi » avant 18 h, sinon « Bonsoir », suivi de « — bonne session de formation ! ».</p>
+        </div>
+        <details class="indice"><summary>Indice</summary><p><code>new Date().getHours()</code> donne l'heure actuelle (un nombre de 0 à 23).</p></details>
+        <details class="correction"><summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code>// Ma contribution (leçon 1.6) : un message selon l'heure
+const heure = new Date().getHours();
+let salutation;
+if (heure &lt; 12) {
+  salutation = "Bonjour";
+} else if (heure &lt; 18) {
+  salutation = "Bon après-midi";
+} else {
+  salutation = "Bonsoir";
+}
+console.log(`${salutation} — bonne session de formation !`);</code></pre>
+        </details>
+      </div>
+
+      <!-- ===================== IA ===================== -->
+      <h2>🤖 Refais-le avec l'IA</h2>
+      <div class="exercice">
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> utiliser l'IA comme <strong>professeur</strong>, pas comme machine à réponses.</p>
+        </div>
+        <ol>
+          <li>Demande : « Leçon 1.6. Donne-moi 3 nouveaux exercices sur les conditions et les boucles, de difficulté croissante, <strong>sans les solutions</strong>. »</li>
+          <li>Fais-les seul.</li>
+          <li>Demande ensuite : « Voici mon code : […]. Corrige-le comme un professeur : ce qui est bien, ce qui est faux et pourquoi, sans réécrire tout le code. »</li>
+        </ol>
+        <details class="correction"><summary>Pourquoi cette méthode ?</summary>
+          <p>L'IA peut générer des exercices <strong>à l'infini</strong> et adaptés à ton niveau. Bien utilisée, elle te fait progresser plus vite qu'un livre.
+            Mal utilisée (« fais-le pour moi »), elle t'empêche d'apprendre.</p></details>
+      </div>
+
+      <!-- ===================== QUESTIONS ===================== -->
+      <h2>Questions pour vérifier que tu as compris</h2>
+      <div class="exercice"><p><strong>1.</strong> <code>const</code> ou <code>let</code> pour le total d'un panier qui augmente à chaque article ajouté ?</p>
+        <details class="correction"><summary>Réponse</summary><p><code>let</code> : sa valeur change. Tout ce qui ne change pas : <code>const</code>.</p></details></div>
+      <div class="exercice"><p><strong>2.</strong> Que donne <code>"10" + 5</code> ? Et <code>Number("10") + 5</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p><code>"105"</code> (texte collé), puis <code>15</code> (vrai calcul).</p></details></div>
+      <div class="exercice"><p><strong>3.</strong> Quelle est la différence entre <code>=</code> et <code>===</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p><code>=</code> range une valeur dans une variable ; <code>===</code> compare deux valeurs et donne <code>true</code> ou <code>false</code>.</p></details></div>
+      <div class="exercice"><p><strong>4.</strong> Combien de fois tourne <code>for (let i = 0; i &lt; 3; i++)</code> ?</p>
+        <details class="correction"><summary>Réponse</summary><p>3 fois : i vaut 0, 1, puis 2. À 3, la condition <code>i &lt; 3</code> est fausse.</p></details></div>
+
+      <h2>Checklist</h2>
+      <ul class="checklist">
+        <li>Je relie un fichier JS et j'utilise la console (log et erreurs).</li>
+        <li>Je choisis entre <code>const</code> et <code>let</code>, et je nomme en camelCase.</li>
+        <li>Je connais les types string, number, boolean, et les template strings.</li>
+        <li>Je calcule et je compare avec <code>===</code>, <code>&amp;&amp;</code>, <code>||</code>.</li>
+        <li>J'écris des conditions <code>if / else if / else</code> dans le bon ordre.</li>
+        <li>J'écris des boucles <code>for</code> et <code>while</code> sans boucle infinie.</li>
+        <li>Je lis un message d'erreur et je vais à la bonne ligne.</li>
+      </ul>
+
+      <h2>Journal et commit</h2>
+      <p><code>git commit -m "Termine la leçon 1.6 : exercices JavaScript et message de bienvenue"</code> → <code>git push</code>.</p>
+
+      <nav class="navigation-lecon">
+        <a class="bouton bouton-secondaire" href="1-5-responsive-variables.html">← 1.5 : Responsive</a>
+        <a class="bouton" href="1-7-js-fonctions-tableaux-objets.html">Leçon 1.7 : Fonctions, tableaux, objets →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">Formation IA · construit en 50/50 avec Claude</div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -16,6 +16,7 @@
         <a href="../parcours.html">Parcours</a>
         <a href="../journal.html">Journal</a>
         <a href="../portfolio.html">Portfolio</a>
+        <a href="../a-propos.html">À propos</a>
       </nav>
     </div>
   </header>
@@ -23,126 +24,335 @@
   <main class="conteneur">
     <article class="lecon">
       <div class="fil-ariane"><a href="../parcours.html">Parcours</a> › Phase 0 › Leçon 0.4</div>
-      <span class="etiquette">Leçon 0.4 · environ 2 h</span>
+      <span class="etiquette">Leçon 0.4 · environ 2 h 30</span>
       <h1>VS Code et Claude Code : bien travailler avec l'IA</h1>
 
       <div class="objectif">
-        <strong>Objectif :</strong> utiliser VS Code pour lire et écrire du code, et utiliser Claude Code comme un
-        <em>coach</em>, pas comme une machine à copier-coller.
+        <strong>Objectif :</strong> utiliser VS Code pour lire, écrire et enregistrer du code, et utiliser Claude Code comme un
+        <em>coach</em> : savoir quoi lui demander, comment, et vérifier ce qu'il fait.
       </div>
 
       <h2>Partie 1 — VS Code, ton atelier</h2>
-      <p>VS Code est un <strong>éditeur de code</strong> : un traitement de texte spécialisé, gratuit, déjà installé sur ton PC.</p>
 
-      <h3>Ouvrir ton projet</h3>
-      <pre><code>cd ~/Documents/formation-ia
-code .        <span class="commentaire"># ouvre VS Code sur le dossier actuel (le point = « ici »)</span></code></pre>
+      <!-- ===================== NOTION 1 ===================== -->
+      <section class="notion">
+        <h3>Notion 1 — Ouvrir ton projet et t'y retrouver</h3>
 
-      <h3>Les 4 zones à connaître</h3>
-      <table>
-        <tr><th>Zone</th><th>À quoi elle sert</th><th>Raccourci</th></tr>
-        <tr><td>Explorateur</td><td>L'arborescence de tes fichiers (à gauche)</td><td><code>Ctrl+Shift+E</code></td></tr>
-        <tr><td>Éditeur</td><td>Là où tu écris le code (au centre)</td><td></td></tr>
-        <tr><td>Terminal intégré</td><td>Un terminal directement dans VS Code</td><td><code>Ctrl+ù</code> (clavier AZERTY)</td></tr>
-        <tr><td>Contrôle de source</td><td>Git avec des boutons : voir les modifications, faire un commit</td><td><code>Ctrl+Shift+G</code></td></tr>
-      </table>
+        <h4>C'est quoi ?</h4>
+        <p>VS Code est un <strong>éditeur de code</strong> : un traitement de texte spécialisé pour le code, gratuit, déjà installé sur ton PC.
+          Contrairement à Word, il n'ajoute aucune mise en forme cachée : ce que tu tapes est exactement ce qui est enregistré.</p>
 
-      <div class="encadre astuce">
-        <p><strong>Choisis Git Bash dans le terminal de VS Code :</strong> ouvre le terminal, clique sur la petite flèche ˅ à côté
-        du <strong>+</strong>, puis <em>Git Bash</em>. Tu retrouves les mêmes commandes qu'en leçon 0.1.</p>
-      </div>
+        <h4>Comment ouvrir ton projet</h4>
+        <pre><code>cd ~/Documents/formation-ia
+code .        <span class="commentaire"># ouvre VS Code sur le dossier actuel (le point = « ici »)</span>
+code journal.md   <span class="commentaire"># ouvre un fichier précis (le crée s'il n'existe pas)</span></code></pre>
+        <p>Sans terminal : dans VS Code, menu <em>Fichier › Ouvrir le dossier…</em>, puis choisis <code>formation-ia</code>.</p>
+        <p><strong>Toujours ouvrir le dossier entier</strong>, pas un fichier seul : VS Code affiche alors toute l'arborescence et Git fonctionne.</p>
 
-      <h3>Extensions utiles</h3>
-      <p>Onglet Extensions (<code>Ctrl+Shift+X</code>), puis installe :</p>
-      <ul>
-        <li><strong>Live Preview</strong> (Microsoft) : affiche ta page web à côté du code et la met à jour quand tu enregistres.</li>
-        <li><strong>French Language Pack</strong> (facultatif) : VS Code en français.</li>
-      </ul>
-      <p>Raccourcis d'or : <code>Ctrl+S</code> (enregistrer), <code>Ctrl+P</code> (ouvrir un fichier par son nom), <code>Ctrl+F</code> (chercher).</p>
+        <h4>Les 4 zones</h4>
+        <table>
+          <tr><th>Zone</th><th>À quoi elle sert</th><th>Raccourci</th></tr>
+          <tr><td>Explorateur (à gauche)</td><td>L'arborescence de tes fichiers. Clic = ouvrir.</td><td><code>Ctrl+Shift+E</code></td></tr>
+          <tr><td>Éditeur (au centre)</td><td>Là où tu écris. Un onglet par fichier ouvert.</td><td></td></tr>
+          <tr><td>Terminal (en bas)</td><td>Un terminal intégré, déjà placé dans ton projet</td><td>menu <em>Terminal › Nouveau terminal</em></td></tr>
+          <tr><td>Contrôle de source</td><td>Git avec des boutons : voir les modifications, faire un commit</td><td><code>Ctrl+Shift+G</code></td></tr>
+        </table>
+      </section>
+
+      <!-- ===================== NOTION 2 ===================== -->
+      <section class="notion">
+        <h3>Notion 2 — Le terminal Git Bash dans VS Code</h3>
+
+        <h4>Comment le régler (une seule fois)</h4>
+        <ol>
+          <li>Ouvre le terminal : menu <em>Terminal › Nouveau terminal</em>.</li>
+          <li>Clique sur la flèche <strong>˅</strong> à côté du <strong>+</strong>, en haut à droite du terminal.</li>
+          <li>Choisis <strong>Sélectionner le profil par défaut</strong>, puis <strong>Git Bash</strong>.</li>
+          <li>Ferme le terminal (icône 🗑️) et rouvre-le : l'invite finit maintenant par <code>$</code>.</li>
+        </ol>
+
+        <h4>Pourquoi c'est pratique</h4>
+        <ul>
+          <li>Le terminal est déjà dans ton projet : pas besoin de <code>cd</code>.</li>
+          <li><code>Ctrl+V</code> colle normalement, et <code>Ctrl+C</code> copie quand du texte est sélectionné.</li>
+          <li>Le code et le terminal sont dans la même fenêtre.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 3 ===================== -->
+      <section class="notion">
+        <h3>Notion 3 — Écrire, enregistrer, voir le résultat</h3>
+
+        <h4>Enregistrer : le réflexe n°1</h4>
+        <p>Une modification <strong>non enregistrée n'existe pas</strong> pour le navigateur, ni pour Git, ni pour Claude.
+          Un <strong>rond ●</strong> sur l'onglet veut dire « pas enregistré ». Appuie sur <code>Ctrl+S</code> : le rond devient une croix ✕.</p>
+        <p>Pour ne plus jamais oublier : menu <em>Fichier › Enregistrement automatique</em>.</p>
+
+        <h4>Les raccourcis qui font gagner du temps</h4>
+        <table>
+          <tr><th>Raccourci</th><th>Action</th><th>Quand l'utiliser</th></tr>
+          <tr><td><code>Ctrl+S</code></td><td>Enregistrer</td><td>Toujours, après chaque modification</td></tr>
+          <tr><td><code>Ctrl+P</code></td><td>Ouvrir un fichier en tapant son nom</td><td>Plus rapide que de chercher dans l'explorateur</td></tr>
+          <tr><td><code>Ctrl+F</code></td><td>Chercher dans le fichier</td><td>Trouver un mot, une balise</td></tr>
+          <tr><td><code>Ctrl+G</code></td><td>Aller à une ligne</td><td>Quand Claude ou une erreur te donne un numéro de ligne</td></tr>
+          <tr><td><code>Ctrl+Z</code></td><td>Annuler</td><td>Tu as cassé quelque chose</td></tr>
+          <tr><td><code>Shift+Alt+F</code></td><td>Remettre l'indentation en ordre</td><td>Avant de faire relire ton code</td></tr>
+          <tr><td><code>Ctrl+Shift+V</code></td><td>Aperçu d'un fichier <code>.md</code></td><td>Voir ton journal mis en forme</td></tr>
+        </table>
+
+        <h4>Voir ta page web</h4>
+        <ul>
+          <li><strong>Le plus simple :</strong> double-clique sur le fichier <code>.html</code> dans l'Explorateur Windows. Après chaque modification : <code>Ctrl+S</code> dans VS Code, puis <code>F5</code> dans le navigateur.</li>
+          <li><strong>Le plus confortable :</strong> installe l'extension <strong>Live Preview</strong> (Microsoft) via l'onglet Extensions (<code>Ctrl+Shift+X</code>).
+            Ouvre ton fichier HTML et clique sur l'icône d'aperçu en haut à droite : la page s'affiche à côté du code et se met à jour à chaque enregistrement.</li>
+        </ul>
+
+        <h4>Erreurs fréquentes</h4>
+        <ul class="erreurs">
+          <li>« J'ai modifié mais rien ne change » → le fichier n'est pas enregistré (rond ●), ou tu n'as pas rafraîchi la page (<code>F5</code>).</li>
+          <li>Ouvrir un <code>.md</code> par double-clic dans Windows : il ne sait pas avec quoi l'ouvrir. Utilise <code>code fichier.md</code>,
+            ou clic droit › <em>Ouvrir avec</em> › <em>Visual Studio Code</em>.</li>
+        </ul>
+      </section>
+
+      <!-- ===================== NOTION 4 ===================== -->
+      <section class="notion">
+        <h3>Notion 4 — Git avec des boutons : le Contrôle de source</h3>
+
+        <h4>Comment l'utiliser</h4>
+        <ol>
+          <li>Ouvre l'onglet <strong>Contrôle de source</strong> (<code>Ctrl+Shift+G</code>). Les fichiers modifiés sont listés, avec un <strong>M</strong> (modifié) ou un <strong>U</strong> (nouveau).</li>
+          <li>Clique sur un fichier : VS Code montre l'avant (à gauche) et l'après (à droite). C'est <code>git diff</code> en couleurs.</li>
+          <li>Le <strong>+</strong> à côté d'un fichier = <code>git add</code>.</li>
+          <li>Écris le message dans la case du haut, puis clique sur <strong>Valider</strong> (<em>Commit</em>) = <code>git commit -m</code>.</li>
+          <li>Le bouton <strong>Synchroniser</strong> = <code>git pull</code> puis <code>git push</code>.</li>
+        </ol>
+
+        <h4>Terminal ou boutons ?</h4>
+        <p>Les deux font exactement la même chose. Apprends d'abord les <strong>commandes</strong> (pour comprendre), puis utilise les boutons quand tu veux aller plus vite.</p>
+      </section>
 
       <h2>Partie 2 — Claude Code, ton coach</h2>
 
-      <h3>Comment il fonctionne</h3>
-      <p>
-        Contrairement à Claude Chat, Claude Code <strong>travaille directement dans ton dossier</strong> :
-        il lit tes fichiers, peut les modifier et lancer des commandes. Il te demande la permission
-        pour les actions importantes. <strong>Tu restes le chef : lis ce qu'il propose avant d'accepter.</strong>
-      </p>
+      <!-- ===================== NOTION 5 ===================== -->
+      <section class="notion">
+        <h3>Notion 5 — Comment fonctionne Claude Code</h3>
 
-      <h3>Les fichiers qui lui donnent le contexte</h3>
-      <table>
-        <tr><th>Fichier</th><th>Rôle</th></tr>
-        <tr><td><code>CLAUDE.md</code></td><td>Les règles permanentes : qui tu es, le mode coach, les conventions. Lu à chaque session.
-          (La commande <code>/init</code> en crée un automatiquement dans un projet existant.)</td></tr>
-        <tr><td><code>PROGRESSION.md</code></td><td>Où tu en es. Claude le lit au début et le met à jour à la fin.</td></tr>
-      </table>
+        <h4>C'est quoi ?</h4>
+        <p>Claude Code est un assistant IA qui <strong>travaille directement dans ton dossier</strong> : il lit tes fichiers, peut les modifier
+          et lancer des commandes. Il te demande la permission pour les actions importantes.</p>
 
-      <h3>Le mode plan</h3>
-      <p>Pour une grosse tâche, active le <strong>mode plan</strong> : Claude réfléchit et te propose un plan
-        <em>sans rien modifier</em>. Tu valides, puis il agit. C'est exactement comme ça qu'on a créé cette formation.</p>
+        <h4>Claude Code ou Claude Chat ?</h4>
+        <table>
+          <tr><th></th><th>Claude Code</th><th>Claude Chat</th></tr>
+          <tr><td>Voit tes fichiers ?</td><td>✅ Oui, directement</td><td>❌ Seulement ceux que tu colles ou ajoutes</td></tr>
+          <tr><td>Peut modifier ton projet ?</td><td>✅ Oui, avec ta permission</td><td>❌ Non</td></tr>
+          <tr><td>À utiliser pour…</td><td>écrire et relire du code, lancer des commandes, faire avancer le site</td><td>réviser un concept, faire des fiches, réfléchir à une idée</td></tr>
+        </table>
 
-      <h3>Bien formuler une demande</h3>
-      <p>Une bonne demande contient 3 choses : le <strong>contexte</strong>, l'<strong>objectif</strong> et les <strong>contraintes</strong>.</p>
-      <table>
-        <tr><th>❌ Vague</th><th>✅ Précis</th></tr>
-        <tr><td>« Fais-moi une page. »</td>
-            <td>« Je suis à la leçon 1.1. Je veux créer <code>exercices/module-1-1/ma-page.html</code> qui me présente.
-              Ne l'écris pas pour moi : donne-moi juste la liste des balises dont j'aurai besoin. »</td></tr>
-        <tr><td>« Ça marche pas. »</td>
-            <td>« Dans <code>index.html</code>, mon lien vers le parcours ne fonctionne pas. Voici ce que j'ai écrit : … Donne-moi un indice. »</td></tr>
-      </table>
+        <h4>Ce qu'il retient d'une conversation à l'autre</h4>
+        <p>Rien, <strong>sauf ce qui est écrit dans des fichiers</strong>. C'est pour ça que ton projet a :</p>
+        <table>
+          <tr><th>Fichier</th><th>Rôle</th><th>Quand Claude le lit</th></tr>
+          <tr><td><code>CLAUDE.md</code></td><td>Les règles permanentes : qui tu es, le mode coach, les conventions</td><td>Automatiquement, à chaque nouvelle conversation</td></tr>
+          <tr><td><code>PROGRESSION.md</code></td><td>Où tu en es, ce que tu sais faire</td><td>Au début de chaque session (c'est une règle de <code>CLAUDE.md</code>)</td></tr>
+        </table>
+        <p>Pour qu'il retienne quelque chose, demande-le : <em>« Ajoute dans CLAUDE.md que je préfère des exemples liés au e-commerce. »</em>
+          (La commande <code>/init</code> crée un <code>CLAUDE.md</code> dans un projet qui n'en a pas : tu n'en as pas besoin ici.)</p>
 
-      <div class="encadre attention">
-        <p><strong>3 règles de sécurité :</strong></p>
+        <h4>Le mode plan</h4>
+        <p>Pour une grosse tâche, active le <strong>mode plan</strong> : Claude réfléchit et te propose un plan <em>sans rien modifier</em>.
+          Tu le relis, tu le corriges, puis tu valides. C'est comme ça qu'on a créé cette formation.</p>
+        <p><strong>Quand l'utiliser ?</strong> Dès que la tâche touche plusieurs fichiers, ou que tu n'es pas sûr de la méthode. Pour une petite question : inutile.</p>
+      </section>
+
+      <!-- ===================== NOTION 6 ===================== -->
+      <section class="notion">
+        <h3>Notion 6 — Bien formuler une demande (un prompt)</h3>
+
+        <h4>La formule en 4 ingrédients</h4>
+        <table>
+          <tr><th>Ingrédient</th><th>La question à te poser</th><th>Exemple</th></tr>
+          <tr><td><strong>Contexte</strong></td><td>Qui suis-je, où j'en suis ?</td><td>« Je suis débutant, leçon 1.1 sur le HTML. »</td></tr>
+          <tr><td><strong>Objectif</strong></td><td>Qu'est-ce que je veux obtenir, précisément ?</td><td>« Je veux comprendre à quoi sert <code>&lt;main&gt;</code>. »</td></tr>
+          <tr><td><strong>Contraintes</strong></td><td>Sous quelle forme je veux la réponse ?</td><td>« En 3 phrases, avec un exemple, sans me donner tout le code. »</td></tr>
+          <tr><td><strong>Critère de réussite</strong></td><td>Comment je saurai que c'est bon ?</td><td>« Je dois pouvoir l'expliquer ensuite à un ami. »</td></tr>
+        </table>
+
+        <h4>Exemples avant / après</h4>
+        <table>
+          <tr><th>❌ Vague</th><th>✅ Précis</th></tr>
+          <tr><td>« Fais-moi une page. »</td>
+              <td>« Je suis à la leçon 1.1. Je veux créer <code>exercices/module-1-1/a-propos.html</code> qui me présente.
+                Ne l'écris pas pour moi : donne-moi la liste des balises dont j'aurai besoin, dans l'ordre. »</td></tr>
+          <tr><td>« Ça marche pas. »</td>
+              <td>« Dans <code>index.html</code>, ma nouvelle section ne s'affiche pas. Voici l'erreur / ce que je vois : … Donne-moi un indice, pas la solution. »</td></tr>
+          <tr><td>« Comment utiliser l'IA au maximum ? »</td>
+              <td>« Je suis débutant et j'apprends à coder avec Claude Code. Donne-moi les 5 erreurs les plus courantes quand on écrit un prompt, avec un exemple mauvais / bon pour chacune. »</td></tr>
+        </table>
+
+        <h4>Quand tu bloques : la demande parfaite</h4>
+        <p>Donne toujours <strong>le fichier concerné</strong>, <strong>ce que tu as essayé</strong>, et <strong>le message d'erreur exact</strong> (copié-collé). Avec ça, Claude trouve en quelques secondes.</p>
+      </section>
+
+      <!-- ===================== NOTION 7 ===================== -->
+      <section class="notion">
+        <h3>Notion 7 — Rester le chef : relire et sécuriser</h3>
         <ul>
-          <li>Ne colle jamais un mot de passe ou une clé API dans une conversation.</li>
-          <li>Lis toujours ce que Claude propose de modifier ou d'exécuter.</li>
-          <li>Si tu ne comprends pas un code, demande : <em>« Explique-moi cette ligne. »</em> Ne garde jamais un code que tu ne comprends pas.</li>
+          <li><strong>Lis toujours</strong> ce que Claude propose de modifier ou d'exécuter avant d'accepter.</li>
+          <li><strong>Ne garde jamais un code que tu ne comprends pas.</strong> Demande : <em>« Explique-moi cette ligne avec un exemple de la vie quotidienne. »</em></li>
+          <li><strong>Ne colle jamais</strong> un mot de passe, une clé API ou une donnée bancaire dans une conversation.</li>
+          <li><strong>Fais un commit avant</strong> de demander une grosse modification : si le résultat ne te plaît pas, tu peux revenir en arrière.</li>
         </ul>
-      </div>
+      </section>
 
-      <h3>Claude Code ou Claude Chat ?</h3>
-      <ul>
-        <li><strong>Claude Code :</strong> écrire du code, le relire, lancer des commandes, faire avancer le site.</li>
-        <li><strong>Claude Chat :</strong> réviser un concept, faire des fiches, réfléchir à une idée de business.</li>
-      </ul>
-
+      <!-- ===================== EXERCICES ===================== -->
       <h2>Exercices</h2>
 
       <div class="exercice">
         <h3>Exercice 1 — Prendre VS Code en main</h3>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> changer la couleur principale du site, la voir s'afficher, et repérer ta modification dans le Contrôle de source.</p>
+        </div>
         <ol>
           <li>Ouvre le projet avec <code>code .</code>.</li>
-          <li>Ouvre <code>site/css/style.css</code> et lis la section 1 « Variables ».</li>
-          <li>Change la valeur de <code>--accent</code> (par exemple <code>#e11d48</code>), enregistre, puis rafraîchis le site dans ton navigateur. Que se passe-t-il ?</li>
-          <li>Ouvre l'onglet Contrôle de source : VS Code montre ta modification. Remets la couleur d'origine, ou garde-la si elle te plaît !</li>
+          <li>Ouvre <code>site/css/style.css</code> (<code>Ctrl+P</code>, tape <code>style</code>) et lis la section 1 « Variables ».</li>
+          <li>Change la valeur de <code>--accent</code>, par exemple en <code>#e11d48</code> (rouge framboise). Enregistre.</li>
+          <li>Ouvre <code>site/index.html</code> dans ton navigateur et rafraîchis (<code>F5</code>). Les boutons et liens ont-ils changé de couleur ?</li>
+          <li>Ouvre le Contrôle de source et clique sur <code>style.css</code> pour voir l'avant / après.</li>
         </ol>
+        <p><strong>Comment vérifier que c'est réussi :</strong> le bouton « Continuer » de l'accueil a ta nouvelle couleur.</p>
+        <details class="indice">
+          <summary>Indice : rien ne change ?</summary>
+          <p>Ton ordinateur est peut-être en <strong>mode sombre</strong>. <code>--accent</code> est défini une 2e fois, plus bas,
+            dans le bloc <code>@media (prefers-color-scheme: dark)</code>. C'est cette valeur-là qui gagne en mode sombre.</p>
+        </details>
+        <details class="correction">
+          <summary>Correction (ouvre-la après avoir essayé)</summary>
+          <pre><code><span class="commentaire">/* Section 1, dans :root (mode clair) */</span>
+--accent: #e11d48;
+
+<span class="commentaire">/* Plus bas, dans @media (prefers-color-scheme: dark) (mode sombre) */</span>
+--accent: #fb7185;   <span class="commentaire">/* une version plus claire, lisible sur fond noir */</span></code></pre>
+          <p><strong>Pourquoi deux valeurs ?</strong> Le bloc <code>@media (prefers-color-scheme: dark)</code> ne s'applique que si ton ordinateur est en mode sombre,
+            et il vient <em>après</em> <code>:root</code> : en CSS, quand deux règles visent la même chose, la dernière gagne. C'est la « cascade » (le C de CSS), qu'on verra en leçon 1.3.</p>
+          <p>Ensuite : <code>git add site/css/style.css</code> → <code>git commit -m "Change la couleur d'accent du site en rouge framboise"</code> → <code>git push</code>.</p>
+        </details>
       </div>
 
       <div class="exercice">
         <h3>Exercice 2 — Demander une explication</h3>
-        <p>Ouvre <code>site/js/main.js</code>. Choisis une ligne que tu ne comprends pas et demande à Claude Code de te l'expliquer
-          avec un exemple de la vie quotidienne.</p>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> choisir une ligne de <code>site/js/main.js</code> que tu ne comprends pas, et obtenir de Claude une explication que tu peux redire avec tes mots.</p>
+        </div>
+        <ol>
+          <li>Ouvre <code>site/js/main.js</code>.</li>
+          <li>Choisis <strong>une</strong> ligne de code (pas un commentaire) qui te paraît mystérieuse.</li>
+          <li>Écris à Claude Code une demande avec les 4 ingrédients (notion 6).</li>
+          <li>Résume l'explication en une phrase dans ton journal.</li>
+        </ol>
+        <p><strong>Comment vérifier que c'est réussi :</strong> tu peux expliquer la ligne à voix haute sans relire la réponse de Claude.</p>
+        <details class="correction">
+          <summary>Correction : exemple de demande et de réponse</summary>
+          <p><strong>Demande :</strong> « Je suis débutant, leçon 0.4 <em>(contexte)</em>. Dans <code>site/js/main.js</code>, je ne comprends pas la ligne
+            <code>const liensMenu = document.querySelectorAll(".nav a");</code> <em>(objectif)</em>. Explique-la en 3 phrases avec un exemple de la vie quotidienne, sans jargon <em>(contraintes)</em>. »</p>
+          <p><strong>Résumé possible :</strong> « Cette ligne demande au navigateur de trouver tous les liens du menu, comme si je demandais
+            "donne-moi tous les livres rangés sur l'étagère Menu", et elle les range dans une boîte nommée <code>liensMenu</code> pour les utiliser ensuite. »</p>
+        </details>
       </div>
 
       <div class="exercice">
         <h3>Exercice 3 — Écrire 3 bonnes demandes</h3>
-        <p>Dans <code>exercices/module-0-4/mes-prompts.md</code>, écris 3 demandes que tu pourrais faire à Claude Code
-          pendant la leçon 1.1, en respectant contexte, objectif et contraintes. Demande ensuite à Claude de les noter sur 10.</p>
+        <div class="attendu">
+          <p><strong>Ce qu'on attend de toi :</strong> un fichier <code>exercices/module-0-4/mes-prompts.md</code> avec <strong>3 demandes</strong> que tu pourrais faire
+            à Claude Code pendant la <strong>leçon 1.1 (HTML)</strong>. Chacune contient les 4 ingrédients, et suit ce modèle :</p>
+          <pre><code>## Demande 1
+**Contexte :** …
+**Objectif :** …
+**Contraintes :** …
+**Critère de réussite :** …</code></pre>
+        </div>
+        <ol>
+          <li>Jette un œil à la leçon 1.1 pour savoir de quoi elle parle (balises, squelette, page « à propos »).</li>
+          <li>Crée le dossier <code>exercices/module-0-4</code>, puis ouvre le fichier avec <code>code exercices/module-0-4/mes-prompts.md</code>.</li>
+          <li>Écris tes 3 demandes avec le modèle. Enregistre.</li>
+          <li>Demande à Claude : <em>« Note mes 3 prompts sur 10 et propose une version améliorée de chacun. »</em></li>
+          <li>Commit.</li>
+        </ol>
+        <p><strong>Comment vérifier que c'est réussi :</strong> chaque demande parle du HTML, et chacune a ses 4 lignes remplies.</p>
+        <details class="indice">
+          <summary>Indice : des idées de sujets</summary>
+          <ul>
+            <li>Comprendre une balise (par exemple la différence entre <code>&lt;section&gt;</code> et <code>&lt;article&gt;</code>).</li>
+            <li>Ta page ne s'affiche pas comme prévu.</li>
+            <li>Demander une relecture de ta page « à propos ».</li>
+          </ul>
+        </details>
+        <details class="correction">
+          <summary>Correction : 3 exemples notés 9/10</summary>
+          <pre><code>## Demande 1
+**Contexte :** Je suis débutant complet, leçon 1.1 de ma formation HTML.
+**Objectif :** Comprendre la différence entre &lt;section&gt; et &lt;article&gt;.
+**Contraintes :** Explique en 4 phrases maximum, avec un exemple tiré d'un site de journal en ligne.
+**Critère de réussite :** Je dois savoir laquelle utiliser pour une leçon de mon site.
+
+## Demande 2
+**Contexte :** Leçon 1.1, j'ai écrit exercices/module-1-1/a-propos.html.
+**Objectif :** Mon pied de page ne s'affiche pas en bas de la page.
+**Contraintes :** Ne corrige pas le fichier toi-même. Donne-moi un indice sur la ligne à regarder.
+**Critère de réussite :** Je trouve et corrige l'erreur moi-même.
+
+## Demande 3
+**Contexte :** J'ai fini l'exercice 1 de la leçon 1.1.
+**Objectif :** Relis exercices/module-1-1/a-propos.html.
+**Contraintes :** Dis-moi d'abord ce qui est bien, puis maximum 3 choses à améliorer, expliquées simplement.
+**Critère de réussite :** Une note sur 10 et je sais quoi corriger en priorité.</code></pre>
+          <p><strong>Ce qui les rend bonnes :</strong> le fichier précis est nommé, le format de réponse est imposé (nombre de phrases, indice plutôt que solution),
+            et on sait quand c'est réussi. Il manque juste le dixième point : préciser ce que tu as <em>déjà essayé</em>.</p>
+        </details>
       </div>
 
+      <!-- ===================== QUESTIONS ===================== -->
+      <h2>Questions pour vérifier que tu as compris</h2>
+
+      <div class="exercice">
+        <p><strong>1.</strong> L'onglet de ton fichier affiche un rond ●. Qu'est-ce que ça veut dire, et que fais-tu ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p>Le fichier n'est <strong>pas enregistré</strong>. Tu appuies sur <code>Ctrl+S</code>. Tant que c'est un rond, ni le navigateur, ni Git, ni Claude ne voient ta modification.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <p><strong>2.</strong> Tu ouvres une nouvelle conversation avec Claude Code demain. Comment sait-il où tu en es ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p>Il lit automatiquement <code>CLAUDE.md</code>, qui lui demande de lire <code>PROGRESSION.md</code>. Il ne se souvient pas de la conversation précédente : seuls les fichiers comptent.</p>
+        </details>
+      </div>
+
+      <div class="exercice">
+        <p><strong>3.</strong> Quels sont les 4 ingrédients d'une bonne demande ?</p>
+        <details class="correction">
+          <summary>Réponse</summary>
+          <p>Le <strong>contexte</strong>, l'<strong>objectif</strong>, les <strong>contraintes</strong> et le <strong>critère de réussite</strong>.</p>
+        </details>
+      </div>
+
+      <!-- ===================== FIN ===================== -->
       <h2>Checklist</h2>
       <ul class="checklist">
-        <li>J'ouvre mon projet dans VS Code et j'utilise son terminal.</li>
-        <li>Je sais à quoi servent <code>CLAUDE.md</code> et <code>PROGRESSION.md</code>.</li>
-        <li>Je sais quand utiliser le mode plan.</li>
-        <li>Je formule des demandes précises (contexte, objectif, contraintes).</li>
-        <li>Je lis toujours ce que Claude propose avant d'accepter.</li>
+        <li>J'ouvre mon projet dans VS Code et j'utilise son terminal Git Bash.</li>
+        <li>J'enregistre toujours (<code>Ctrl+S</code>) et je reconnais le rond ●.</li>
+        <li>Je vois ma page dans le navigateur et je la rafraîchis.</li>
+        <li>Je sais lire le Contrôle de source.</li>
+        <li>Je sais à quoi servent <code>CLAUDE.md</code>, <code>PROGRESSION.md</code> et le mode plan.</li>
+        <li>J'écris des demandes avec contexte, objectif, contraintes et critère de réussite.</li>
+        <li>Je relis toujours ce que Claude propose avant d'accepter.</li>
       </ul>
 
       <h2>Journal et commit</h2>
-      <p>Entrée dans <code>journal.md</code>, puis <code>add</code> → <code>commit</code> → <code>push</code>.
-        Tu peux essayer de le faire avec les boutons de l'onglet Contrôle de source de VS Code.</p>
+      <p>Entrée dans <code>journal.md</code>, puis <code>add</code> → <code>commit</code> → <code>push</code>. Essaie de le faire avec les boutons du Contrôle de source.</p>
       <div class="encadre astuce">
         <p>🎉 <strong>Phase 0 terminée !</strong> Ton livrable : un dépôt GitHub avec tes premiers commits.</p>
       </div>
